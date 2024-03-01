@@ -1,4 +1,4 @@
-package ord.teamone.projecttemplate;
+package org.teamone.projecttemplate;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

@@ -1,4 +1,4 @@
-package ord.teamone.projecttemplate;
+package org.teamone.projecttemplate;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
