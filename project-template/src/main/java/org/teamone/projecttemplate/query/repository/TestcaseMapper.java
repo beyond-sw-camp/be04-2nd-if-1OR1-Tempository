@@ -8,4 +8,6 @@ import java.util.List;
 @Mapper
 public interface TestcaseMapper {
     List<Testcase> findTestcaseByProjectId(int projectId);
+
+    List<Testcase> findTestcaseBySeparateAndProjectId(Testcase testcase);
 }

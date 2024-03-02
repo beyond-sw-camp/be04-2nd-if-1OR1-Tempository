@@ -13,7 +13,8 @@ public class TestcaseDTO {
     public TestcaseDTO() {
     }
 
-    public TestcaseDTO(int projectId) {
+    public TestcaseDTO(String separate, int projectId) {
+        this.separate = separate;
         this.projectId = projectId;
     }
 

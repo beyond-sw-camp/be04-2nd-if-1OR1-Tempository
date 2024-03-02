@@ -5,6 +5,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.teamone.projecttemplate.query.dto.TestcaseDTO;
 import org.teamone.projecttemplate.query.entity.Testcase;
 
 import java.util.List;
@@ -16,11 +17,21 @@ class TestcaseServiceTest {
     @Autowired
     private TestcaseService testcaseService;
 
-    @DisplayName("프로젝트id로 테스트케이스 조회")
+    @DisplayName("projectId로 테스트케이스 조회")
     @Test
-    void findProjectTestcaseTest() {
-        List<Testcase> projectTestcases = testcaseService.findTestcaseByProjectId(1);
+    void findTestcaseTestByProjectId() {
+        List<Testcase> testcaseList = testcaseService.findTestcaseByProjectId(1);
 
-        Assertions.assertNotNull(projectTestcases);
+        Assertions.assertNotNull(testcaseList);
+    }
+
+    @DisplayName("separate와 projectId 테스트케이스 조회")
+    @Test
+    void findTestcaseBySeparateAndProjectId() {
+        TestcaseDTO testcaseDTO = new TestcaseDTO("상품", 1);
+
+        List<Testcase> testcaseList = testcaseService.findTestcaseBySeparateAndProjectId(testcaseDTO);
+
+        Assertions.assertNotNull(testcaseList);
     }
 }

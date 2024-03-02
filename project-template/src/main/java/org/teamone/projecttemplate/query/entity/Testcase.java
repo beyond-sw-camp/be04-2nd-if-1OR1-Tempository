@@ -13,10 +13,10 @@ public class Testcase {
     public Testcase() {
     }
 
-    public Testcase(int projectId) {
+    public Testcase(String separate, int projectId) {
+        this.separate = separate;
         this.projectId = projectId;
     }
-
 
     public Testcase(int id, int testNo, String separate, String content, String expectedValue, String result, String note, int projectId) {
         this.id = id;
