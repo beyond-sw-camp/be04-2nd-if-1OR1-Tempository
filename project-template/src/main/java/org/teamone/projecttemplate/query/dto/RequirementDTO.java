@@ -13,6 +13,11 @@ public class RequirementDTO {
     public RequirementDTO() {
     }
 
+    public RequirementDTO(String separate, int projectId) {
+        this.separate = separate;
+        this.projectId = projectId;
+    }
+
     public RequirementDTO(int id, int requirementNo, String separate, String name, String content, String note, int projectId) {
         this.id = id;
         this.requirementNo = requirementNo;

@@ -12,6 +12,11 @@ public class Requirement {
     public Requirement() {
     }
 
+    public Requirement(String separate, int projectId) {
+        this.separate = separate;
+        this.projectId = projectId;
+    }
+
     public Requirement(int id, int requirementNo, String separate, String name, String content, String note, int projectId) {
         this.id = id;
         this.requirementNo = requirementNo;

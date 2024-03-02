@@ -5,7 +5,10 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.teamone.projecttemplate.query.dto.RequirementDTO;
+import org.teamone.projecttemplate.query.dto.TestcaseDTO;
 import org.teamone.projecttemplate.query.entity.Requirement;
+import org.teamone.projecttemplate.query.entity.Testcase;
 
 import java.util.List;
 
@@ -21,6 +24,16 @@ class RequirementServiceTest {
     @Test
     void requirementInfoByProjectIdTest() {
         List<Requirement> requirementList = requirementService.requirementInfoByProjectId(1);
+
+        Assertions.assertNotNull(requirementList);
+    }
+
+    @DisplayName("separate와 projectId 요구사항 조회")
+    @Test
+    void requirementInfoBySeparateAndProjectId() {
+        RequirementDTO requirementDTO = new RequirementDTO("상품", 1);
+
+        List<Requirement> requirementList = requirementService.requirementInfoBySeparateAndProjectId(requirementDTO);
 
         Assertions.assertNotNull(requirementList);
     }

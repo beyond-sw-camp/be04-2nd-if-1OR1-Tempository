@@ -24,4 +24,17 @@
           FROM TBL_PROJECT_REQUIREMENT
          WHERE PROJECT_ID = #{ projectId }
     </select>
+    <select id="requirementInfoBySeparateAndProjectId" resultMap="requirementResultMap" parameterType="org.teamone.projecttemplate.query.entity.Requirement">
+        SELECT
+                ID
+              , REQUIREMENT_NO
+              , SEPARATE
+              , NAME
+              , CONTENT
+              , NOTE
+              , PROJECT_ID
+          FROM TBL_PROJECT_REQUIREMENT
+         WHERE SEPARATE LIKE '%' #{separate} '%'
+           AND PROJECT_ID = #{projectId};
+    </select>
 </mapper>
