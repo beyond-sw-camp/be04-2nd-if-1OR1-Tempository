@@ -7,4 +7,6 @@ import java.util.List;
 public interface WbsMapper {
     List<Wbs> selectAllWbsByProjectId(int projectId);
 
+    List<Wbs> selectWbsByManagerId(int managerId);
+
 }

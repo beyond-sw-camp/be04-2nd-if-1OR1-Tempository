@@ -27,5 +27,14 @@ public class WbsService {
         return wbsList;
     }
 
+    /* 설명. manager ID - 담당자 ID를 이용하여 작성한 wbs 조회 */
+    public List<Wbs> selectWbsByManagerId(int managerId) {
+
+        List<Wbs> wbsList = wbsMapper.selectWbsByManagerId(managerId);
+        wbsList.forEach(System.out::println);
+
+        return wbsList;
+    }
+
 
 }

@@ -23,4 +23,12 @@ public class WbsServiceTest {
         Assertions.assertNotNull(wbsList);
     }
 
+    @DisplayName("담당자 ID를 이용하여 작성한 wbs 조회")
+    @Test
+    void selectWbsByManagerId() {
+        List<Wbs> wbsList = wbsService.selectWbsByManagerId(1);
+
+        Assertions.assertNotNull(wbsList);
+    }
+
 }

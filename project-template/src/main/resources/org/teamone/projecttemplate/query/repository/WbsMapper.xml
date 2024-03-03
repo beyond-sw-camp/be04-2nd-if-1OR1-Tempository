@@ -30,4 +30,18 @@
         WHERE PROJECT_ID = #{projectId}
     </select>
 
+    <select id="selectWbsByManagerId" resultMap="WbsResultMap" parameterType="_int">
+        SELECT
+        ID
+        , WBS_NO
+        , CONTENT
+        , TASK_STATUS
+        , START_DATE
+        , END_DATE
+        , MANAGER_ID
+        , PROJECT_ID
+        FROM tbl_project_wbs
+        WHERE MANAGER_ID = #{managerId}
+    </select>
+
 </mapper>
