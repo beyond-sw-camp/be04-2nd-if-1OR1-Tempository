@@ -1,10 +1,47 @@
 package org.teamone.projecttemplate.query.service;
 
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.teamone.projecttemplate.query.dto.DefinitionOfTableDTO;
+import org.teamone.projecttemplate.query.entity.DefinitionOfTable;
 
-import static org.junit.jupiter.api.Assertions.*;
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 
 @SpringBootTest
 class DefinitionOfTableServiceTest {
 
+    @Autowired
+    private DefinitionOfTableService definitionOfTableService;
+
+    @DisplayName("프로젝트 ID에 해당하는 테이블 정의서 조회")
+    @Test
+    void selectAllDefinitionOfTables() {
+        DefinitionOfTableDTO definitionDTO = new DefinitionOfTableDTO(1);
+        List<DefinitionOfTable> selectAllDefinition = definitionOfTableService.selectAllDefinitionOfTables(definitionDTO);
+        selectAllDefinition.forEach(System.out::println);
+    }
+
+    @DisplayName("테이블 ID에 해당하는 테이블 정의서 조회")
+    @Test
+    void selectByTableId() {
+        int tableId = 1;
+        DefinitionOfTable foundTable = definitionOfTableService.findByTableId(tableId);
+        assertEquals(foundTable.getTableId(), 1);
+        System.out.println("foundTable = " + foundTable);
+    }
+
+    @DisplayName("테이블 명에 해당하는 테이블 정의서 조회")
+    @Test
+    void selectByTableName() {
+
+        DefinitionOfTableDTO definitionDTO = new DefinitionOfTableDTO("테이블명1");
+        List<DefinitionOfTable> selectTableByName = definitionOfTableService.selectTableByName(definitionDTO);
+        selectTableByName.forEach(System.out::println);
+
+    }
 }
