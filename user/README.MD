@@ -3,8 +3,8 @@
 
 ### 기능 요구사항
 - [ ] 회원가입
-    - [ ] 사용자에게 NAME, NICKNAME, EMAIL, PASSWORD 를 입력받아 회원가입
-        - [ ] PASSWORD는 암호화하여 저장
+    - [x] 사용자에게 NAME, NICKNAME, EMAIL, PASSWORD 를 입력받아 회원가입
+        - [x] PASSWORD는 암호화하여 저장
     - [ ] OAuth 2.0 회원가입
         - [ ] 카카오톡
         - [ ] 네이버
