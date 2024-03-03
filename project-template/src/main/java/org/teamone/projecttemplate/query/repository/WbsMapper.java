@@ -9,4 +9,5 @@ public interface WbsMapper {
 
     List<Wbs> selectWbsByManagerId(int managerId);
 
+    List<Wbs> selectWbsByProjectIdAndManagerId(int projectId, int managerId);
 }
