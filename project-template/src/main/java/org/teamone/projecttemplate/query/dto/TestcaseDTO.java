@@ -18,6 +18,16 @@ public class TestcaseDTO {
         this.projectId = projectId;
     }
 
+    public TestcaseDTO(int testNo, String separate, String content, String expectedValue, String result, String note, int projectId) {
+        this.testNo = testNo;
+        this.separate = separate;
+        this.content = content;
+        this.expectedValue = expectedValue;
+        this.result = result;
+        this.note = note;
+        this.projectId = projectId;
+    }
+
     public TestcaseDTO(int id, int testNo, String separate, String content, String expectedValue, String result, String note, int projectId) {
         this.id = id;
         this.testNo = testNo;

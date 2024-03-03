@@ -34,4 +34,19 @@ public class TestcaseService {
 
         return testcaseList;
     }
+
+    /* 설명. 테스트케이스 추가 */
+    public void registTestcase(TestcaseDTO testcaseDTO) {
+
+        Testcase testcase = new Testcase(
+                testcaseDTO.getTestNo(),
+                testcaseDTO.getSeparate(),
+                testcaseDTO.getContent(),
+                testcaseDTO.getExpectedValue(),
+                testcaseDTO.getResult(),
+                testcaseDTO.getNote(),
+                testcaseDTO.getProjectId());
+
+        testcaseMapper.registTestcase(testcase);
+    }
 }
