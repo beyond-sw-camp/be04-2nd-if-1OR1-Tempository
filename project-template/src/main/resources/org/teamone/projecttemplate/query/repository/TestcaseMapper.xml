@@ -40,27 +40,4 @@
          WHERE SEPARATE LIKE '%' #{separate} '%'
            AND PROJECT_ID = #{projectId};
     </select>
-    <insert id="registTestcase">
-        INSERT
-        INTO TBL_PROJECT_TESTCASE
-        (
-        TEST_NO
-        , SEPARATE
-        , CONTENT
-        , EXPECTED_VALUE
-        , RESULT
-        , NOTE
-        , PROJECT_ID
-        )
-        VALUES
-        (
-        #{testNo}
-        , #{separate}
-        , #{content}
-        , #{expectedValue}
-        , #{result}
-        , #{note}
-        , #{projectId}
-        )
-    </insert>
 </mapper>
