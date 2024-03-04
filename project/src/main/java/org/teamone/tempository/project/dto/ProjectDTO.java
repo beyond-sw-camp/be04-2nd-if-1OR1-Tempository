@@ -3,10 +3,16 @@ package org.teamone.tempository.project.dto;
 public class ProjectDTO {
     private int id;
     private String Status;
+    private boolean isPublic;
+
+    public ProjectDTO(boolean isPublic) {
+        this.isPublic = isPublic;
+    }
 
     public ProjectDTO(String status) {
-        Status = status;
+        this.Status = status;
     }
+
 
     public ProjectDTO() {
     }

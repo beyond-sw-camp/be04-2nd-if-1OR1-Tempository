@@ -19,7 +19,7 @@ public class ProjectService {
     }
 
     /* 설명. ID를 이용하여 프로젝트 정보 조회 */
-    public List<Project> getProjectInfoById(ProjectDTO projectDTO){
+    public List<Project> getProjectInfoById(ProjectDTO projectDTO) {
         Project project = new Project(projectDTO.getId());
 
         List<Project> findProjectInfoById = projectMapper.getProjectInfoById(project);
@@ -30,7 +30,7 @@ public class ProjectService {
     }
 
 
-    /* 설명. Status를 이용하여 프로젝트 완료나 미완료 상태인 프로젝트를 조회*/
+    /* 설명. Status를 이용하여 프로젝트 완료나 미완료 상태인 프로젝트를 조회 */
     public List<Project> getProjectInfoByStatus(String Status) {
         Project project = new Project(Status);
 
@@ -41,7 +41,7 @@ public class ProjectService {
         return findProjectInfoByStatus;
     }
 
-    /* 설명. 좋아요 순으로 프로젝트 조회 기능*/
+    /* 설명. 좋아요 순으로 프로젝트 조회 기능 */
     public List<Project> getProjectInfoOrderByLike() {
 
         List<Project> findProjectInfoOrderByLike = projectMapper.getProjectInfoOrderByLike();
@@ -50,8 +50,12 @@ public class ProjectService {
         return findProjectInfoOrderByLike;
     }
 
+    /* 설명. 공개 유무에 따른 프로젝트 조회 기능 */
+    public List<Project> getProjectInfoByIsPublic(boolean isPublic) {
+        List<Project> findProjectInfoByIsPublic = projectMapper.getProjectInfoByIsPublic(isPublic);
+        findProjectInfoByIsPublic.forEach(System.out::println);
 
-
-
+        return findProjectInfoByIsPublic;
+    }
 
 }

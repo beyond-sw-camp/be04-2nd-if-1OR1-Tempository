@@ -39,6 +39,15 @@ class ProjectServiceTest {
         List<Project> getProjectInfoOrderByLike = projectService.getProjectInfoOrderByLike();
     }
 
+    @DisplayName("공개 유무에 따른 프로젝트 조회 기능 테스트 ")
+    @Test
+    void getProjectInfoByIsPublic() {
+
+        boolean isPublic = true;
+        List<Project> getProjectInfoByIsPublic = projectService.getProjectInfoByIsPublic(isPublic);
+
+    }
+
 
 
 

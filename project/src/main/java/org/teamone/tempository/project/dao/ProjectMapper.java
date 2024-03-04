@@ -14,4 +14,6 @@ public interface ProjectMapper {
     List<Project> getProjectInfoByStatus(String status);
 
     List<Project> getProjectInfoOrderByLike();
+
+    List<Project> getProjectInfoByIsPublic(boolean isPublic);
 }
