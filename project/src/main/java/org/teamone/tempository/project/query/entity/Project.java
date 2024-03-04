@@ -1,25 +1,27 @@
-package org.teamone.tempository.project.entity;
+package org.teamone.tempository.project.query.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 @Entity
 @Table(name = "tbl_project")
 public class Project {
 
     @Id
+    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @Column
+    @Column(name = "name")
     private String name;
-    @Column
+
+    @Column(name = "is_public")
     private boolean isPublic;
-    @Column
+
+    @Column(name = "like_cnt")
     private int likeCnt;
-    @Column
+
+    @Column(name = "status")
     private String status;
-    @Column
+    @Column(name = "content")
     private String content;
 
     public Project(int id, String name, boolean isPublic, int likeCnt, String status, String content) {

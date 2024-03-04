@@ -1,11 +1,12 @@
-package org.teamone.tempository.project.service;
+package org.teamone.tempository.project.query.service;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.teamone.tempository.project.entity.Project;
-import org.teamone.tempository.project.dto.ProjectDTO;
+import org.teamone.tempository.project.query.entity.Project;
+import org.teamone.tempository.project.query.dto.ProjectDTO;
+import org.teamone.tempository.project.query.service.ProjectService;
 
 
 import java.util.List;

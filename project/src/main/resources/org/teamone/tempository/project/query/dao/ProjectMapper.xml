@@ -2,9 +2,9 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="org.teamone.tempository.project.dao.ProjectMapper">
+<mapper namespace="org.teamone.tempository.project.query.dao.ProjectMapper">
 
-    <resultMap id="projectResultMap" type="org.teamone.tempository.project.entity.Project">
+    <resultMap id="projectResultMap" type="org.teamone.tempository.project.query.entity.Project">
         <id property="id" column="ID"/>
         <result property="name" column="NAME"/>
         <result property="isPublic" column="IS_PUBLIC"/>
@@ -13,7 +13,7 @@
         <result property="content" column="CONTENT"/>
     </resultMap>
 
-    <select id="getProjectInfoById" resultMap="projectResultMap" parameterType="org.teamone.tempository.project.entity.Project">
+    <select id="getProjectInfoById" resultMap="projectResultMap" parameterType="org.teamone.tempository.project.query.entity.Project">
         SELECT    A.ID
                 , A.NAME
                 , A.IS_PUBLIC
@@ -24,7 +24,7 @@
             WHERE A.ID = #{ id }
     </select>
 
-    <select id="getProjectInfoByStatus" resultMap="projectResultMap" parameterType="org.teamone.tempository.project.entity.Project">
+    <select id="getProjectInfoByStatus" resultMap="projectResultMap" parameterType="org.teamone.tempository.project.query.entity.Project">
         SELECT    A.ID
         , A.NAME
         , A.IS_PUBLIC
@@ -36,7 +36,7 @@
 
     </select>
 
-    <select id="getProjectInfoOrderByLike" resultMap="projectResultMap" parameterType="org.teamone.tempository.project.entity.Project">
+    <select id="getProjectInfoOrderByLike" resultMap="projectResultMap" parameterType="org.teamone.tempository.project.query.entity.Project">
         SELECT    A.ID
         , A.NAME
         , A.IS_PUBLIC
@@ -48,7 +48,7 @@
 
     </select>
 
-    <select id="getProjectInfoByIsPublic" resultMap="projectResultMap" parameterType="org.teamone.tempository.project.entity.Project">
+    <select id="getProjectInfoByIsPublic" resultMap="projectResultMap" parameterType="org.teamone.tempository.project.query.entity.Project">
         SELECT    A.ID
         , A.NAME
         , A.IS_PUBLIC

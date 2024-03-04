@@ -1,4 +1,4 @@
-package org.teamone.tempository.project.dto;
+package org.teamone.tempository.project.query.dto;
 
 public class ProjectDTO {
     private int id;

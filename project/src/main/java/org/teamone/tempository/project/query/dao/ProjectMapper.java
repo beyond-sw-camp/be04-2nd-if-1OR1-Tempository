@@ -1,7 +1,7 @@
-package org.teamone.tempository.project.dao;
+package org.teamone.tempository.project.query.dao;
 
 import org.apache.ibatis.annotations.Mapper;
-import org.teamone.tempository.project.entity.Project;
+import org.teamone.tempository.project.query.entity.Project;
 
 import java.util.List;
 
