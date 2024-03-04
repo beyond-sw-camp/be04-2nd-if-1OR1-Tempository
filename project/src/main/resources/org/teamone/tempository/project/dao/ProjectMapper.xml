@@ -36,6 +36,17 @@
 
     </select>
 
+    <select id="getProjectInfoOrderByLike" resultMap="projectResultMap" parameterType="org.teamone.tempository.project.entity.Project">
+        SELECT    A.ID
+        , A.NAME
+        , A.IS_PUBLIC
+        , A.LIKE_CNT
+        , A.STATUS
+        , A.CONTENT
+        FROM TBL_PROJECT A
+        ORDER BY LIKE_CNT DESC;
+
+    </select>
 
 
 

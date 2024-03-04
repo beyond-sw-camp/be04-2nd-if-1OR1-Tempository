@@ -32,6 +32,13 @@ class ProjectServiceTest {
 
     }
 
+    @DisplayName("좋아요 순을 기준으로 프로젝트 정보 조회 테스트")
+    @Test
+    void getProjectInfoOrderByLike() {
+
+        List<Project> getProjectInfoOrderByLike = projectService.getProjectInfoOrderByLike();
+    }
+
 
 
 

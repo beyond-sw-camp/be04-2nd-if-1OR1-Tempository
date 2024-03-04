@@ -41,6 +41,14 @@ public class ProjectService {
         return findProjectInfoByStatus;
     }
 
+    /* 설명. 좋아요 순으로 프로젝트 조회 기능*/
+    public List<Project> getProjectInfoOrderByLike() {
+
+        List<Project> findProjectInfoOrderByLike = projectMapper.getProjectInfoOrderByLike();
+        findProjectInfoOrderByLike.forEach(System.out::println);
+
+        return findProjectInfoOrderByLike;
+    }
 
 
 
