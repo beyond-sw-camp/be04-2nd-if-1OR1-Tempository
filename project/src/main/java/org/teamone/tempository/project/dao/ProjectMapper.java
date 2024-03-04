@@ -10,4 +10,6 @@ public interface ProjectMapper {
 
 
     List<Project> getProjectInfoById(Project project);
+
+    List<Project> getProjectInfoByStatus(String status);
 }

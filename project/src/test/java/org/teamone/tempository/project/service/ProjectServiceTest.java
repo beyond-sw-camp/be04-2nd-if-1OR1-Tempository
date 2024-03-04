@@ -23,6 +23,15 @@ class ProjectServiceTest {
         List<Project> projectInfoById = projectService.getProjectInfoById(project);
     }
 
+    @DisplayName("완료유무를 기준으로 프로젝트 정보 조회 테스트")
+    @Test
+    void getProjectInfoByStatusTest() {
+        String Status = "COMPLETED";
+        ProjectDTO project = new ProjectDTO(Status);
+        List<Project> projectInfoByStatus = projectService.getProjectInfoByStatus(Status);
+
+    }
+
 
 
 

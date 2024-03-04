@@ -30,6 +30,18 @@ public class ProjectService {
     }
 
 
+    /* 설명. Status를 이용하여 프로젝트 완료나 미완료 상태인 프로젝트를 조회*/
+    public List<Project> getProjectInfoByStatus(String Status) {
+        Project project = new Project(Status);
+
+        List<Project> findProjectInfoByStatus = projectMapper.getProjectInfoByStatus(Status);
+
+        findProjectInfoByStatus.forEach(System.out::println);
+
+        return findProjectInfoByStatus;
+    }
+
+
 
 
 
