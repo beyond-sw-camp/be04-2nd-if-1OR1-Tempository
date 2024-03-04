@@ -35,22 +35,4 @@ class TestcaseServiceTest {
         Assertions.assertNotNull(testcaseList);
     }
 
-    @DisplayName("테스트케이스 추가")
-    @Test
-    void registTestcase() {
-        TestcaseDTO testcaseDTO =
-                new TestcaseDTO(
-                        1,
-                        "로그인",
-                        "사용자가 유효한 계정으로 로그인할 수 있는지 확인",
-                        "성공적으로 로그인되어 대시보드로 리디렉션 됨",
-                        "PASS",
-                        null,
-                        2
-                );
-
-        Assertions.assertDoesNotThrow(
-                () -> testcaseService.registTestcase(testcaseDTO)
-        );
-    }
 }

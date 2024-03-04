@@ -10,6 +10,4 @@ public interface TestcaseMapper {
     List<Testcase> findTestcaseByProjectId(int projectId);
 
     List<Testcase> findTestcaseBySeparateAndProjectId(Testcase testcase);
-
-    void registTestcase(Testcase testcase);
 }
