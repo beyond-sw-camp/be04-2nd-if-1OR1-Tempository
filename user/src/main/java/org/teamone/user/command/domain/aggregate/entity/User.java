@@ -1,14 +1,14 @@
-package org.teamone.user.command.domain.entity;
+package org.teamone.user.command.domain.aggregate.entity;
 
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
-import org.teamone.user.command.domain.types.AccessLevel;
-import org.teamone.user.command.domain.types.Password;
-import org.teamone.user.command.domain.types.Provider;
-import org.teamone.user.command.domain.types.UserStatus;
+import org.teamone.user.command.domain.aggregate.types.AccessLevel;
+import org.teamone.user.command.domain.aggregate.types.Password;
+import org.teamone.user.command.domain.aggregate.types.Provider;
+import org.teamone.user.command.domain.aggregate.types.UserStatus;
 
 @Entity
 @Getter

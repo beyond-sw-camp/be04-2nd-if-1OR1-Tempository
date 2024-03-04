@@ -5,12 +5,12 @@ import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.teamone.user.command.domain.dto.UserDTO;
-import org.teamone.user.command.domain.entity.User;
+import org.teamone.user.command.domain.aggregate.entity.User;
 import org.teamone.user.command.domain.repository.UserRepository;
-import org.teamone.user.command.domain.types.AccessLevel;
-import org.teamone.user.command.domain.types.Password;
-import org.teamone.user.command.domain.types.Provider;
-import org.teamone.user.command.domain.types.UserStatus;
+import org.teamone.user.command.domain.aggregate.types.AccessLevel;
+import org.teamone.user.command.domain.aggregate.types.Password;
+import org.teamone.user.command.domain.aggregate.types.Provider;
+import org.teamone.user.command.domain.aggregate.types.UserStatus;
 
 @Service
 public class UserAuthService {
