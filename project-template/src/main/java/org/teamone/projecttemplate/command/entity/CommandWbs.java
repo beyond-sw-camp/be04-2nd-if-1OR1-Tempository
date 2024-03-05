@@ -1,33 +1,31 @@
 package org.teamone.projecttemplate.command.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
 import java.util.Date;
 
-@Entity
-@Table(name = "tbl_project_wbs")
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
+@Setter
 @ToString
-public class Wbs {
+@Entity
+@Table(name = "tbl_project_wbs")
+public class CommandWbs {
 
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(name = "wbs_no")
+    @Column(name = "wbs_no", nullable = false)
     private int wbsNo;
 
-    @Column(name = "content")
+    @Column(name = "content", nullable = false, length = 127)
     private String content;
 
-    @Column(name = "task_status")
+    @Column(name = "task_status", length = 31)
     private String taskStatus;
 
     @Column(name = "start_date")
@@ -39,6 +37,6 @@ public class Wbs {
     @Column(name = "manager_id")
     private int managerId;
 
-    @Column(name = "project_id")
+    @Column(name = "project_id", nullable = false)
     private int projectId;
 }
