@@ -22,11 +22,10 @@ public class CommandDefinitionOfTableServiceImpl implements CommandDefinitionOfT
         this.modelMapper = modelMapper;
     }
 
-    /* 설명. Insert New Definition */
+    /* 설명. Insert, Update Definition */
     @Transactional
     @Override
     public void registDefinition(DefinitionOfTableDTO definitionOfTableDTO) {
-
         modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
         CommandDefinitionOfTable definitionOfTable = modelMapper.map(definitionOfTableDTO, CommandDefinitionOfTable.class);
         commandDefinitionOfTableRepository.save(definitionOfTable);
