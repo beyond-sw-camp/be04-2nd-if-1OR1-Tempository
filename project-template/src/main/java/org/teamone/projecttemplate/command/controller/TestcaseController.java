@@ -39,4 +39,11 @@ public class TestcaseController {
         return "Server at " + environment.getProperty("local.server.port");
     }
 
+    @PostMapping("/delete")
+    public String deleteTestcase(@RequestParam("id") int id) {
+        commandTestcaseService.deleteTestcase(id);
+
+        return "Server at " + environment.getProperty("local.server.port");
+    }
+
 }

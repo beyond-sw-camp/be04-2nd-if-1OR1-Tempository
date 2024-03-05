@@ -43,4 +43,9 @@ public class CommandTestcaseService {
         commandTestcaseEntity.setResult(commandTestcaseDTO.getResult());
         commandTestcaseEntity.setNote(commandTestcaseDTO.getNote());
     }
+
+    @Transactional
+    public void deleteTestcase(int id) {
+        commandTestcaseRepository.deleteById(id);
+    }
 }
