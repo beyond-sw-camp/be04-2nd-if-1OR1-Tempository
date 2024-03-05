@@ -1,6 +1,5 @@
 package org.teamone.projecttemplate.command.controller;
 
-import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
@@ -13,52 +12,33 @@ import org.teamone.projecttemplate.command.service.CommandDefinitionOfTableServi
 import org.teamone.projecttemplate.command.vo.DefinitionOfTableRequest;
 import org.teamone.projecttemplate.command.vo.DefinitionOfTableResponse;
 
-@Controller
+@RestController
 @RequestMapping("/")
 public class DefinitionOfTableController {
-    private final CommandDefinitionOfTableService commandDefinitionOfTableService;
-    private final Environment env;
-    private final ModelMapper modelMapper;
+   private Environment env;
+    private ModelMapper modelMapper;
+    private CommandDefinitionOfTableService commandDefinitionOfTableService;
 
     @Autowired
-    public DefinitionOfTableController(CommandDefinitionOfTableService commandDefinitionOfTableService, Environment env, ModelMapper modelMapper) {
-        this.commandDefinitionOfTableService = commandDefinitionOfTableService;
+    public DefinitionOfTableController(Environment env,
+                                       ModelMapper modelMapper,
+                                       CommandDefinitionOfTableService commandDefinitionOfTableService) {
         this.env = env;
         this.modelMapper = modelMapper;
+        this.commandDefinitionOfTableService = commandDefinitionOfTableService;
     }
 
-    @GetMapping("/health_check")
-    public String status() {
-        return "Server at " + env.getProperty("local.server.port")
-                + "\nswcamp.message: " + env.getProperty("swcamp.message");
-    }
-
-    @PostMapping("/definitions_of_tables_from_project")
-    public ResponseEntity<DefinitionOfTableResponse> insertDefinitionOfTable (@RequestBody DefinitionOfTableRequest definitionOfTableRequest) {
+    /* 설명. Insert 테이블 정의서 */
+    @PostMapping("/insert_definitions")
+    public ResponseEntity<DefinitionOfTableResponse> registDefinition(@RequestBody DefinitionOfTableRequest definitionOfTableRequest){
         DefinitionOfTableDTO definitionOfTableDTO = modelMapper.map(definitionOfTableRequest, DefinitionOfTableDTO.class);
-        System.out.println("definitionOfTableDTO = " + definitionOfTableDTO);
 
-        DefinitionOfTableResponse definitionOfTableResponse = new DefinitionOfTableResponse();
-        definitionOfTableResponse.setTableName(definitionOfTableDTO.getTableName());
-        definitionOfTableResponse.setPropertyName(definitionOfTableDTO.getPropertyName());
-        definitionOfTableResponse.setPrimaryKey(definitionOfTableDTO.isPrimaryKey());
-        definitionOfTableResponse.setForeignKey(definitionOfTableDTO.isForeignKey());
-        definitionOfTableResponse.setNullAble(definitionOfTableDTO.isNull_able());
-        definitionOfTableResponse.setColumnName(definitionOfTableDTO.getColumnName());
-        definitionOfTableResponse.setDefaultValue(definitionOfTableDTO.getDefaultValue());
-        definitionOfTableResponse.setDataType(definitionOfTableDTO.getDataType());
-        definitionOfTableResponse.setNote(definitionOfTableDTO.getNote());
-
+        commandDefinitionOfTableService.registDefinition(definitionOfTableDTO);
+        DefinitionOfTableResponse definitionOfTableResponse = modelMapper.map(
+                definitionOfTableDTO, DefinitionOfTableResponse.class
+        );
         return ResponseEntity.status(HttpStatus.CREATED).body(definitionOfTableResponse);
     }
 
-    @GetMapping("/regist")
-    public void registPage() {}
-    @PostMapping("/regist")
-    public String registDefinitionOfTable(DefinitionOfTableDTO newDefinitionOfTable) {
-        commandDefinitionOfTableService.registDefinitionOfTable(newDefinitionOfTable);
-        System.out.println("newDefinitionOfTable = " + newDefinitionOfTable);
-
-        return commandDefinitionOfTableService.toString();
-    }
+    /* 설명. Update 테이블 정의서 */
 }
