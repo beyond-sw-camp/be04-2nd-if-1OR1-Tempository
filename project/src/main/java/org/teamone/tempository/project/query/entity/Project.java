@@ -2,26 +2,16 @@ package org.teamone.tempository.project.query.entity;
 
 import jakarta.persistence.*;
 
-@Entity
-@Table(name = "tbl_project")
 public class Project {
 
-    @Id
-    @Column(name = "id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @Column(name = "name")
     private String name;
 
-    @Column(name = "is_public")
     private boolean isPublic;
 
-    @Column(name = "like_cnt")
     private int likeCnt;
 
-    @Column(name = "status")
     private String status;
-    @Column(name = "content")
     private String content;
 
     public Project(int id, String name, boolean isPublic, int likeCnt, String status, String content) {
