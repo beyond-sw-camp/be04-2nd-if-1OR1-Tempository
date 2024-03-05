@@ -30,5 +30,13 @@ public class TestcaseController {
         return "Server at " + environment.getProperty("local.server.port");
     }
 
+    @PostMapping("/modify")
+    public String modifyTestcase(@RequestBody CommandTestcaseDTO commandTestcaseDTO) {
+
+        System.out.println("commandTestcaseDTO = " + commandTestcaseDTO);
+        commandTestcaseService.modifyTestcase(commandTestcaseDTO);
+
+        return "Server at " + environment.getProperty("local.server.port");
+    }
 
 }

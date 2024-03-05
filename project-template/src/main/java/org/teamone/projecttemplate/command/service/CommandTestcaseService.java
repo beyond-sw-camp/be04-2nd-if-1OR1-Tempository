@@ -28,4 +28,19 @@ public class CommandTestcaseService {
 
         commandTestcaseRepository.save(commandTestcaseEntity);
     }
+
+    /* 설명. 테스트케이스 수정 */
+    @Transactional
+    public void modifyTestcase(CommandTestcaseDTO commandTestcaseDTO) {
+
+        /* 설명. 테스트케이스 id로 해당 테스트 케이스를 찾아 변경 */
+        int id = commandTestcaseDTO.getId();
+        CommandTestcaseEntity commandTestcaseEntity = commandTestcaseRepository.findById(id).orElseThrow(IllegalArgumentException::new);
+
+        commandTestcaseEntity.setSeparate(commandTestcaseDTO.getSeparate());
+        commandTestcaseEntity.setContent(commandTestcaseDTO.getContent());
+        commandTestcaseEntity.setExpectedValue(commandTestcaseDTO.getExpectedValue());
+        commandTestcaseEntity.setResult(commandTestcaseDTO.getResult());
+        commandTestcaseEntity.setNote(commandTestcaseDTO.getNote());
+    }
 }
