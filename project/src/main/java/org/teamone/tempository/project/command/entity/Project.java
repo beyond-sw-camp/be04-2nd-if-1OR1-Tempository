@@ -9,6 +9,7 @@ import org.teamone.tempository.project.command.status.ProjectStatus;
 @Getter
 @NoArgsConstructor
 @ToString
+@Setter
 public class Project {
 
     @Id

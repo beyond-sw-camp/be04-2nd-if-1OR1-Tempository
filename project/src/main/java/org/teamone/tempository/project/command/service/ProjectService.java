@@ -24,7 +24,7 @@ public class ProjectService {
     /* 설명. 프로젝트 작성하기 (Insert) */
     @Transactional
     public void registProject(ProjectDTO newProject) {
-//        projectRepository.save(mapper.map(newProject, Project.class));
+//        projectRepository.save(mapper.map(newProject, Project.class)); mapper 이용
 
         Project project = Project.builder()
                 .name(newProject.getName())
@@ -36,5 +36,21 @@ public class ProjectService {
 
 
         projectRepository.save(project);
+    }
+
+    /* 설명. 프로젝트 수정하기 (Update)*/
+    @Transactional
+    public void modifyProjectById(ProjectDTO modifyProject) throws IllegalAccessException {
+
+        // 수정 할 프로젝트 id (번호)
+        Project findProject = projectRepository.findById(modifyProject.getId()).orElseThrow(IllegalAccessException::new);
+
+        findProject.setId(modifyProject.getId());
+        findProject.setName(modifyProject.getName());
+        findProject.setPublic(modifyProject.isPublic());
+        findProject.setLikeCnt(modifyProject.getLikeCnt());
+        findProject.setStatus(modifyProject.getStatus());
+        findProject.setContent(modifyProject.getContent());
+
     }
 }
