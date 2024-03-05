@@ -20,6 +20,7 @@ public class CommandTestcaseService {
         this.modelMapper = modelMapper;
     }
 
+    /* 설명. 테스트케이스 추가 */
     @Transactional
     public void registTestcase(CommandTestcaseDTO commandTestcaseDTO) {
         modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
@@ -44,6 +45,7 @@ public class CommandTestcaseService {
         commandTestcaseEntity.setNote(commandTestcaseDTO.getNote());
     }
 
+    /* 설명. 테스트케이스 삭제 */
     @Transactional
     public void deleteTestcase(int id) {
         commandTestcaseRepository.deleteById(id);

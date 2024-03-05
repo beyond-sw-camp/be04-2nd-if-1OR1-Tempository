@@ -30,6 +30,7 @@ public class TestcaseController {
         return "Server at " + environment.getProperty("local.server.port");
     }
 
+    /* 설명. 테스트케이스 수정(POST /modify) */
     @PostMapping("/modify")
     public String modifyTestcase(@RequestBody CommandTestcaseDTO commandTestcaseDTO) {
 
@@ -39,6 +40,7 @@ public class TestcaseController {
         return "Server at " + environment.getProperty("local.server.port");
     }
 
+    /* 설명. 테스트케이스 삭제(POST /delete) */
     @PostMapping("/delete")
     public String deleteTestcase(@RequestParam("id") int id) {
         commandTestcaseService.deleteTestcase(id);
