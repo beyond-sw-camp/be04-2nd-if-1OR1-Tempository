@@ -1,5 +1,6 @@
 package org.teamone.tempository.project.command.service;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +21,7 @@ class ProjectServiceTest {
     @DisplayName("프로젝트 정보 입력 테스트")
     @Test
     @Transactional
-    void testRegistProject() {
+    void registProjectTest() {
         // 테스트에 필요한 데이터 설정
         ProjectDTO projectDTO = new ProjectDTO();
         projectDTO.setName("Test Project");
@@ -37,7 +38,7 @@ class ProjectServiceTest {
     @DisplayName("프로젝트 정보 수정 테스트")
     @Test
     @Transactional
-    void testModifyProject() throws IllegalAccessException {
+    void modifyProjectTest() throws IllegalAccessException {
         ProjectDTO projectDTO = new ProjectDTO();
         projectDTO.setId(11);
         projectDTO.setName("UpdateTest Project");
@@ -47,5 +48,14 @@ class ProjectServiceTest {
         projectDTO.setContent("UpdateTest Content");
 
         projectService.modifyProjectById(projectDTO);
+    }
+
+    @DisplayName("프로젝트 정보 삭제 테스트")
+    @Test
+    @Transactional
+    void deleteProjectTest(){
+        int id = 13;
+        projectService.deleteProject(id);
+
     }
 }

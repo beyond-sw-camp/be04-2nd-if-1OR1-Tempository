@@ -9,7 +9,7 @@ import org.teamone.tempository.project.command.entity.Project;
 import org.teamone.tempository.project.command.repository.ProjectRepository;
 import org.teamone.tempository.project.command.status.ProjectStatus;
 
-@Service("projectService2")
+@Service("projectServiceJpa")
 public class ProjectService {
 
     private ModelMapper mapper;
@@ -52,5 +52,11 @@ public class ProjectService {
         findProject.setStatus(modifyProject.getStatus());
         findProject.setContent(modifyProject.getContent());
 
+    }
+
+    /* 설명. 프로젝트 삭제하기(Delete) */
+    @Transactional
+    public void deleteProject(int id) {
+        projectRepository.deleteById(id);
     }
 }
