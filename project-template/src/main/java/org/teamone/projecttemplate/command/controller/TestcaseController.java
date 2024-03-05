@@ -21,10 +21,19 @@ public class TestcaseController {
         this.commandTestcaseService = commandTestcaseService;
     }
 
+
     /* 설명. 테이스케이스 추가(POST /regist) */
+//    @PostMapping("/regist")
+//    public String registTestcase(@RequestBody CommandTestcaseDTO commandTestcaseDTO) {
+//
+//        commandTestcaseService.registTestcase(commandTestcaseDTO);
+//
+//        return "Server at " + environment.getProperty("local.server.port");
+//    }
+
+    /* 설명. 테스케이스 추가(testNo 자동 설정) */
     @PostMapping("/regist")
     public String registTestcase(@RequestBody CommandTestcaseDTO commandTestcaseDTO) {
-
         commandTestcaseService.registTestcase(commandTestcaseDTO);
 
         return "Server at " + environment.getProperty("local.server.port");
