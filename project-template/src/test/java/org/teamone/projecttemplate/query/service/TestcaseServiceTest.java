@@ -10,8 +10,6 @@ import org.teamone.projecttemplate.query.entity.Testcase;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 @SpringBootTest
 class TestcaseServiceTest {
     @Autowired
