@@ -21,25 +21,6 @@ public class CommandTestcaseServiceImpl implements CommandTestcaseService {
         this.modelMapper = modelMapper;
     }
 
-    /* 설명. 테스트케이스 추가 */
-//    @Override
-//    @Transactional
-//    public void registTestcase(CommandTestcaseDTO commandTestcaseDTO) {
-//        modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
-//
-//        CommandTestcaseEntity commandTestcaseEntity = modelMapper.map(commandTestcaseDTO, CommandTestcaseEntity.class);
-//
-//        commandTestcaseRepository.save(commandTestcaseEntity);
-//    }
-
-//    public List<CommandTestcaseDTO> findAllTestcaseById(int projectId) {
-//        List<CommandTestcaseEntity> testcaseList = commandTestcaseRepository.findByProjectId(projectId);
-//
-//        testcaseList.forEach(System.out::println);
-//
-//        return testcaseList.stream().map(menu -> modelMapper.map(menu, CommandTestcaseDTO.class)).collect(Collectors.toList());
-//    }
-
     /* 설명. 테스트케이스 추가(testNo 자동 설정) */
     @Override
     @Transactional
