@@ -16,8 +16,6 @@ class ProjectServiceTest {
     private ProjectService projectService;
 
 
-
-
     @DisplayName("프로젝트 정보 입력 테스트")
     @Test
     @Transactional
@@ -53,7 +51,7 @@ class ProjectServiceTest {
     @DisplayName("프로젝트 정보 삭제 테스트")
     @Test
     @Transactional
-    void deleteProjectTest(){
+    void deleteProjectTest() throws IllegalAccessException {
         int id = 13;
         projectService.deleteProject(id);
 

@@ -24,7 +24,7 @@ public class ProjectService {
     /* 설명. 프로젝트 작성하기 (Insert) */
     @Transactional
     public void registProject(ProjectDTO newProject) {
-//        projectRepository.save(mapper.map(newProject, Project.class)); mapper 이용
+//        projectRepository.save(mapper.map(newProject, Project.class)); mapper 이용 (작동됨)
 
         Project project = Project.builder()
                 .name(newProject.getName())
@@ -56,7 +56,9 @@ public class ProjectService {
 
     /* 설명. 프로젝트 삭제하기(Delete) */
     @Transactional
-    public void deleteProject(int id) {
+    public void deleteProjectById(int id) throws IllegalAccessException {
+
+        projectRepository.findById(id).orElseThrow(IllegalAccessException::new);
         projectRepository.deleteById(id);
     }
 }

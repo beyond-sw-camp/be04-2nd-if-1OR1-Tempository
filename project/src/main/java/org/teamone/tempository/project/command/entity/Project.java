@@ -17,20 +17,20 @@ public class Project {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(name = "name")
+    @Column(name = "name", length = 127, nullable = false)
     private String name;
 
-    @Column(name = "is_public")
+    @Column(name = "is_public" , nullable = false)
     private boolean isPublic;
 
-    @Column(name = "like_cnt")
+    @Column(name = "like_cnt", nullable = false)
     private int likeCnt;
 
-    @Column(name = "status")
+    @Column(name = "status", length = 15, nullable = false)
     @Enumerated(EnumType.STRING)
     private ProjectStatus status;
 
-    @Column(name = "content")
+    @Column(name = "content", length = 2047)
     private String content;
 
     @Builder
