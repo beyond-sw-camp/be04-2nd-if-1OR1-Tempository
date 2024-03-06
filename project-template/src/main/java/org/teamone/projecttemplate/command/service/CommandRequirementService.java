@@ -7,4 +7,6 @@ public interface CommandRequirementService {
     void registRequirement(CommandRequirementDTO commandRequirementDTO);
 
     void modifyRequirement(CommandRequirementDTO commandRequirementDTO);
+
+    void modifySequenceRequirement(int id, int num);
 }

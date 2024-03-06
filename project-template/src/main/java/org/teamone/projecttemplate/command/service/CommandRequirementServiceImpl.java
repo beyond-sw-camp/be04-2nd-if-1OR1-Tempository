@@ -44,4 +44,26 @@ public class CommandRequirementServiceImpl implements CommandRequirementService{
 
         commandRequirementRepository.save(commandRequirement);
     }
+
+    /* 설명. 요구사항 명세서 순서 수정(한칸) */
+    @Override
+    @Transactional
+    public void modifySequenceRequirement(int id, int num) {
+        CommandRequirement commandRequirement = commandRequirementRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("변경할 요구사항이 존재하지 않습니다."));
+        System.out.println("commandRequirement = " + commandRequirement);
+
+        CommandRequirement sequenceRequirement = commandRequirementRepository
+                .findByProjectIdAndRequirementNo(
+                        commandRequirement.getProjectId(),
+                        commandRequirement.getRequirementNo() + num
+                );
+        System.out.println("sequenceRequirement = " + sequenceRequirement);
+
+        if (sequenceRequirement == null)
+            throw new IllegalArgumentException("요구 사항 순서 변경 없음");
+
+        commandRequirement.setRequirementNo(commandRequirement.getRequirementNo() + num);
+        sequenceRequirement.setRequirementNo(sequenceRequirement.getRequirementNo() - num);
+    }
 }

@@ -9,4 +9,6 @@ import java.util.List;
 @Repository
 public interface CommandRequirementRepository extends JpaRepository<CommandRequirement, Integer> {
     List<CommandRequirement> findByProjectId(int projectId);
+
+    CommandRequirement findByProjectIdAndRequirementNo(int projectId, int requirementNo);
 }

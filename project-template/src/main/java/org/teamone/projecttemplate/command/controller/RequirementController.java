@@ -3,10 +3,7 @@ package org.teamone.projecttemplate.command.controller;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.teamone.projecttemplate.command.dto.CommandRequirementDTO;
 import org.teamone.projecttemplate.command.dto.CommandTestcaseDTO;
 import org.teamone.projecttemplate.command.service.CommandRequirementService;
@@ -38,4 +35,17 @@ public class RequirementController {
 
         return "Server at " + environment.getProperty("local.server.port");
     }
+
+    /* 설명. 요구사항 명세서 순서 수정(한칸) */
+    @PostMapping("/modify/sequence")
+    public String modifySequenceRequirement(@RequestParam("id") int id, @RequestParam("num") int num) {
+        commandRequirementService.modifySequenceRequirement(id, num);
+
+        return "Server at " + environment.getProperty("local.server.port");
+    }
+
+
+    /* 설명. 요구사항 명세서 삭제 */
+
+    /* 설명. 요구사항 명세서 전체 삭제 */
 }
