@@ -79,7 +79,7 @@ public class CommandTestcaseService {
     /* 설명. 테스트케이스 순서 수정 */
     public void modifySequenceTestcase(int id, int num) {
         CommandTestcaseEntity commandTestcaseEntity = commandTestcaseRepository.findById(id)
-                .orElseThrow(IllegalArgumentException::new);
+                .orElseThrow(() -> new IllegalArgumentException("변경할 테스트케이스가 존재하지 않습니다."));
 
         CommandTestcaseEntity sequenceTestEntity = commandTestcaseRepository.findByProjectIdAndTestNo(
                 commandTestcaseEntity.getProjectId(),
@@ -87,7 +87,7 @@ public class CommandTestcaseService {
 
         /* null일 때 예외처리 */
         if (sequenceTestEntity == null)
-            throw new RuntimeException("순서 변경 없음");
+            throw new IllegalArgumentException("순서 변경 없음");
 
         commandTestcaseEntity.setTestNo(commandTestcaseEntity.getTestNo() + num);
         sequenceTestEntity.setTestNo(sequenceTestEntity.getTestNo() - num);
@@ -98,14 +98,12 @@ public class CommandTestcaseService {
     public void deleteTestcase(int id) {
         /* 설명. 삭제할 테스트케이스 찾기 */
         CommandTestcaseEntity commandTestcaseEntity = commandTestcaseRepository.findById(id)
-                .orElseThrow(IllegalArgumentException::new);
+                .orElseThrow(() -> new IllegalArgumentException("삭제할 테스트케이스가 존재하지 않습니다."));
 
 
         /* 설명. 삭제할 테스트케이스와 같은 프로젝트인 테스트케이스 찾기 */
         List<CommandTestcaseEntity> testcaseList = commandTestcaseRepository
                 .findByProjectIdOrderByTestNoAsc(commandTestcaseEntity.getProjectId());
-
-        /* null일 때 예외처리 */
 
         /* 설명. 삭제할 테스트케이스 다음 순서의 테스트케이스들을 앞당김 */
         int testNo = commandTestcaseEntity.getTestNo();
