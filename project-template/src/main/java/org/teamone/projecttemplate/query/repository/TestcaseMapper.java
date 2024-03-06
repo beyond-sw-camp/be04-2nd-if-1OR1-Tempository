@@ -10,4 +10,6 @@ public interface TestcaseMapper {
     List<Testcase> findTestcaseByProjectId(int projectId);
 
     List<Testcase> findTestcaseBySeparateAndProjectId(Testcase testcase);
+
+    List<Testcase> findTestcaseByResultAndProjectId(Testcase testcase);
 }

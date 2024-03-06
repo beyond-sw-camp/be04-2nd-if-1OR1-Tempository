@@ -40,4 +40,18 @@
          WHERE SEPARATE LIKE '%' #{separate} '%'
            AND PROJECT_ID = #{projectId};
     </select>
+    <select id="findTestcaseByResultAndProjectId" resultMap="testcaseMap" parameterType="org.teamone.projecttemplate.query.entity.Testcase">
+        SELECT
+                ID
+              , TEST_NO
+              , SEPARATE
+              , CONTENT
+              , EXPECTED_VALUE
+              , RESULT
+              , NOTE
+              , PROJECT_ID
+          FROM TBL_PROJECT_TESTCASE
+         WHERE RESULT = #{result}
+           AND PROJECT_ID = #{projectId};
+    </select>
 </mapper>

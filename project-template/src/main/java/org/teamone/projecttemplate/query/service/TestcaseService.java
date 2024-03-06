@@ -34,4 +34,13 @@ public class TestcaseService {
 
         return testcaseList;
     }
+
+    /* 설명. projectId와 result를 이용하여 테스트 통과된 테스트케이스 조회 */
+    public List<Testcase> findTestcaseByResultAndProjectId(TestcaseDTO testcaseDTO) {
+        Testcase testcase =  new Testcase(testcaseDTO.getProjectId(), testcaseDTO.getResult());
+        List<Testcase> testcaseList = testcaseMapper.findTestcaseByResultAndProjectId(testcase);
+        testcaseList.forEach(System.out::println);
+
+        return testcaseList;
+    }
 }

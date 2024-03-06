@@ -33,4 +33,14 @@ class TestcaseServiceTest {
         Assertions.assertNotNull(testcaseList);
     }
 
+    @DisplayName("result와 projectId로 테스트케이스 조회")
+    @Test
+    void findTestcaseByResultAndProjectId() {
+        TestcaseDTO testcaseDTO = new TestcaseDTO(1, "PASS");
+
+        List<Testcase> testcaseList = testcaseService.findTestcaseByResultAndProjectId(testcaseDTO);
+
+        Assertions.assertNotNull(testcaseList);
+    }
+
 }

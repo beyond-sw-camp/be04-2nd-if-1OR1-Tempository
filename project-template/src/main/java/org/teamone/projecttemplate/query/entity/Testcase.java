@@ -18,6 +18,11 @@ public class Testcase {
         this.projectId = projectId;
     }
 
+    public Testcase(int projectId, String result) {
+        this.projectId = projectId;
+        this.result = result;
+    }
+
     public Testcase(int testNo, String separate, String content, String expectedValue, String result, String note, int projectId) {
         this.testNo = testNo;
         this.separate = separate;
