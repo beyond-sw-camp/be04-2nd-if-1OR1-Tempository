@@ -43,11 +43,9 @@ public class WbsController {
         modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
 
         CommandWbsDTO wbsDTO = modelMapper.map(wbs, CommandWbsDTO.class);
-        System.out.println("wbsDTO = " + wbsDTO);
 
         commandWbsService.registWbs(wbsDTO);
         WbsResponse wbsResponse = modelMapper.map(wbsDTO, WbsResponse.class);
-        System.out.println("wbsResponse = " + wbsResponse);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(wbsResponse);
     }
