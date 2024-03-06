@@ -59,7 +59,8 @@ public class WbsController {
     /* wbs 수정 */
     @Transactional
     @PutMapping("/modify/{projectId}/{wbsNo}")
-    public ResponseEntity<WbsResponse> modifyWbs(@PathVariable("projectId") int projectId, @PathVariable("wbsNo") int wbsNo,
+    public ResponseEntity<WbsResponse> modifyWbs(@PathVariable("projectId") int projectId,
+                                                 @PathVariable("wbsNo") int wbsNo,
                                                  @RequestBody WbsRequest wbs) {
 
         modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
@@ -80,10 +81,16 @@ public class WbsController {
         // responseentity로 반환
         return ResponseEntity.ok().body(wbsResponse);
 
-
     }
 
-
     /* wbs 삭제 */
+    @Transactional
+    @DeleteMapping("/delete/{projectId}/{wbsNo}")
+    public ResponseEntity<Void> deleteWbs(@PathVariable("projectId") int projectId,
+                                                 @PathVariable("wbsNo") int wbsNo) {
+        commandWbsService.deleteWbs(projectId, wbsNo);
+        return ResponseEntity.ok().build();
+    }
+
 
 }

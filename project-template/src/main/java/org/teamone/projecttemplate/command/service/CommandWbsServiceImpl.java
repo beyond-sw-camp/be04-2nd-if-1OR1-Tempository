@@ -61,9 +61,16 @@ public class CommandWbsServiceImpl implements CommandWbsService{
             // 변경된 엔티티 저장
             commandWbsRepository.save(existingWbs);
         } else {
-            throw new EntityNotFoundException("project id와 wbs no에 해당하는 wbs 없음");
+            throw new EntityNotFoundException("해당 project id와 wbs no에 대한 wbs 없음");
         }
 
+    }
+
+    @Override
+    @Transactional
+    public void deleteWbs(int projectId, int wbsNo) {
+
+        commandWbsRepository.deleteByProjectIdAndWbsNo(projectId, wbsNo);
     }
 
 

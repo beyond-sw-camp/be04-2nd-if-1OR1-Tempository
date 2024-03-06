@@ -11,4 +11,6 @@ public interface CommandWbsRepository extends JpaRepository<CommandWbs, Integer>
     List<CommandWbs> findByProjectId(int projectId);
 
     CommandWbs findByProjectIdAndWbsNo(int projectId, int wbsNo);
+
+    void deleteByProjectIdAndWbsNo(int projectId, int wbsNo);
 }
