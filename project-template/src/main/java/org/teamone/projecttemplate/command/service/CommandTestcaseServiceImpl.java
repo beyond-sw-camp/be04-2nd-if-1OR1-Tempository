@@ -104,10 +104,6 @@ public class CommandTestcaseServiceImpl implements CommandTestcaseService {
     @Override
     @Transactional
     public void deleteAllTestcase(int projectId) {
-        List<CommandTestcaseEntity> testcaseEntityList = commandTestcaseRepository.findByProjectId(projectId);
-        for (int i = 0; i < testcaseEntityList.size(); i++) {
-            int id = testcaseEntityList.get(i).getId();
-            commandTestcaseRepository.deleteById(id);
-        }
+        commandTestcaseRepository.deleteAllByProjectId(projectId);
     }
 }
