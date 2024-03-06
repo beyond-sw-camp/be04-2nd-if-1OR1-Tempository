@@ -1,10 +1,7 @@
 package org.teamone.user.command.domain.aggregate.entity;
 
 import jakarta.persistence.*;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 import org.teamone.user.command.domain.aggregate.types.AccessLevel;
 import org.teamone.user.command.domain.aggregate.types.Password;
 import org.teamone.user.command.domain.aggregate.types.Provider;
@@ -12,10 +9,11 @@ import org.teamone.user.command.domain.aggregate.types.UserStatus;
 
 @Entity
 @Getter
+@Setter
 @NoArgsConstructor
 @ToString
 @Table(name = "tbl_user")
-public class User {
+public class UserEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -58,9 +56,13 @@ public class User {
     @Column(name = "SNS_ID")
     private String snsId;
 
+    @Column(name = "USER_ID")
+    private String userId;
+
+
     @Builder
-    public User(String name, String nickname, Provider provider, AccessLevel accessLevel, UserStatus userStatus,
-                int followerCnt, int followingCnt, int grade, String email, Password password, String snsId) {
+    public UserEntity(String name, String nickname, Provider provider, AccessLevel accessLevel, UserStatus userStatus,
+                      int followerCnt, int followingCnt, int grade, String email, Password password, String snsId, String userId) {
         this.name = name;
         this.nickname = nickname;
         this.provider = provider;
@@ -72,5 +74,6 @@ public class User {
         this.email = email;
         this.password = password;
         this.snsId = snsId;
+        this.userId = userId;
     }
 }
