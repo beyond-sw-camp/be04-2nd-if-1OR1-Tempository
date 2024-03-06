@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.teamone.projecttemplate.command.dto.CommandWbsDTO;
+import org.teamone.projecttemplate.command.entity.CommandWbs;
 import org.teamone.projecttemplate.command.service.CommandWbsService;
 import org.teamone.projecttemplate.command.vo.WbsRequest;
 import org.teamone.projecttemplate.command.vo.WbsResponse;
@@ -36,18 +37,53 @@ public class WbsController {
         return "Server at " + env.getProperty("local.server.port");
     }
 
+
+    /* wbs 추가 */
     @Transactional
     @PostMapping("/regist")
-    public ResponseEntity<WbsResponse> registUser(@RequestBody WbsRequest wbs) {
+    public ResponseEntity<WbsResponse> registWbs(@RequestBody WbsRequest wbs) {
 
         modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
 
+        // model mapper를 이용해서 받은 데이터 DTO 형식으로 변환
         CommandWbsDTO wbsDTO = modelMapper.map(wbs, CommandWbsDTO.class);
 
         commandWbsService.registWbs(wbsDTO);
+
+        // 받은 DTO를 wbsresponse라는 vo로 변환
         WbsResponse wbsResponse = modelMapper.map(wbsDTO, WbsResponse.class);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(wbsResponse);
     }
+
+    /* wbs 수정 */
+    @Transactional
+    @PutMapping("/modify/{projectId}/{wbsNo}")
+    public ResponseEntity<WbsResponse> modifyWbs(@PathVariable("projectId") int projectId, @PathVariable("wbsNo") int wbsNo,
+                                                 @RequestBody WbsRequest wbs) {
+
+        modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
+
+        // model mapper를 이용해서 받은 데이터(WbsRequest - VO)를 DTO 형식으로 변환
+        CommandWbsDTO wbsDTO = modelMapper.map(wbs, CommandWbsDTO.class);
+
+        // 받은 DTO에서 수정할 대상의 projectId와 wbsNo 설정
+        wbsDTO.setProjectId(projectId);
+        wbsDTO.setWbsNo(wbsNo);
+
+        // commandWbsDTO를 사용하여 wbs 엔티티 수정
+        commandWbsService.modifyWbs(wbsDTO);
+
+        // 수정된 WBS 엔티티(받은 DTO)를 wbsresponse라는 vo로 변환
+        WbsResponse wbsResponse = modelMapper.map(wbsDTO, WbsResponse.class);
+
+        // responseentity로 반환
+        return ResponseEntity.ok().body(wbsResponse);
+
+
+    }
+
+
+    /* wbs 삭제 */
 
 }

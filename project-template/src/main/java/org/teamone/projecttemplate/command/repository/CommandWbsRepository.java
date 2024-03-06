@@ -9,4 +9,6 @@ import java.util.List;
 @Repository
 public interface CommandWbsRepository extends JpaRepository<CommandWbs, Integer> {
     List<CommandWbs> findByProjectId(int projectId);
+
+    CommandWbs findByProjectIdAndWbsNo(int projectId, int wbsNo);
 }
