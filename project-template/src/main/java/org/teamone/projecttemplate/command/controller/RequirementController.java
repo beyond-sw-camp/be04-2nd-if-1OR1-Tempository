@@ -30,4 +30,12 @@ public class RequirementController {
 
         return "Server at " + environment.getProperty("local.server.port");
     }
+
+    /* 설명. 요구사항 명세서 수정 */
+    @PostMapping("/modify")
+    public String modifyRequirement(@RequestBody CommandRequirementDTO commandRequirementDTO) {
+        commandRequirementService.modifyRequirement(commandRequirementDTO);
+
+        return "Server at " + environment.getProperty("local.server.port");
+    }
 }

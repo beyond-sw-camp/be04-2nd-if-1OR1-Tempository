@@ -5,4 +5,6 @@ import org.teamone.projecttemplate.command.dto.CommandTestcaseDTO;
 
 public interface CommandRequirementService {
     void registRequirement(CommandRequirementDTO commandRequirementDTO);
+
+    void modifyRequirement(CommandRequirementDTO commandRequirementDTO);
 }

@@ -35,4 +35,13 @@ public class CommandRequirementServiceImpl implements CommandRequirementService{
         CommandRequirement commandRequirement = modelMapper.map(commandRequirementDTO, CommandRequirement.class);
         commandRequirementRepository.save(commandRequirement);
     }
+
+    /* 설명. 요구사항 명세서 수정 */
+    @Override
+    @Transactional
+    public void modifyRequirement(CommandRequirementDTO commandRequirementDTO) {
+        CommandRequirement commandRequirement = modelMapper.map(commandRequirementDTO, CommandRequirement.class);
+
+        commandRequirementRepository.save(commandRequirement);
+    }
 }
