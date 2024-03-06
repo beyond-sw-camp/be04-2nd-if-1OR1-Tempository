@@ -66,11 +66,20 @@ public class CommandWbsServiceImpl implements CommandWbsService{
 
     }
 
+    /* 프로젝트 ID, WBS NO에 해당하는 WBS 하나 삭제 */
     @Override
     @Transactional
     public void deleteWbs(int projectId, int wbsNo) {
 
         commandWbsRepository.deleteByProjectIdAndWbsNo(projectId, wbsNo);
+    }
+
+    /* 프로젝트 ID에 해당하는 WBS 전체 삭제 */
+    @Override
+    @Transactional
+    public void deleteAllWbsByProjectId(int projectId) {
+
+        commandWbsRepository.deleteAllWbsByProjectId(projectId);
     }
 
 
