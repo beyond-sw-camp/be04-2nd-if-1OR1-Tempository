@@ -22,7 +22,7 @@ public class TestcaseController {
     }
 
 
-    /* 설명. 테이스케이스 추가(POST /regist) */
+    /* 설명. 테스트케이스 추가(POST /regist) */
 //    @PostMapping("/regist")
 //    public String registTestcase(@RequestBody CommandTestcaseDTO commandTestcaseDTO) {
 //
@@ -31,7 +31,7 @@ public class TestcaseController {
 //        return "Server at " + environment.getProperty("local.server.port");
 //    }
 
-    /* 설명. 테스케이스 추가(testNo 자동 설정) */
+    /* 설명. 테스트케이스 추가(testNo 자동 설정) */
     @PostMapping("/regist")
     public String registTestcase(@RequestBody CommandTestcaseDTO commandTestcaseDTO) {
         commandTestcaseService.registTestcase(commandTestcaseDTO);
@@ -43,8 +43,18 @@ public class TestcaseController {
     @PostMapping("/modify")
     public String modifyTestcase(@RequestBody CommandTestcaseDTO commandTestcaseDTO) {
 
-        System.out.println("commandTestcaseDTO = " + commandTestcaseDTO);
         commandTestcaseService.modifyTestcase(commandTestcaseDTO);
+
+        return "Server at " + environment.getProperty("local.server.port");
+    }
+
+    /* 설명. 테스트케이스 순서 수정(POST /modify/sequence) */
+    /* 설명. 파라미터로 테스트케이스 id와 숫자(-1: 순서 위로, 1: 순서 아래로) */
+    @PostMapping("/modify/sequence")
+    public String modifySequenceTestcase(@RequestParam("id") int id, @RequestParam("num") int num){
+        System.out.println("id = " + id);
+        System.out.println("num = " + num);
+        commandTestcaseService.modifySequenceTestcase(id, num);
 
         return "Server at " + environment.getProperty("local.server.port");
     }

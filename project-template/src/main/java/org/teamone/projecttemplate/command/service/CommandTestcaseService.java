@@ -47,7 +47,8 @@ public class CommandTestcaseService {
     public void registTestcase(CommandTestcaseDTO commandTestcaseDTO) {
 
         /* 설명. 프로젝트 id가 같은 프로젝트 찾음 */
-        List<CommandTestcaseEntity> testcaseList = commandTestcaseRepository.findByProjectId(commandTestcaseDTO.getProjectId());
+        List<CommandTestcaseEntity> testcaseList = commandTestcaseRepository.findByProjectId(commandTestcaseDTO
+                .getProjectId());
 
         /* 설명. testNo의 가장 큰 값을 찾음 */
         int maxNo = testcaseList.size();
@@ -65,7 +66,8 @@ public class CommandTestcaseService {
 
         /* 설명. 테스트케이스 id로 해당 테스트 케이스를 찾아 변경 */
         int id = commandTestcaseDTO.getId();
-        CommandTestcaseEntity commandTestcaseEntity = commandTestcaseRepository.findById(id).orElseThrow(IllegalArgumentException::new);
+        CommandTestcaseEntity commandTestcaseEntity = commandTestcaseRepository.findById(id)
+                .orElseThrow(IllegalArgumentException::new);
 
         commandTestcaseEntity.setSeparate(commandTestcaseDTO.getSeparate());
         commandTestcaseEntity.setContent(commandTestcaseDTO.getContent());
@@ -74,15 +76,36 @@ public class CommandTestcaseService {
         commandTestcaseEntity.setNote(commandTestcaseDTO.getNote());
     }
 
+    /* 설명. 테스트케이스 순서 수정 */
+    public void modifySequenceTestcase(int id, int num) {
+        CommandTestcaseEntity commandTestcaseEntity = commandTestcaseRepository.findById(id)
+                .orElseThrow(IllegalArgumentException::new);
+
+        CommandTestcaseEntity sequenceTestEntity = commandTestcaseRepository.findByProjectIdAndTestNo(
+                commandTestcaseEntity.getProjectId(),
+                commandTestcaseEntity.getTestNo() + num);
+
+        /* null일 때 예외처리 */
+        if (sequenceTestEntity == null)
+            throw new RuntimeException("순서 변경 없음");
+
+        commandTestcaseEntity.setTestNo(commandTestcaseEntity.getTestNo() + num);
+        sequenceTestEntity.setTestNo(sequenceTestEntity.getTestNo() - num);
+    }
+
     /* 설명. 테스트케이스 삭제 */
     @Transactional
     public void deleteTestcase(int id) {
         /* 설명. 삭제할 테스트케이스 찾기 */
-        CommandTestcaseEntity commandTestcaseEntity = commandTestcaseRepository.findById(id).orElseThrow(IllegalArgumentException::new);
+        CommandTestcaseEntity commandTestcaseEntity = commandTestcaseRepository.findById(id)
+                .orElseThrow(IllegalArgumentException::new);
 
 
         /* 설명. 삭제할 테스트케이스와 같은 프로젝트인 테스트케이스 찾기 */
-        List<CommandTestcaseEntity> testcaseList = commandTestcaseRepository.findByProjectIdOrderByTestNoAsc(commandTestcaseEntity.getProjectId());
+        List<CommandTestcaseEntity> testcaseList = commandTestcaseRepository
+                .findByProjectIdOrderByTestNoAsc(commandTestcaseEntity.getProjectId());
+
+        /* null일 때 예외처리 */
 
         /* 설명. 삭제할 테스트케이스 다음 순서의 테스트케이스들을 앞당김 */
         int testNo = commandTestcaseEntity.getTestNo();
@@ -92,6 +115,7 @@ public class CommandTestcaseService {
 
         /* 설명. 테스트케이스 삭제 */
         commandTestcaseRepository.deleteById(id);
-
     }
+
+
 }

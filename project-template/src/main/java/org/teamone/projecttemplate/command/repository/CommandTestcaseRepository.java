@@ -11,4 +11,6 @@ public interface CommandTestcaseRepository extends JpaRepository<CommandTestcase
     List<CommandTestcaseEntity> findByProjectId(int projectId);
 
     List<CommandTestcaseEntity> findByProjectIdOrderByTestNoAsc(int projectId);
+
+    CommandTestcaseEntity findByProjectIdAndTestNo(int projectId, int testNo);
 }
