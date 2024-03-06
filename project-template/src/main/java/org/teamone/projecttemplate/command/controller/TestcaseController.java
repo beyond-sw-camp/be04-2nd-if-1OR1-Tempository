@@ -67,4 +67,12 @@ public class TestcaseController {
         return "Server at " + environment.getProperty("local.server.port");
     }
 
+    /* 설명. 해당 프로젝트의 테스트케이스 전체 삭제 */
+    @PostMapping("/deleteAll")
+    public String deleteAllTestcase(@RequestParam("projectId") int projectId) {
+        commandTestcaseService.deleteAllTestcase(projectId);
+
+        return "Server at " + environment.getProperty("local.server.port");
+    }
+
 }

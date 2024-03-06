@@ -116,4 +116,12 @@ public class CommandTestcaseService {
     }
 
 
+    /* 설명. 해당 프로젝트의 테스트케이스 전체 삭제 */
+    public void deleteAllTestcase(int projectId) {
+        List<CommandTestcaseEntity> testcaseEntityList = commandTestcaseRepository.findByProjectId(projectId);
+        for (int i = 0; i < testcaseEntityList.size(); i++) {
+            int id = testcaseEntityList.get(i).getId();
+            commandTestcaseRepository.deleteById(id);
+        }
+    }
 }
