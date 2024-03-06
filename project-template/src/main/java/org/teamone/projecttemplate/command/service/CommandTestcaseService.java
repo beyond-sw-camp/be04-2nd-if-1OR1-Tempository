@@ -77,6 +77,21 @@ public class CommandTestcaseService {
     /* 설명. 테스트케이스 삭제 */
     @Transactional
     public void deleteTestcase(int id) {
+        /* 설명. 삭제할 테스트케이스 찾기 */
+        CommandTestcaseEntity commandTestcaseEntity = commandTestcaseRepository.findById(id).orElseThrow(IllegalArgumentException::new);
+
+
+        /* 설명. 삭제할 테스트케이스와 같은 프로젝트인 테스트케이스 찾기 */
+        List<CommandTestcaseEntity> testcaseList = commandTestcaseRepository.findByProjectIdOrderByTestNoAsc(commandTestcaseEntity.getProjectId());
+
+        /* 설명. 삭제할 테스트케이스 다음 순서의 테스트케이스들을 앞당김 */
+        int testNo = commandTestcaseEntity.getTestNo();
+        for (int i = testNo; i < testcaseList.size(); i++) {
+            testcaseList.get(i).setTestNo(i);
+        }
+
+        /* 설명. 테스트케이스 삭제 */
         commandTestcaseRepository.deleteById(id);
+
     }
 }

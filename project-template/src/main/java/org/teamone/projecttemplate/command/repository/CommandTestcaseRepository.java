@@ -9,4 +9,6 @@ import java.util.List;
 @Repository
 public interface CommandTestcaseRepository extends JpaRepository<CommandTestcaseEntity, Integer> {
     List<CommandTestcaseEntity> findByProjectId(int projectId);
+
+    List<CommandTestcaseEntity> findByProjectIdOrderByTestNoAsc(int projectId);
 }
