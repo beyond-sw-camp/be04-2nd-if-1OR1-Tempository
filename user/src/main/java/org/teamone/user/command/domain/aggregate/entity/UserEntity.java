@@ -2,12 +2,11 @@ package org.teamone.user.command.domain.aggregate.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
-import org.teamone.user.command.domain.aggregate.types.AccessLevel;
-import org.teamone.user.command.domain.aggregate.types.Password;
-import org.teamone.user.command.domain.aggregate.types.Provider;
-import org.teamone.user.command.domain.aggregate.types.UserStatus;
+import org.teamone.user.command.domain.aggregate.enums.AccessLevel;
+import org.teamone.user.command.domain.aggregate.enums.Provider;
+import org.teamone.user.command.domain.aggregate.enums.UserStatus;
 
-@Entity
+@Entity(name = "CommandUserEntity")
 @Getter
 @Setter
 @NoArgsConstructor
@@ -51,7 +50,7 @@ public class UserEntity {
     private String email;
 
     @Column(name = "PASSWORD")
-    private Password password;
+    private String password;
 
     @Column(name = "SNS_ID")
     private String snsId;
@@ -62,7 +61,7 @@ public class UserEntity {
 
     @Builder
     public UserEntity(String name, String nickname, Provider provider, AccessLevel accessLevel, UserStatus userStatus,
-                      int followerCnt, int followingCnt, int grade, String email, Password password, String snsId, String userId) {
+                      int followerCnt, int followingCnt, int grade, String email, String password, String snsId, String userId) {
         this.name = name;
         this.nickname = nickname;
         this.provider = provider;

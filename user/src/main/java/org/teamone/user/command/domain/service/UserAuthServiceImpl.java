@@ -2,17 +2,20 @@ package org.teamone.user.command.domain.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.teamone.user.command.Application.service.UserAuthService;
 import org.teamone.user.command.domain.dto.UserDTO;
 import org.teamone.user.command.domain.aggregate.entity.UserEntity;
 import org.teamone.user.command.domain.repository.UserRepository;
-import org.teamone.user.command.domain.aggregate.types.AccessLevel;
-import org.teamone.user.command.domain.aggregate.types.Password;
-import org.teamone.user.command.domain.aggregate.types.Provider;
-import org.teamone.user.command.domain.aggregate.types.UserStatus;
+import org.teamone.user.command.domain.aggregate.enums.AccessLevel;
+import org.teamone.user.command.domain.aggregate.enums.Provider;
+import org.teamone.user.command.domain.aggregate.enums.UserStatus;
 
+import java.util.ArrayList;
 import java.util.UUID;
 
 @Service
@@ -43,7 +46,7 @@ public class UserAuthServiceImpl implements UserAuthService {
                 .userStatus(UserStatus.ACTIVE)
                 .grade(1)
                 .email(newUser.getEmail())
-                .password(new Password(newUser.getPassword()))
+                .password(newUser.getPassword())
                 .userId((UUID.randomUUID().toString()))
                 .build();
 
@@ -56,5 +59,19 @@ public class UserAuthServiceImpl implements UserAuthService {
                 .build();
 
         return userDTO;
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+
+        UserEntity userEntity = userRepository.findByEmail(email);
+
+        if (userEntity == null) {
+            throw new UsernameNotFoundException(email + "아이디의 유저는 존재하지 않습니다.");
+        }
+
+        return new User(userEntity.getEmail(), userEntity.getPassword(),
+                true, true, true, true,
+                new ArrayList<>());
     }
 }

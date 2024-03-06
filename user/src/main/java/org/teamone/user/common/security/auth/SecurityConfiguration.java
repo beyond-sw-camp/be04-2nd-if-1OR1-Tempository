@@ -1,30 +1,43 @@
 package org.teamone.user.common.security.auth;
 
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.Customizer;
+import org.springframework.core.env.Environment;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
-
-import java.security.interfaces.RSAPrivateKey;
-import java.security.interfaces.RSAPublicKey;
+import org.teamone.user.command.Application.service.UserAuthService;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfiguration {
-    // application.properties에서 설정한 jwt.public.key와 jwt.private.key 값을 가져옵니다.
-//    @Value("${jwt.public.key}")
-//    RSAPublicKey key;
-//
-//    @Value("${jwt.private.key}")
-//    RSAPrivateKey priv;
+
+    private UserAuthService userAuthService;
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
+    private Environment env;
+
+    @Autowired
+    public SecurityConfiguration(UserAuthService userAuthService, BCryptPasswordEncoder bCryptPasswordEncoder, Environment env) {
+        this.userAuthService = userAuthService;
+        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
+        this.env = env;
+    }
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+
+        AuthenticationManagerBuilder authenticationManagerBuilder =
+                http.getSharedObject(AuthenticationManagerBuilder.class);
+        authenticationManagerBuilder.userDetailsService(userAuthService).passwordEncoder(bCryptPasswordEncoder);
+//
+//        AuthenticationManager authenticationManager = authenticationManagerBuilder.build();
+
         http
                 .authorizeHttpRequests((authorize) -> authorize
 
