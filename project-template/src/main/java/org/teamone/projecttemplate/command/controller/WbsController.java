@@ -1,15 +1,14 @@
 package org.teamone.projecttemplate.command.controller;
 
+import jakarta.ws.rs.Path;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.teamone.projecttemplate.command.dto.CommandWbsDTO;
-import org.teamone.projecttemplate.command.entity.CommandWbs;
 import org.teamone.projecttemplate.command.service.CommandWbsService;
 import org.teamone.projecttemplate.command.vo.WbsRequest;
 import org.teamone.projecttemplate.command.vo.WbsResponse;
@@ -39,7 +38,6 @@ public class WbsController {
 
 
     /* wbs 추가 */
-    @Transactional
     @PostMapping("/regist")
     public ResponseEntity<WbsResponse> registWbs(@RequestBody WbsRequest wbs) {
 
@@ -57,7 +55,6 @@ public class WbsController {
     }
 
     /* wbs 수정 */
-    @Transactional
     @PutMapping("/modify/{projectId}/{wbsNo}")
     public ResponseEntity<WbsResponse> modifyWbs(@PathVariable("projectId") int projectId,
                                                  @PathVariable("wbsNo") int wbsNo,
@@ -83,14 +80,19 @@ public class WbsController {
 
     }
 
-    /* wbs 삭제 */
-    @Transactional
+    /* 프로젝트 ID, WBS NO에 해당하는 WBS 하나 삭제 */
     @DeleteMapping("/delete/{projectId}/{wbsNo}")
     public ResponseEntity<Void> deleteWbs(@PathVariable("projectId") int projectId,
-                                                 @PathVariable("wbsNo") int wbsNo) {
+                                          @PathVariable("wbsNo") int wbsNo) {
         commandWbsService.deleteWbs(projectId, wbsNo);
         return ResponseEntity.ok().build();
     }
 
+    /* 프로젝트 ID에 해당하는 WBS 전체 삭제 */
+    @DeleteMapping("delete/{projectId}")
+    public ResponseEntity<Void> deleteAllWbsByProjectId(@PathVariable("projectId") int projectId) {
 
+        commandWbsService.deleteAllWbsByProjectId(projectId);
+        return ResponseEntity.ok().build();
+    }
 }

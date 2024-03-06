@@ -10,4 +10,6 @@ public interface CommandWbsService {
     void modifyWbs(CommandWbsDTO wbsDTO);
 
     void deleteWbs(int projectId, int wbsNo);
+
+    void deleteAllWbsByProjectId(int projectId);
 }
