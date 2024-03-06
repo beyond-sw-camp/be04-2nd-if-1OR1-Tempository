@@ -2,7 +2,7 @@ package org.teamone.tempository.project.command.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
-import org.teamone.tempository.project.command.status.ProjectStatus;
+import org.teamone.tempository.project.command.type.ProjectStatus;
 
 @Entity
 @Table(name = "tbl_project")

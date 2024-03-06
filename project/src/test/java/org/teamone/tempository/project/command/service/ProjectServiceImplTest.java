@@ -1,16 +1,15 @@
 package org.teamone.tempository.project.command.service;
 
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 import org.teamone.tempository.project.command.dto.ProjectDTO;
-import org.teamone.tempository.project.command.status.ProjectStatus;
+import org.teamone.tempository.project.command.type.ProjectStatus;
 
 @SpringBootTest
-class ProjectServiceTest {
+class ProjectServiceImplTest {
 
     @Autowired
     private ProjectService projectService;
@@ -53,7 +52,7 @@ class ProjectServiceTest {
     @Transactional
     void deleteProjectTest() throws IllegalAccessException {
         int id = 13;
-        projectService.deleteProject(id);
+        projectService.deleteProjectById(id);
 
     }
 }

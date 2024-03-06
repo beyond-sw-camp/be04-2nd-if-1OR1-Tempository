@@ -1,7 +1,7 @@
 package org.teamone.tempository.project.command.dto;
 
 import lombok.*;
-import org.teamone.tempository.project.command.status.ProjectStatus;
+import org.teamone.tempository.project.command.type.ProjectStatus;
 
 @Getter
 @Setter

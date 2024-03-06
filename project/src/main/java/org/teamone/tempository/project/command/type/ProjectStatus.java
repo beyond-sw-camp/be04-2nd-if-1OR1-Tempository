@@ -1,4 +1,4 @@
-package org.teamone.tempository.project.command.status;
+package org.teamone.tempository.project.command.type;
 
 public enum ProjectStatus {
     COMPLETE,

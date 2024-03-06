@@ -14,52 +14,83 @@
     </resultMap>
 
     <select id="getProjectInfoById" resultMap="projectResultMap" parameterType="org.teamone.tempository.project.query.entity.Project">
-        SELECT    A.ID
-                , A.NAME
-                , A.IS_PUBLIC
-                , A.LIKE_CNT
-                , A.STATUS
-                , A.CONTENT
-             FROM TBL_PROJECT A
-            WHERE A.ID = #{ id }
+        SELECT
+              A.ID
+            , A.NAME
+            , A.IS_PUBLIC
+            , A.LIKE_CNT
+            , A.STATUS
+            , A.CONTENT
+         FROM TBL_PROJECT A
+        WHERE A.ID = #{ id }
     </select>
 
     <select id="getProjectInfoByStatus" resultMap="projectResultMap" parameterType="org.teamone.tempository.project.query.entity.Project">
-        SELECT    A.ID
-        , A.NAME
-        , A.IS_PUBLIC
-        , A.LIKE_CNT
-        , A.STATUS
-        , A.CONTENT
-        FROM TBL_PROJECT A
+        SELECT
+              A.ID
+            , A.NAME
+            , A.IS_PUBLIC
+            , A.LIKE_CNT
+            , A.STATUS
+            , A.CONTENT
+         FROM TBL_PROJECT A
         WHERE A.STATUS = #{ status }
 
     </select>
 
     <select id="getProjectInfoOrderByLike" resultMap="projectResultMap" parameterType="org.teamone.tempository.project.query.entity.Project">
-        SELECT    A.ID
-        , A.NAME
-        , A.IS_PUBLIC
-        , A.LIKE_CNT
-        , A.STATUS
-        , A.CONTENT
-        FROM TBL_PROJECT A
+        SELECT
+              A.ID
+            , A.NAME
+            , A.IS_PUBLIC
+            , A.LIKE_CNT
+            , A.STATUS
+            , A.CONTENT
+         FROM TBL_PROJECT A
         ORDER BY LIKE_CNT DESC;
 
     </select>
 
     <select id="getProjectInfoByIsPublic" resultMap="projectResultMap" parameterType="org.teamone.tempository.project.query.entity.Project">
-        SELECT    A.ID
-        , A.NAME
-        , A.IS_PUBLIC
-        , A.LIKE_CNT
-        , A.STATUS
-        , A.CONTENT
-        FROM TBL_PROJECT A
+        SELECT
+              A.ID
+            , A.NAME
+            , A.IS_PUBLIC
+            , A.LIKE_CNT
+            , A.STATUS
+            , A.CONTENT
+         FROM TBL_PROJECT A
         WHERE A.IS_PUBLIC = #{ isPublic }
 
     </select>
+<resultMap id="projectJoinMemberMap" type="String">
+    <id property="id" column="ID"/>
+    <result property="name" column="NAME"/>
+    <result property="isPublic" column="IS_PUBLIC"/>
+    <result property="likeCnt" column="LIKE_CNT"/>
+    <result property="status" column="STATUS"/>
+    <collection property="ProjectMember" ofType="org.teamone.tempository.project.query.entity.ProjectMember">
+        <id property="projectId" column="PROJECT_ID"/>
+        <id property="memberId" column="MEMBER_ID"/>
+        <result property="position" column="POSITION"/>
+        <result property="memberStatus" column="MEMBER_STATUS"/>
+    </collection>
 
+</resultMap>
+    <select id="getProjectJoinUserById" parameterType="org.teamone.tempository.project.query.entity.Project">
+        SELECT
+              A.ID
+            , A.NAME
+            , A.IS_PUBLIC
+            , A.LIKE_CNT
+            , A.STATUS
+            , B.MEMBER_ID
+            , B.POSITION
+            , B.MEMBER_STATUS
+         FROM TBL_PROJECT A
+         JOIN TBL_PROJECT_MEMBER B ON (A.ID = B.PROJECT_ID)
+        WHERE A.ID = #{ id }
+    </select>
 
 
 </mapper>

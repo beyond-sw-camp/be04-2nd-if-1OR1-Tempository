@@ -7,7 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.teamone.tempository.project.command.dto.ProjectDTO;
 import org.teamone.tempository.project.command.entity.Project;
 import org.teamone.tempository.project.command.repository.ProjectRepository;
-import org.teamone.tempository.project.command.status.ProjectStatus;
+import org.teamone.tempository.project.command.type.ProjectStatus;
 
 @Service("projectServiceJpa")
 public class ProjectService {
