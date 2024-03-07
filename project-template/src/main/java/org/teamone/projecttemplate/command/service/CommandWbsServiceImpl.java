@@ -147,12 +147,33 @@ public class CommandWbsServiceImpl implements CommandWbsService{
     }
 
 
-    /* 프로젝트 ID, WBS NO에 해당하는 WBS 하나 삭제 */
+    /* 프로젝트 ID, WBS NO에 해당하는 WBS 하나 삭제(wbs no 자동 업데이트 기능 추가) */
     @Override
     @Transactional
-    public void deleteWbs(int projectId, int wbsNo) {
+    public CommandWbsDTO deleteWbs(int projectId, int wbsNo) {
 
-        commandWbsRepository.deleteByProjectIdAndWbsNo(projectId, wbsNo);
+        // 삭제할 wbs 조회
+        CommandWbs deletedWbs = commandWbsRepository.findByProjectIdAndWbsNo(projectId, wbsNo);
+        if (deletedWbs != null) {
+
+            // 삭제할 wbs 삭제
+            commandWbsRepository.deleteByProjectIdAndWbsNo(projectId, wbsNo);
+
+            // 삭제된 wbs 이후의 모든 wbs 조회
+            List<CommandWbs> wbsList = commandWbsRepository.findByProjectIdAndWbsNoGreaterThan(projectId, wbsNo);
+
+            // 삭제할 wbs 이후의 번호를 감소시키고 저장
+            for (CommandWbs wbs : wbsList) {
+                wbs.setWbsNo(wbs.getWbsNo() - 1);
+                commandWbsRepository.save(wbs);
+            }
+
+            return modelMapper.map(deletedWbs, CommandWbsDTO.class);
+
+        } else {
+            throw new EntityNotFoundException("해당 프로젝트 ID와 WBS NO에 대한 WBS가 존재하지 않음");
+        }
+
     }
 
     /* 프로젝트 ID에 해당하는 WBS 전체 삭제 */
