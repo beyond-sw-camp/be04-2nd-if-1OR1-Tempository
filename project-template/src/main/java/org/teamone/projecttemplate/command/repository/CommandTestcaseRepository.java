@@ -15,4 +15,8 @@ public interface CommandTestcaseRepository extends JpaRepository<CommandTestcase
     CommandTestcase findByProjectIdAndTestNo(int projectId, int testNo);
 
     void deleteAllByProjectId(int projectId);
+
+    void deleteByProjectIdAndTestNo(int projectId, int testNo);
+
+    List<CommandTestcase> findByProjectIdAndTestNoGreaterThanOrderByTestNoAsc(int projectId, int testNo);
 }

@@ -1,7 +1,9 @@
-package org.teamone.projecttemplate.command.dto;
+package org.teamone.projecttemplate.command.vo;
 
-public class CommandTestcaseDTO {
-    private int id;
+import lombok.Setter;
+
+@Setter
+public class TestcaseResponse {
     private int testNo;
     private String separate;
     private String content;
@@ -10,41 +12,7 @@ public class CommandTestcaseDTO {
     private String note;
     private int projectId;
 
-    public CommandTestcaseDTO() {
-    }
-
-    public CommandTestcaseDTO(int testNo, String separate, String content, String expectedValue, String result, String note, int projectId) {
-        this.testNo = testNo;
-        this.separate = separate;
-        this.content = content;
-        this.expectedValue = expectedValue;
-        this.result = result;
-        this.note = note;
-        this.projectId = projectId;
-    }
-
-    public CommandTestcaseDTO(String separate, String content, String expectedValue, String result, String note, int projectId) {
-        this.separate = separate;
-        this.content = content;
-        this.expectedValue = expectedValue;
-        this.result = result;
-        this.note = note;
-        this.projectId = projectId;
-    }
-
-    public CommandTestcaseDTO(int id, int testNo, String separate, String content, String expectedValue, String result, String note, int projectId) {
-        this.id = id;
-        this.testNo = testNo;
-        this.separate = separate;
-        this.content = content;
-        this.expectedValue = expectedValue;
-        this.result = result;
-        this.note = note;
-        this.projectId = projectId;
-    }
-
-    public int getId() {
-        return id;
+    public TestcaseResponse() {
     }
 
     public int getTestNo() {
@@ -73,10 +41,6 @@ public class CommandTestcaseDTO {
 
     public int getProjectId() {
         return projectId;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public void setTestNo(int testNo) {
@@ -109,9 +73,8 @@ public class CommandTestcaseDTO {
 
     @Override
     public String toString() {
-        return "TestcaseDTO{" +
-                "id=" + id +
-                ", testNo=" + testNo +
+        return "TestcaseResponse{" +
+                "testNo=" + testNo +
                 ", separate='" + separate + '\'' +
                 ", content='" + content + '\'' +
                 ", expectedValue='" + expectedValue + '\'' +

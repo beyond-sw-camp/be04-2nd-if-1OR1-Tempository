@@ -1,5 +1,6 @@
 package org.teamone.projecttemplate.command.service;
 
+import org.springframework.web.bind.annotation.PathVariable;
 import org.teamone.projecttemplate.command.dto.CommandTestcaseDTO;
 
 public interface CommandTestcaseService {
@@ -7,9 +8,9 @@ public interface CommandTestcaseService {
 
     void modifyTestcase(CommandTestcaseDTO commandTestcaseDTO);
 
-    void modifySequenceTestcase(int id, int num);
+    CommandTestcaseDTO modifyTestcaseSequence(CommandTestcaseDTO commandTestcaseDTO, int num);
 
-    void deleteTestcase(int id);
+    void removeTestcase(int projectId, int testNo);
 
     void deleteAllTestcase(int projectId);
 }

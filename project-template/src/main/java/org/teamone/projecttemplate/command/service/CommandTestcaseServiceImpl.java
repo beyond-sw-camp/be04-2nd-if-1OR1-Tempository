@@ -1,6 +1,7 @@
 package org.teamone.projecttemplate.command.service;
 
 import org.modelmapper.ModelMapper;
+import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,10 +26,11 @@ public class CommandTestcaseServiceImpl implements CommandTestcaseService {
     @Override
     @Transactional
     public void registTestcase(CommandTestcaseDTO commandTestcaseDTO) {
+        modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
 
         /* 설명. 프로젝트 id가 같은 프로젝트 찾음 */
-        List<CommandTestcase> testcaseList = commandTestcaseRepository.findByProjectId(commandTestcaseDTO
-                .getProjectId());
+        List<CommandTestcase> testcaseList = commandTestcaseRepository.findByProjectId(
+                commandTestcaseDTO.getProjectId());
 
         /* 설명. testNo의 가장 큰 값을 찾음 */
         int maxNo = testcaseList.size();
@@ -45,10 +47,11 @@ public class CommandTestcaseServiceImpl implements CommandTestcaseService {
     @Transactional
     public void modifyTestcase(CommandTestcaseDTO commandTestcaseDTO) {
 
-        /* 설명. 테스트케이스 id로 해당 테스트 케이스를 찾아 변경 */
-        int id = commandTestcaseDTO.getId();
-        CommandTestcase commandTestcase = commandTestcaseRepository.findById(id)
-                .orElseThrow(IllegalArgumentException::new);
+        /* 설명. projectId와 testNo로 테스트케이스를 찾아 변경 */
+        CommandTestcase commandTestcase = commandTestcaseRepository.findByProjectIdAndTestNo(
+                commandTestcaseDTO.getProjectId(),
+                commandTestcaseDTO.getTestNo()
+        );
 
         commandTestcase.setSeparate(commandTestcaseDTO.getSeparate());
         commandTestcase.setContent(commandTestcaseDTO.getContent());
@@ -60,43 +63,49 @@ public class CommandTestcaseServiceImpl implements CommandTestcaseService {
     /* 설명. 테스트케이스 순서 수정 */
     @Override
     @Transactional
-    public void modifySequenceTestcase(int id, int num) {
-        CommandTestcase commandTestcase = commandTestcaseRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("변경할 테스트케이스가 존재하지 않습니다."));
+    public CommandTestcaseDTO modifyTestcaseSequence(CommandTestcaseDTO commandTestcaseDTO, int num) {
 
-        CommandTestcase sequenceTestEntity = commandTestcaseRepository.findByProjectIdAndTestNo(
+        /* 설명. 바꿀 테스트케이스 */
+        CommandTestcase commandTestcase = commandTestcaseRepository.findByProjectIdAndTestNo(
+                commandTestcaseDTO.getProjectId(),
+                commandTestcaseDTO.getTestNo()
+        );
+
+        /* 설명. 다음 순서의 테스트케이스 */
+        CommandTestcase sequenceTestcase = commandTestcaseRepository.findByProjectIdAndTestNo(
                 commandTestcase.getProjectId(),
                 commandTestcase.getTestNo() + num);
 
         /* 설명. null일 때 예외처리 */
-        if (sequenceTestEntity == null)
+        if (sequenceTestcase == null)
             throw new IllegalArgumentException("순서 변경 없음");
 
+        /* 설명. 순서 바꿈 */
         commandTestcase.setTestNo(commandTestcase.getTestNo() + num);
-        sequenceTestEntity.setTestNo(sequenceTestEntity.getTestNo() - num);
+        sequenceTestcase.setTestNo(sequenceTestcase.getTestNo() - num);
+
+        /* 설명. 변경된 DTO 반환 */
+        commandTestcaseDTO = modelMapper.map(commandTestcase, CommandTestcaseDTO.class);
+
+        return commandTestcaseDTO;
     }
 
     /* 설명. 테스트케이스 삭제 */
     @Override
     @Transactional
-    public void deleteTestcase(int id) {
-        /* 설명. 삭제할 테스트케이스 찾기 */
-        CommandTestcase commandTestcase = commandTestcaseRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("삭제할 테스트케이스가 존재하지 않습니다."));
+    public void removeTestcase(int projectId, int testNo) {
 
+        /* 설명. projectId와 testNo로 테스트케이스 삭제 */
+        commandTestcaseRepository.deleteByProjectIdAndTestNo(projectId, testNo);
 
-        /* 설명. 삭제할 테스트케이스와 같은 프로젝트인 테스트케이스 찾기 */
+        /* 설명. 삭제할 테스트케이스와 같은 프로젝트이고 뒷순서인 테스트케이스들 찾기 */
         List<CommandTestcase> testcaseList = commandTestcaseRepository
-                .findByProjectIdOrderByTestNoAsc(commandTestcase.getProjectId());
+                .findByProjectIdAndTestNoGreaterThanOrderByTestNoAsc(projectId, testNo);
 
         /* 설명. 삭제할 테스트케이스 다음 순서의 테스트케이스들을 앞당김 */
-        int testNo = commandTestcase.getTestNo();
-        for (int i = testNo; i < testcaseList.size(); i++) {
-            testcaseList.get(i).setTestNo(i);
+        for (CommandTestcase nextTestcase: testcaseList) {
+            nextTestcase.setTestNo(nextTestcase.getTestNo() -1);
         }
-
-        /* 설명. 테스트케이스 삭제 */
-        commandTestcaseRepository.deleteById(id);
     }
 
 

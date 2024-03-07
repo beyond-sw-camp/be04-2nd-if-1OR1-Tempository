@@ -1,68 +1,93 @@
 package org.teamone.projecttemplate.command.controller;
 
-import lombok.extern.slf4j.Slf4j;
+import org.modelmapper.ModelMapper;
+import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.teamone.projecttemplate.command.dto.CommandTestcaseDTO;
 import org.teamone.projecttemplate.command.service.CommandTestcaseService;
+import org.teamone.projecttemplate.command.vo.TestcaseRequest;
+import org.teamone.projecttemplate.command.vo.TestcaseResponse;
+import org.teamone.projecttemplate.command.vo.TestcaseSequenceRequest;
 
 @RestController
 @RequestMapping("/testcase")
-@Slf4j
 public class TestcaseController {
-    private Environment environment;
+    private final CommandTestcaseService commandTestcaseService;
 
-    private CommandTestcaseService commandTestcaseService;
+    private final ModelMapper modelMapper;
 
     @Autowired
-    public TestcaseController(Environment environment, CommandTestcaseService commandTestcaseService) {
-        this.environment = environment;
+    public TestcaseController(CommandTestcaseService commandTestcaseService, ModelMapper modelMapper) {
         this.commandTestcaseService = commandTestcaseService;
+        this.modelMapper = modelMapper;
     }
 
-    /* 설명. 테스트케이스 추가(testNo 자동 설정)(POST /regist) */
+    /* 설명. 테스트케이스 추가(testNo 자동 설정) */
     @PostMapping("/regist")
-    public String registTestcase(@RequestBody CommandTestcaseDTO commandTestcaseDTO) {
+    public ResponseEntity<TestcaseResponse> registTestcase(@RequestBody TestcaseRequest testcaseRequest) {
+        modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
+        CommandTestcaseDTO commandTestcaseDTO = modelMapper.map(testcaseRequest, CommandTestcaseDTO.class);
+
         commandTestcaseService.registTestcase(commandTestcaseDTO);
 
-        return "Server at " + environment.getProperty("local.server.port");
+        TestcaseResponse testcaseResponse = modelMapper.map(commandTestcaseDTO, TestcaseResponse.class);
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(testcaseResponse);
     }
 
-    /* 설명. 테스트케이스 수정(POST /modify) */
-    @PostMapping("/modify")
-    public String modifyTestcase(@RequestBody CommandTestcaseDTO commandTestcaseDTO) {
+    /* 설명. 테스트케이스 수정 */
+    @PutMapping("/modify")
+    public ResponseEntity<TestcaseResponse> modifyTestcase(
+            @RequestBody TestcaseRequest testcaseRequest) {
+        modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
+        CommandTestcaseDTO commandTestcaseDTO = modelMapper.map(testcaseRequest, CommandTestcaseDTO.class);
 
         commandTestcaseService.modifyTestcase(commandTestcaseDTO);
 
-        return "Server at " + environment.getProperty("local.server.port");
+        TestcaseResponse testcaseResponse = modelMapper.map(commandTestcaseDTO, TestcaseResponse.class);
+
+        return ResponseEntity.ok().body(testcaseResponse);
     }
 
-    /* 설명. 테스트케이스 순서 수정(POST /modify/sequence) */
-    /* 설명. 파라미터로 테스트케이스 id와 숫자(-1: 순서 위로, 1: 순서 아래로) */
-    @PostMapping("/modify/sequence")
-    public String modifySequenceTestcase(@RequestParam("id") int id, @RequestParam("num") int num){
-        System.out.println("id = " + id);
-        System.out.println("num = " + num);
-        commandTestcaseService.modifySequenceTestcase(id, num);
+    /* 설명. 테스트케이스 순서 수정 */
+    /* 설명. 프로젝트 id와 TEST_NO로 정수(-1: 순서 위로, 1: 순서 아래로)만큼 순서 변경 */
+    @PutMapping("/modify/sequence")
+    public ResponseEntity<TestcaseResponse> modifyTestcaseSequence(
+            @RequestBody TestcaseSequenceRequest testcaseSequenceRequest){
+        CommandTestcaseDTO commandTestcaseDTO = new CommandTestcaseDTO();
 
-        return "Server at " + environment.getProperty("local.server.port");
+        commandTestcaseDTO.setProjectId(testcaseSequenceRequest.getProjectId());
+        commandTestcaseDTO.setTestNo(testcaseSequenceRequest.getTestNo());
+        int num = testcaseSequenceRequest.getNum();
+
+        /* 설명.  순서 변경 후 변경된 DTO 반환 */
+        commandTestcaseDTO = commandTestcaseService.modifyTestcaseSequence(commandTestcaseDTO, num);
+
+        TestcaseResponse testcaseResponse = modelMapper.map(commandTestcaseDTO, TestcaseResponse.class);
+
+        return ResponseEntity.ok().body(testcaseResponse);
     }
 
-    /* 설명. 테스트케이스 삭제(POST /delete) */
-    @PostMapping("/delete")
-    public String deleteTestcase(@RequestParam("id") int id) {
-        commandTestcaseService.deleteTestcase(id);
+    /* 설명. 프로젝트 id와 testNo로 테스트케이스 삭제 */
+    @DeleteMapping("/remove/{projectId}/{testNo}")
+    public ResponseEntity<String> removeTestcase(
+            @PathVariable("projectId") int projectId,
+            @PathVariable("testNo") int testNo) {
+        commandTestcaseService.removeTestcase(projectId, testNo);
 
-        return "Server at " + environment.getProperty("local.server.port");
+        return ResponseEntity.ok("테스트케이스가 삭제되었습니다.");
     }
 
     /* 설명. 해당 프로젝트의 테스트케이스 전체 삭제 */
-    @PostMapping("/deleteAll")
-    public String deleteAllTestcase(@RequestParam("projectId") int projectId) {
+    @DeleteMapping("/removeAll/{projectId}")
+    public ResponseEntity<String> deleteAllTestcase(@PathVariable("projectId") int projectId) {
         commandTestcaseService.deleteAllTestcase(projectId);
 
-        return "Server at " + environment.getProperty("local.server.port");
+        return ResponseEntity.ok("테스트케이스가 전체 삭제되었습니다.");
     }
 
 }
