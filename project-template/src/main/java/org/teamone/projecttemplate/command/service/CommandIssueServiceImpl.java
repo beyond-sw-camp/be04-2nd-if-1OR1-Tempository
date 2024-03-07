@@ -1,6 +1,7 @@
 package org.teamone.projecttemplate.command.service;
 
 
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
@@ -9,6 +10,8 @@ import org.springframework.stereotype.Service;
 import org.teamone.projecttemplate.command.dto.CommandIssueDTO;
 import org.teamone.projecttemplate.command.entity.CommandIssue;
 import org.teamone.projecttemplate.command.repository.CommandIssueRepository;
+
+import java.util.List;
 
 @Service
 public class CommandIssueServiceImpl implements CommandIssueService {
@@ -23,11 +26,68 @@ public class CommandIssueServiceImpl implements CommandIssueService {
         this.modelMapper = modelMapper;
     }
 
+    /* 설명. Insert, Update Issue */
     @Transactional
     @Override
     public void registIssue(CommandIssueDTO issueDTO) {
         modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
         CommandIssue commandIssue = modelMapper.map(issueDTO, CommandIssue.class);
         commandIssueRepository.save(commandIssue);
+    }
+
+    /* 설명. Modify Issue Status By Project Id*/
+    /* CLOSED */
+    @Transactional
+    @Override
+    public List<CommandIssue> modifyAllStatusToClosedByProjectId(int projectId) {
+        List<CommandIssue> issueList = commandIssueRepository.findAllByProjectId(projectId);
+
+        for (CommandIssue issue : issueList) {
+            issue.setIssueStatus("CLOSED");
+        }
+
+        return commandIssueRepository.saveAll(issueList);
+    }
+
+    /* OPEN */
+    @Transactional
+    @Override
+    public List<CommandIssue> modifyAllStatusToReopenByProjectId(int projectId) {
+        List<CommandIssue> issueList = commandIssueRepository.findAllByProjectId(projectId);
+
+        for (CommandIssue issue : issueList) {
+            issue.setIssueStatus("OPEN");
+        }
+
+        return commandIssueRepository.saveAll(issueList);
+    }
+
+    /* 설명. Delete Issue By Project ID */
+    @Transactional
+    @Override
+    public void removeAllIssueByProjectId(int projectId) {
+        commandIssueRepository.deleteAllByProjectId(projectId);
+    }
+
+    /* 설명. Delete Issue By Issue No */
+    @Transactional
+    @Override
+    public CommandIssueDTO removeIssueByIssueNo(int projectId, int issueNo) {
+        CommandIssue findIssue = commandIssueRepository.findByProjectIdAndIssueNo(projectId, issueNo);
+
+        if (findIssue != null) {
+            commandIssueRepository.deleteByProjectIdAndIssueNo(projectId, issueNo);
+            List<CommandIssue> issueList = commandIssueRepository.findByProjectIdAndIssueNoGreaterThan(projectId, issueNo);
+
+            for (CommandIssue issue: issueList){
+                issue.setIssueNo(issue.getIssueNo() - 1);
+                commandIssueRepository.save(issue);
+            }
+
+            return modelMapper.map(findIssue, CommandIssueDTO.class);
+
+        } else {
+            throw new EntityNotFoundException("해당 프로젝트 ID와 이슈 NO에 대한 이슈가 존재하지 않음");
+        }
     }
 }

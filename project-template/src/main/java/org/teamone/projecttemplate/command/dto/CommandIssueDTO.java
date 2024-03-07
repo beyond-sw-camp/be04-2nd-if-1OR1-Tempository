@@ -1,8 +1,12 @@
 package org.teamone.projecttemplate.command.dto;
 
-import lombok.Data;
+import lombok.*;
 
-@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
+@Setter
+@ToString
 public class CommandIssueDTO {
     private int id;
     private int issueNo;
