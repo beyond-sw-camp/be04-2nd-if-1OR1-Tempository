@@ -5,7 +5,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.teamone.projecttemplate.command.dto.CommandRequirementDTO;
-import org.teamone.projecttemplate.command.dto.CommandTestcaseDTO;
 import org.teamone.projecttemplate.command.entity.CommandRequirement;
 import org.teamone.projecttemplate.command.repository.CommandRequirementRepository;
 
@@ -27,14 +26,10 @@ public class CommandRequirementServiceImpl implements CommandRequirementService{
     @Override
     @Transactional
     public void registRequirement(CommandRequirementDTO commandRequirementDTO) {
-        System.out.println("commandRequirementDTO = " + commandRequirementDTO);
         List<CommandRequirement> commandRequirementList = commandRequirementRepository.findByProjectId(commandRequirementDTO.getProjectId());
-        commandRequirementList.forEach(System.out::println);
 
         int maxNo = commandRequirementList.size();
         commandRequirementDTO.setRequirementNo(maxNo + 1);
-
-        System.out.println("commandRequirementDTO = " + commandRequirementDTO);
 
         CommandRequirement commandRequirement = modelMapper.map(commandRequirementDTO, CommandRequirement.class);
 

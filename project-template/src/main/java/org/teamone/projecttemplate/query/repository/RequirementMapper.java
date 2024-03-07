@@ -7,9 +7,9 @@ import java.util.List;
 
 @Mapper
 public interface RequirementMapper {
-    List<Requirement> findRequirementByProjectId(int projectId);
+    List<Requirement> selectRequirementByProjectId(int projectId);
 
-    List<Requirement> findRequirementBySeparateAndProjectId(Requirement requirement);
+    List<Requirement> selectRequirementBySeparateAndProjectId(Requirement requirement);
 
-    Requirement findRequirementById(int id);
+    Requirement selectRequirementById(int id);
 }

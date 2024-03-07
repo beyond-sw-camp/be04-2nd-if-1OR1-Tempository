@@ -3,7 +3,6 @@ package org.teamone.projecttemplate.command.controller;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,12 +14,12 @@ import org.teamone.projecttemplate.command.vo.RequirementSequenceRequest;
 
 @RestController
 @RequestMapping("/requirement")
-public class RequirementController {
+public class CommandRequirementController {
     private final ModelMapper modelMapper;
     private final CommandRequirementService commandRequirementService;
 
     @Autowired
-    public RequirementController(ModelMapper modelMapper, CommandRequirementService commandRequirementService) {
+    public CommandRequirementController(ModelMapper modelMapper, CommandRequirementService commandRequirementService) {
         this.modelMapper = modelMapper;
         this.commandRequirementService = commandRequirementService;
     }
