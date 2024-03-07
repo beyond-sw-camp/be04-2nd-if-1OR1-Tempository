@@ -31,7 +31,7 @@ public class CommandWbsServiceImpl implements CommandWbsService{
     /* WBS 추가(같은 프로젝트의 마지막 WBS 이후로 WBS NO 설정됨) */
     @Override
     @Transactional
-    public void insertWbs(CommandWbsDTO newWbs) {
+    public void registWbs(CommandWbsDTO newWbs) {
         modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
 
         List<CommandWbs> wbsList = commandWbsRepository.findByProjectId(newWbs.getProjectId());
@@ -45,7 +45,7 @@ public class CommandWbsServiceImpl implements CommandWbsService{
     /* Project ID에 해당하는 WBS 하나 추가(같은 프로젝트의 마지막 WBS 이후로 WBS NO 설정됨) */
     @Override
     @Transactional
-    public CommandWbsDTO insertWbsByProjectId(CommandWbsDTO newWbs) {
+    public CommandWbsDTO registWbsByProjectId(CommandWbsDTO newWbs) {
         modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
 
         List<CommandWbs> wbsList = commandWbsRepository.findByProjectId(newWbs.getProjectId());
@@ -61,7 +61,7 @@ public class CommandWbsServiceImpl implements CommandWbsService{
     /* Project ID에 해당하는 WBS 일괄 추가(같은 프로젝트의 마지막 WBS 이후로 WBS NO 설정됨) */
     @Override
     @Transactional
-    public void insertManyWbsByProjectId(int projectId, List<WbsRequest> wbs) {
+    public void registManyWbsByProjectId(int projectId, List<WbsRequest> wbs) {
         List<CommandWbs> wbsList = new ArrayList<>();
 
         List<CommandWbs> existingWbsList = commandWbsRepository.findByProjectId(projectId);
@@ -137,14 +137,14 @@ public class CommandWbsServiceImpl implements CommandWbsService{
     }
 
 
-    /* delete */
+    /* remove */
     /* 프로젝트 ID, WBS NO에 해당하는 WBS 하나 삭제(wbs no 자동 업데이트 기능 추가) */
     @Override
     @Transactional
-    public CommandWbsDTO deleteWbs(int projectId, int wbsNo) {
+    public CommandWbsDTO removeWbs(int projectId, int wbsNo) {
 
-        CommandWbs deletedWbs = commandWbsRepository.findByProjectIdAndWbsNo(projectId, wbsNo);
-        if (deletedWbs != null) {
+        CommandWbs removedWbs = commandWbsRepository.findByProjectIdAndWbsNo(projectId, wbsNo);
+        if (removedWbs != null) {
 
             commandWbsRepository.deleteByProjectIdAndWbsNo(projectId, wbsNo);
             List<CommandWbs> wbsList = commandWbsRepository.findByProjectIdAndWbsNoGreaterThan(projectId, wbsNo);
@@ -154,7 +154,7 @@ public class CommandWbsServiceImpl implements CommandWbsService{
                 commandWbsRepository.save(wbs);
             }
 
-            return modelMapper.map(deletedWbs, CommandWbsDTO.class);
+            return modelMapper.map(removedWbs, CommandWbsDTO.class);
 
         } else {
             throw new EntityNotFoundException("해당 프로젝트 ID와 WBS NO에 대한 WBS가 존재하지 않음");
@@ -164,7 +164,7 @@ public class CommandWbsServiceImpl implements CommandWbsService{
     /* 프로젝트 ID에 해당하는 WBS 전체 삭제 */
     @Override
     @Transactional
-    public void deleteAllWbsByProjectId(int projectId) {
+    public void removeAllWbsByProjectId(int projectId) {
         commandWbsRepository.deleteAllWbsByProjectId(projectId);
     }
 

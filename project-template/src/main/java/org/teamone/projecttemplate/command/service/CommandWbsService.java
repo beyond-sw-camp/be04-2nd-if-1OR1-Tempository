@@ -8,11 +8,11 @@ import java.util.List;
 
 public interface CommandWbsService {
 
-    void insertWbs(CommandWbsDTO wbsDTO);
+    void registWbs(CommandWbsDTO wbsDTO);
 
-    void insertManyWbsByProjectId(int projectId, List<WbsRequest> wbs);
+    CommandWbsDTO registWbsByProjectId(CommandWbsDTO wbsDTO);
 
-    CommandWbsDTO insertWbsByProjectId(CommandWbsDTO wbsDTO);
+    void registManyWbsByProjectId(int projectId, List<WbsRequest> wbs);
 
     void modifyWbs(CommandWbsDTO wbsDTO);
 
@@ -20,8 +20,8 @@ public interface CommandWbsService {
 
     void modifyWbsContentByProjectIdAndWbsNo(int projectId, int wbsNo, String content);
 
-    CommandWbsDTO deleteWbs(int projectId, int wbsNo);
+    CommandWbsDTO removeWbs(int projectId, int wbsNo);
 
-    void deleteAllWbsByProjectId(int projectId);
+    void removeAllWbsByProjectId(int projectId);
 
 }
