@@ -57,4 +57,17 @@
            AND PROJECT_ID = #{projectId}
          ORDER BY TEST_NO ASC
     </select>
+    <select id="findTestcaseById" resultMap="testcaseMap" parameterType="org.teamone.projecttemplate.query.entity.Testcase">
+        SELECT
+                ID
+              , TEST_NO
+              , SEPARATE
+              , CONTENT
+              , EXPECTED_VALUE
+              , RESULT
+              , NOTE
+              , PROJECT_ID
+          FROM tbl_project_testcase
+         WHERE ID = #{id};
+    </select>
 </mapper>

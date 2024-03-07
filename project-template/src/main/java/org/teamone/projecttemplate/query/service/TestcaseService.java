@@ -43,4 +43,12 @@ public class TestcaseService {
 
         return testcaseList;
     }
+
+    /* 설명. 테스트케이스 id로 테스트케이스 조회 */
+    public Testcase findTestcaseById(int id) {
+        Testcase testcase = testcaseMapper.findTestcaseById(id);
+        System.out.println(testcase);
+
+        return testcase;
+    }
 }
