@@ -23,7 +23,7 @@ public class CommandDefinitionOfTableController {
         this.commandDefinitionOfTableService = commandDefinitionOfTableService;
     }
 
-    /* 설명. ID를 통한 Insert, Update 테이블 정의서 */
+    /* 설명. Insert, Update 테이블 정의서 */
     @PostMapping("/regist_and_modify")
     public ResponseEntity<DefinitionOfTableResponse> registDefinition(@RequestBody DefinitionOfTableRequest definitionOfTableRequest) {
         CommandDefinitionOfTableDTO commandDefinitionOfTableDTO = modelMapper.map(definitionOfTableRequest, CommandDefinitionOfTableDTO.class);
