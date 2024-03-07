@@ -22,12 +22,21 @@ public class CommandDefinitionOfTableServiceImpl implements CommandDefinitionOfT
         this.modelMapper = modelMapper;
     }
 
-    /* 설명. Insert, Update Definition */
+    /* 설명. Insert, Update Definition of Table */
     @Transactional
     @Override
     public void registDefinition(DefinitionOfTableDTO definitionOfTableDTO) {
         modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
         CommandDefinitionOfTable definitionOfTable = modelMapper.map(definitionOfTableDTO, CommandDefinitionOfTable.class);
         commandDefinitionOfTableRepository.save(definitionOfTable);
+    }
+
+    /* 설명. Delete Definition of Table By Project ID */
+    @Transactional
+    @Override
+    public void removeDefinitionByProjectId(DefinitionOfTableDTO definitionOfTableDTO) {
+        modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
+        CommandDefinitionOfTable definitionOfTable = modelMapper.map(definitionOfTableDTO, CommandDefinitionOfTable.class);
+        commandDefinitionOfTableRepository.deleteById(definitionOfTable.getProjectId());
     }
 }

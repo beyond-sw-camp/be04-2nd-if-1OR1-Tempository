@@ -39,4 +39,20 @@ public class DefinitionOfTableController {
         return ResponseEntity.status(HttpStatus.CREATED).body(definitionOfTableResponse);
     }
 
+    /* 설명. 프로젝트 ID를 통한 Delete 테이블 정의서 */
+    @PostMapping("/remove_by_project_id")
+    public ResponseEntity<DefinitionOfTableResponse> removeDefinitionByProjectId(
+            @RequestBody DefinitionOfTableRequest definitionOfTableRequest){
+        DefinitionOfTableDTO definitionOfTableDTO = modelMapper.map(definitionOfTableRequest, DefinitionOfTableDTO.class);
+
+        commandDefinitionOfTableService.removeDefinitionByProjectId(definitionOfTableDTO);
+        DefinitionOfTableResponse definitionOfTableResponse = modelMapper.map(
+                definitionOfTableDTO, DefinitionOfTableResponse.class
+        );
+        return ResponseEntity.status(HttpStatus.CREATED).body(definitionOfTableResponse);
+
+    }
+
+    /* 설명. 테이블 정의서 ID를 통한 Delete 테이블 정의서 */
+
 }
