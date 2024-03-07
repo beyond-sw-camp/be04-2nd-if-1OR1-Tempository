@@ -3,7 +3,11 @@ package org.teamone.projecttemplate.command.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
-@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
+@Setter
+@ToString
 @Entity
 @Table(name="tbl_project_definition_of_table")
 public class CommandDefinitionOfTable {

@@ -1,8 +1,11 @@
 package org.teamone.projecttemplate.command.vo;
 
-import lombok.Data;
+import lombok.*;
 
-@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
+@ToString
 public class DefinitionOfTableResponse {
     private int id;
     private int definitionNo;
