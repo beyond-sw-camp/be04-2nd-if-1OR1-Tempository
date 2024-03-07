@@ -1,7 +1,10 @@
 package org.teamone.projecttemplate.command.service;
 
 import org.teamone.projecttemplate.command.dto.CommandWbsDTO;
+import org.teamone.projecttemplate.command.entity.CommandWbs;
 import org.teamone.projecttemplate.command.vo.WbsResponse;
+
+import java.util.List;
 
 public interface CommandWbsService {
 
@@ -12,4 +15,6 @@ public interface CommandWbsService {
     void deleteWbs(int projectId, int wbsNo);
 
     void deleteAllWbsByProjectId(int projectId);
+
+    List<CommandWbs> modifyAllWbsStatusToCompleted(int projectId);
 }

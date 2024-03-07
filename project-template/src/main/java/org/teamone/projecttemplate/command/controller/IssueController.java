@@ -15,7 +15,7 @@ import org.teamone.projecttemplate.command.vo.IssueRequest;
 import org.teamone.projecttemplate.command.vo.IssueResponse;
 
 @RestController
-@RequestMapping("/")
+@RequestMapping("/issue")
 public class IssueController {
     private Environment env;
     private ModelMapper modelMapper;
@@ -29,7 +29,7 @@ public class IssueController {
     }
 
     /* 설명. ID를 통한 Insert, Update 이슈 */
-    @PostMapping("insert_and_update_issue")
+    @PostMapping("regist_and_modify")
     public ResponseEntity<IssueResponse> registIssue(@RequestBody IssueRequest issueRequest){
         CommandIssueDTO issueDTO = modelMapper.map(issueRequest, CommandIssueDTO.class);
 
@@ -38,5 +38,10 @@ public class IssueController {
 
         return ResponseEntity.status(HttpStatus.CREATED).body(issueResponse);
     }
+
+
+    /* 설명. 프로젝트 ID에 따른 해당 이슈 일괄 삭제 */
+
+    /* 설명. 이슈 ID에 따른 해당 이슈 삭제 */
 
 }

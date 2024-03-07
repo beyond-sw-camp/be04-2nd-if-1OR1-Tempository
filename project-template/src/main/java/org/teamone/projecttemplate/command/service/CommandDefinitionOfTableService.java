@@ -6,4 +6,6 @@ public interface CommandDefinitionOfTableService {
     void registDefinition(DefinitionOfTableDTO definitionOfTableDTO);
 
     void removeDefinitionByProjectId(DefinitionOfTableDTO definitionOfTableDTO);
+
+    void removeDefinitionDefinitionId(DefinitionOfTableDTO definitionOfTableDTO);
 }

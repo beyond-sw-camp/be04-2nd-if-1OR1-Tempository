@@ -25,6 +25,7 @@ public class CommandWbsServiceImpl implements CommandWbsService{
         this.commandWbsRepository = commandWbsRepository;
     }
 
+    /* WBS 추가 */
     @Override
     @Transactional
     public void registWbs(CommandWbsDTO newWbs) {
@@ -38,6 +39,7 @@ public class CommandWbsServiceImpl implements CommandWbsService{
 
     }
 
+    /* Project ID, Wbs No에 해당하는 WBS 수정 */
     @Override
     @Transactional
     public void modifyWbs(CommandWbsDTO updatedWbsDTO) {
@@ -66,6 +68,19 @@ public class CommandWbsServiceImpl implements CommandWbsService{
 
     }
 
+    /* 프로젝트 ID로 wbs 전체 status = completed 상태로 바꾸기(프로젝트 마무리되었을 경우) */
+    @Override
+    @Transactional
+    public List<CommandWbs> modifyAllWbsStatusToCompleted(int projectId) {
+        List<CommandWbs> wbsList = commandWbsRepository.findAllByProjectId(projectId);
+
+        for (CommandWbs wbs : wbsList) {
+            wbs.setTaskStatus("COMPLETED");
+        }
+
+        return commandWbsRepository.saveAll(wbsList);
+    }
+
     /* 프로젝트 ID, WBS NO에 해당하는 WBS 하나 삭제 */
     @Override
     @Transactional
@@ -81,6 +96,7 @@ public class CommandWbsServiceImpl implements CommandWbsService{
 
         commandWbsRepository.deleteAllWbsByProjectId(projectId);
     }
+
 
 
 }
