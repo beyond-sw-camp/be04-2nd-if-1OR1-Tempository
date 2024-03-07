@@ -7,9 +7,9 @@ public interface CommandRequirementService {
 
     void modifyRequirement(CommandRequirementDTO commandRequirementDTO);
 
-    void modifySequenceRequirement(CommandRequirementDTO commandRequirementDTO, int num);
+    CommandRequirementDTO modifyRequirementSequence(CommandRequirementDTO commandRequirementDTO, int num);
 
-    void deleteRequirement(int projectId, int requirementNo);
+    void removeRequirement(int projectId, int requirementNo);
 
-    void deleteAllRequirment(int projectId);
+    void removeAllRequirment(int projectId);
 }

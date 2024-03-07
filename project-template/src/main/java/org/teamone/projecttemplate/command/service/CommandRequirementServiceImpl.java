@@ -27,12 +27,17 @@ public class CommandRequirementServiceImpl implements CommandRequirementService{
     @Override
     @Transactional
     public void registRequirement(CommandRequirementDTO commandRequirementDTO) {
+        System.out.println("commandRequirementDTO = " + commandRequirementDTO);
         List<CommandRequirement> commandRequirementList = commandRequirementRepository.findByProjectId(commandRequirementDTO.getProjectId());
+        commandRequirementList.forEach(System.out::println);
 
         int maxNo = commandRequirementList.size();
         commandRequirementDTO.setRequirementNo(maxNo + 1);
 
+        System.out.println("commandRequirementDTO = " + commandRequirementDTO);
+
         CommandRequirement commandRequirement = modelMapper.map(commandRequirementDTO, CommandRequirement.class);
+
         commandRequirementRepository.save(commandRequirement);
     }
 
@@ -40,15 +45,23 @@ public class CommandRequirementServiceImpl implements CommandRequirementService{
     @Override
     @Transactional
     public void modifyRequirement(CommandRequirementDTO commandRequirementDTO) {
-        CommandRequirement commandRequirement = modelMapper.map(commandRequirementDTO, CommandRequirement.class);
 
-        commandRequirementRepository.save(commandRequirement);
+        CommandRequirement commandRequirement = commandRequirementRepository.findByProjectIdAndRequirementNo(
+                commandRequirementDTO.getProjectId(),
+                commandRequirementDTO.getRequirementNo()
+        );
+
+        commandRequirement.setSeparate(commandRequirementDTO.getSeparate());
+        commandRequirement.setName(commandRequirementDTO.getName());
+        commandRequirement.setContent(commandRequirementDTO.getContent());
+        commandRequirement.setNote(commandRequirementDTO.getNote());
+
     }
 
     /* 설명. 요구사항 명세서 순서 수정(한칸) */
     @Override
     @Transactional
-    public void modifySequenceRequirement(CommandRequirementDTO commandRequirementDTO, int num) {
+    public CommandRequirementDTO modifyRequirementSequence(CommandRequirementDTO commandRequirementDTO, int num) {
 
         int projectId = commandRequirementDTO.getProjectId();
         int requirementNo = commandRequirementDTO.getRequirementNo();
@@ -70,12 +83,17 @@ public class CommandRequirementServiceImpl implements CommandRequirementService{
 
         commandRequirement.setRequirementNo(commandRequirement.getRequirementNo() + num);
         sequenceRequirement.setRequirementNo(sequenceRequirement.getRequirementNo() - num);
+
+        /* 설명. 변경된 DTO 반환 */
+        commandRequirementDTO = modelMapper.map(commandRequirement, CommandRequirementDTO.class);
+
+        return commandRequirementDTO;
     }
 
     /* 설명. 프로젝트 id와 requirementNo로 요구사항 명세서 삭제  */
     @Override
     @Transactional
-    public void deleteRequirement(int projectId, int requirementNo) {
+    public void removeRequirement(int projectId, int requirementNo) {
 
         /* 설명. 프로젝트 id와 requirementNo로 요구사항 명세서 삭제  */
         commandRequirementRepository.deleteByProjectIdAndRequirementNo(projectId, requirementNo);
@@ -91,7 +109,7 @@ public class CommandRequirementServiceImpl implements CommandRequirementService{
 
     @Override
     @Transactional
-    public void deleteAllRequirment(int projectId) {
+    public void removeAllRequirment(int projectId) {
         commandRequirementRepository.deleteAllByProjectId(projectId);
     }
 }

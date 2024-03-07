@@ -1,50 +1,62 @@
 package org.teamone.projecttemplate.command.controller;
 
 import org.modelmapper.ModelMapper;
+import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.teamone.projecttemplate.command.dto.CommandRequirementDTO;
 import org.teamone.projecttemplate.command.service.CommandRequirementService;
 import org.teamone.projecttemplate.command.vo.RequirementRequest;
+import org.teamone.projecttemplate.command.vo.RequirementResponse;
 import org.teamone.projecttemplate.command.vo.RequirementSequenceRequest;
 
 @RestController
 @RequestMapping("/requirement")
 public class RequirementController {
-    private final Environment environment;
-
     private final ModelMapper modelMapper;
     private final CommandRequirementService commandRequirementService;
 
     @Autowired
-    public RequirementController(Environment environment,ModelMapper modelMapper, CommandRequirementService commandRequirementService) {
-        this.environment = environment;
+    public RequirementController(ModelMapper modelMapper, CommandRequirementService commandRequirementService) {
         this.modelMapper = modelMapper;
         this.commandRequirementService = commandRequirementService;
     }
 
     /* 설명. 요구사항 명세서 추가(RequirementNo 자동 추가) */
     @PostMapping("/regist")
-    public String registRequirement(@RequestBody RequirementRequest requirementRequest) {
+    public ResponseEntity<RequirementResponse> registRequirement(@RequestBody RequirementRequest requirementRequest) {
+        modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
         CommandRequirementDTO commandRequirementDTO = modelMapper.map(requirementRequest, CommandRequirementDTO.class);
+
         commandRequirementService.registRequirement(commandRequirementDTO);
 
-        return "Server at " + environment.getProperty("local.server.port");
+        RequirementResponse requirementResponse = modelMapper.map(commandRequirementDTO, RequirementResponse.class);
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(requirementResponse);
     }
 
     /* 설명. 요구사항 명세서 수정 */
-    @PostMapping("/modify")
-    public String modifyRequirement(@RequestBody RequirementRequest requirementRequest) {
+    @PutMapping("/modify")
+    public ResponseEntity<RequirementResponse> modifyRequirement(
+            @RequestBody RequirementRequest requirementRequest) {
+        modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
         CommandRequirementDTO commandRequirementDTO = modelMapper.map(requirementRequest, CommandRequirementDTO.class);
+
         commandRequirementService.modifyRequirement(commandRequirementDTO);
 
-        return "Server at " + environment.getProperty("local.server.port");
+        RequirementResponse requirementResponse = modelMapper.map(commandRequirementDTO, RequirementResponse.class);
+
+        return ResponseEntity.status(HttpStatus.OK).body(requirementResponse);
     }
 
     /* 설명. 요구사항 명세서 순서 수정(한칸) */
-    @PostMapping("/modify/sequence")
-    public String modifySequenceRequirement(@RequestBody RequirementSequenceRequest requirementSequenceRequest) {
+    @PutMapping("/modify/sequence")
+    public ResponseEntity<RequirementResponse> modifyRequirementSequence(
+            @RequestBody RequirementSequenceRequest requirementSequenceRequest) {
+        modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
         CommandRequirementDTO commandRequirementDTO = new CommandRequirementDTO();
 
         commandRequirementDTO.setRequirementNo(requirementSequenceRequest.getRequirementNo());
@@ -52,31 +64,30 @@ public class RequirementController {
 
         int num = requirementSequenceRequest.getNum();
 
-        commandRequirementService.modifySequenceRequirement(commandRequirementDTO, num);
+        commandRequirementDTO = commandRequirementService.modifyRequirementSequence(commandRequirementDTO, num);
 
-        return "Server at " + environment.getProperty("local.server.port");
+        RequirementResponse requirementResponse = modelMapper.map(commandRequirementDTO, RequirementResponse.class);
+
+        return ResponseEntity.status(HttpStatus.OK).body(requirementResponse);
     }
 
 
     /* 설명. 프로젝트 id와 requirementNo로 요구사항 명세서 삭제 */
-    @PostMapping("/delete/{projectId}/{requirementNo}")
-    public String deleteRequirement(
+    @DeleteMapping("/remove/{projectId}/{requirementNo}")
+    public ResponseEntity<String> removeRequirement(
             @PathVariable("projectId") int projectId,
             @PathVariable("requirementNo") int requirementNo){
 
-        System.out.println("=========================");
-        System.out.println("projectId = " + projectId);
-        System.out.println("requirementNo = " + requirementNo);
-        commandRequirementService.deleteRequirement(projectId, requirementNo);
+        commandRequirementService.removeRequirement(projectId, requirementNo);
 
-        return "Server at " + environment.getProperty("local.server.port");
+        return ResponseEntity.ok("요구사항 명세서가 삭제되었습니다.");
     }
 
     /* 설명. 프로젝트 id로 요구사항 명세서 전체 삭제 */
-    @PostMapping("/deleteAll/{projectId}")
-    public String deleteAllRequirement(@PathVariable("projectId") int projectId) {
-        commandRequirementService.deleteAllRequirment(projectId);
+    @DeleteMapping("/removeAll/{projectId}")
+    public ResponseEntity<String> removeAllRequirement(@PathVariable("projectId") int projectId) {
+        commandRequirementService.removeAllRequirment(projectId);
 
-        return "Server at " + environment.getProperty("local.server.port");
+        return ResponseEntity.ok("테스트케이스가 전체 삭제되었습니다.");
     }
 }
