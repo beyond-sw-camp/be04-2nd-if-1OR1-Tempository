@@ -29,7 +29,7 @@ public class CommandIssueController {
     }
 
     /* 설명. Insert, Update 이슈 */
-    @PostMapping("regist_and_modify")
+    @PostMapping("regist-and-modify")
     public ResponseEntity<IssueResponse> registIssue(@RequestBody IssueRequest issueRequest){
         CommandIssueDTO commandIssueDTO = modelMapper.map(issueRequest, CommandIssueDTO.class);
 

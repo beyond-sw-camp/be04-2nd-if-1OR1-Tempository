@@ -14,6 +14,7 @@
         <result property="issueStatus" column="ISSUE_STATUS"/>
         <result property="issueContent" column="ISSUE_CONTENT"/>
     </resultMap>
+
     <select id="selectIssueByProjectId" resultMap="findListOfIssueMap">
         SELECT
         ID
@@ -27,6 +28,7 @@
         FROM TBL_PROJECT_ISSUE
         WHERE PROJECT_ID = #{projectId}
     </select>
+
     <select id="selectIssueByStatus" resultMap="findListOfIssueMap">
         SELECT
         ID

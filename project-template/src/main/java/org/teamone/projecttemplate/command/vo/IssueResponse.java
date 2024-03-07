@@ -8,7 +8,6 @@ import lombok.*;
 @Setter
 @ToString
 public class IssueResponse {
-    private int id;
     private int issueNo;
     private String issueName;
     private String issueStatus;

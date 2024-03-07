@@ -18,6 +18,7 @@
         <result property="dataType" column="DATA_TYPE"/>
         <result property="note" column="NOTE"/>
     </resultMap>
+
     <select id="selectAllDefinitionOfTables" resultMap="selectAllDefinitionMap">
         SELECT
             DEFINITION_NO

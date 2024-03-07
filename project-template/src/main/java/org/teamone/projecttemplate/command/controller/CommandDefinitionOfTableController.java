@@ -24,7 +24,7 @@ public class CommandDefinitionOfTableController {
     }
 
     /* 설명. Insert, Update 테이블 정의서 */
-    @PostMapping("/regist_and_modify")
+    @PostMapping("/regist-and-modify")
     public ResponseEntity<DefinitionOfTableResponse> registDefinition(@RequestBody DefinitionOfTableRequest definitionOfTableRequest) {
         CommandDefinitionOfTableDTO commandDefinitionOfTableDTO = modelMapper.map(definitionOfTableRequest, CommandDefinitionOfTableDTO.class);
 

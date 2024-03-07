@@ -8,7 +8,6 @@ import lombok.*;
 @Setter
 @ToString
 public class DefinitionOfTableResponse {
-    private int id;
     private int definitionNo;
     private String tableName;
     private String propertyName;
