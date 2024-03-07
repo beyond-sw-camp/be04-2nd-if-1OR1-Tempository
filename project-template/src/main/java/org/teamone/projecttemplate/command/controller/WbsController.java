@@ -1,6 +1,5 @@
 package org.teamone.projecttemplate.command.controller;
 
-import jakarta.ws.rs.Path;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,9 +8,13 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.teamone.projecttemplate.command.dto.CommandWbsDTO;
+import org.teamone.projecttemplate.command.entity.CommandWbs;
 import org.teamone.projecttemplate.command.service.CommandWbsService;
 import org.teamone.projecttemplate.command.vo.WbsRequest;
 import org.teamone.projecttemplate.command.vo.WbsResponse;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/wbs")
@@ -37,7 +40,7 @@ public class WbsController {
     }
 
 
-    /* wbs 추가 */
+    /* WBS 추가 */
     @PostMapping("/regist")
     public ResponseEntity<WbsResponse> registWbs(@RequestBody WbsRequest wbs) {
 
@@ -54,7 +57,7 @@ public class WbsController {
         return ResponseEntity.status(HttpStatus.CREATED).body(wbsResponse);
     }
 
-    /* wbs 수정 */
+    /* Project ID, Wbs No에 해당하는 WBS 수정 */
     @PutMapping("/modify/{projectId}/{wbsNo}")
     public ResponseEntity<WbsResponse> modifyWbs(@PathVariable("projectId") int projectId,
                                                  @PathVariable("wbsNo") int wbsNo,
@@ -72,13 +75,32 @@ public class WbsController {
         // commandWbsDTO를 사용하여 wbs 엔티티 수정
         commandWbsService.modifyWbs(wbsDTO);
 
-        // 수정된 WBS 엔티티(받은 DTO)를 wbsresponse라는 vo로 변환
+        // 수정된 WBS 엔티티(받은 DTO)를 wbs response라는 vo로 변환
         WbsResponse wbsResponse = modelMapper.map(wbsDTO, WbsResponse.class);
 
         // responseentity로 반환
         return ResponseEntity.ok().body(wbsResponse);
 
     }
+
+    /* 프로젝트 ID로 wbs 전체 status = completed 상태로 바꾸기(프로젝트 마무리되었을 경우) */
+    @PutMapping("/modify/completed/{projectId}")
+    public ResponseEntity<List<WbsResponse>> modifyAllWbsStatusToCompleted(@PathVariable("projectId") int projectId) {
+        modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
+
+        // service 메소드 호출
+        List<CommandWbs> modifiedWbsList = commandWbsService.modifyAllWbsStatusToCompleted(projectId);
+
+        // 변경된 wbs들 DTO로 변환
+        List<WbsResponse> wbsResponse = modifiedWbsList.stream()
+                .map(wbs -> modelMapper.map(wbs, WbsResponse.class))
+                .collect(Collectors.toList());
+
+        return ResponseEntity.ok().body(wbsResponse);
+
+    }
+
+
 
     /* 프로젝트 ID, WBS NO에 해당하는 WBS 하나 삭제 */
     @DeleteMapping("/delete/{projectId}/{wbsNo}")
