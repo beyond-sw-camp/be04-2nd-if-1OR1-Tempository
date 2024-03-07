@@ -22,7 +22,8 @@
               , NOTE
               , PROJECT_ID
           FROM TBL_PROJECT_REQUIREMENT
-         WHERE PROJECT_ID = #{ projectId }
+         WHERE PROJECT_ID = #{projectId}
+         ORDER BY REQUIREMENT_NO ASC
     </select>
     <select id="requirementInfoBySeparateAndProjectId" resultMap="requirementResultMap" parameterType="org.teamone.projecttemplate.query.entity.Requirement">
         SELECT
@@ -35,6 +36,7 @@
               , PROJECT_ID
           FROM TBL_PROJECT_REQUIREMENT
          WHERE SEPARATE LIKE '%' #{separate} '%'
-           AND PROJECT_ID = #{projectId};
+           AND PROJECT_ID = #{projectId}
+         ORDER BY REQUIREMENT_NO ASC
     </select>
 </mapper>
