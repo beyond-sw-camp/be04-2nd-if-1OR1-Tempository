@@ -53,20 +53,12 @@ public class SecurityConfiguration {
         http
                 .authorizeHttpRequests((auth) -> auth
                         .requestMatchers(new AntPathRequestMatcher("/auth/**")).permitAll()
-                        .requestMatchers(new AntPathRequestMatcher("/error")).permitAll()
+                        .requestMatchers(new AntPathRequestMatcher("/**")).permitAll()
                         .anyRequest().authenticated()
                 )
-                .authenticationManager(authenticationManager);
-//                // 세션 관리를 상태 없이 설정
-//                .sessionManagement((session) -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-
-
-
-//        // 로그인 페이지 경로 변경
-//        http
-//                .formLogin(auth -> auth
-//                        .loginPage("/auth/login")
-//                        .permitAll());
+                .authenticationManager(authenticationManager)
+                // 세션 관리를 상태 없이 설정
+                .sessionManagement((session) -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
 
         http.addFilter(getAuthenticationFilter(authenticationManager));
 
