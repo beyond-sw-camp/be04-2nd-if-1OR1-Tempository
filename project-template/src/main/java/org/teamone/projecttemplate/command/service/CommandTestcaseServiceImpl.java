@@ -13,8 +13,8 @@ import java.util.List;
 
 @Service
 public class CommandTestcaseServiceImpl implements CommandTestcaseService {
-    private CommandTestcaseRepository commandTestcaseRepository;
-    private ModelMapper modelMapper;
+    private final CommandTestcaseRepository commandTestcaseRepository;
+    private final ModelMapper modelMapper;
 
     @Autowired
     public CommandTestcaseServiceImpl(CommandTestcaseRepository commandTestcaseRepository, ModelMapper modelMapper) {
