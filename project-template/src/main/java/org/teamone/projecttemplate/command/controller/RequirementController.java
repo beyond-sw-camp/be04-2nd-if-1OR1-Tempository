@@ -53,5 +53,11 @@ public class RequirementController {
         return "Server at " + environment.getProperty("local.server.port");
     }
 
-    /* 설명. 요구사항 명세서 전체 삭제 */
+    /* 설명. 프로젝트 id로 요구사항 명세서 전체 삭제 */
+    @PostMapping("/deleteAll")
+    public String deleteAllRequirement(@RequestParam("projectId") int projectId) {
+        commandRequirementService.deleteAllRequirment(projectId);
+
+        return "Server at " + environment.getProperty("local.server.port");
+    }
 }

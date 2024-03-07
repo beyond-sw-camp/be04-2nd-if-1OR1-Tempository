@@ -87,4 +87,10 @@ public class CommandRequirementServiceImpl implements CommandRequirementService{
 
         commandRequirementRepository.deleteById(id);
     }
+
+    @Override
+    @Transactional
+    public void deleteAllRequirment(int projectId) {
+        commandRequirementRepository.deleteAllByProjectId(projectId);
+    }
 }

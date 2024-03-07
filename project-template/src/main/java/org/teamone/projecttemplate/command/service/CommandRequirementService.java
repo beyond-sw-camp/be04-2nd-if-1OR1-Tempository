@@ -11,4 +11,6 @@ public interface CommandRequirementService {
     void modifySequenceRequirement(int id, int num);
 
     void deleteRequirement(int id);
+
+    void deleteAllRequirment(int projectId);
 }
