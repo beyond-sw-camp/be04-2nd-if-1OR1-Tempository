@@ -7,11 +7,11 @@ import java.util.List;
 
 @Mapper
 public interface TestcaseMapper {
-    List<Testcase> findTestcaseByProjectId(int projectId);
+    List<Testcase> selectTestcaseByProjectId(int projectId);
 
-    List<Testcase> findTestcaseBySeparateAndProjectId(Testcase testcase);
+    List<Testcase> selectTestcaseBySeparateAndProjectId(Testcase testcase);
 
-    List<Testcase> findTestcaseByResultAndProjectId(Testcase testcase);
+    List<Testcase> selectTestcaseByResultAndProjectId(Testcase testcase);
 
-    Testcase findTestcaseById(int id);
+    Testcase selectTestcaseById(int id);
 }

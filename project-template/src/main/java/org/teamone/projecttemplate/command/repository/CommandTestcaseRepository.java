@@ -10,8 +10,6 @@ import java.util.List;
 public interface CommandTestcaseRepository extends JpaRepository<CommandTestcase, Integer> {
     List<CommandTestcase> findByProjectId(int projectId);
 
-    List<CommandTestcase> findByProjectIdOrderByTestNoAsc(int projectId);
-
     CommandTestcase findByProjectIdAndTestNo(int projectId, int testNo);
 
     void deleteAllByProjectId(int projectId);

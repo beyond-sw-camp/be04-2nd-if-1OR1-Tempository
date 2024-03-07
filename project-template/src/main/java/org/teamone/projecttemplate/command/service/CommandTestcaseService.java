@@ -1,6 +1,5 @@
 package org.teamone.projecttemplate.command.service;
 
-import org.springframework.web.bind.annotation.PathVariable;
 import org.teamone.projecttemplate.command.dto.CommandTestcaseDTO;
 
 public interface CommandTestcaseService {

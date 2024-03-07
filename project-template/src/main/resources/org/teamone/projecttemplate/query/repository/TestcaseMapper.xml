@@ -3,6 +3,7 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.teamone.projecttemplate.query.repository.TestcaseMapper">
+
     <resultMap id="testcaseMap" type="org.teamone.projecttemplate.query.entity.Testcase">
         <id property="id" column="ID"/>
         <result property="testNo" column="TEST_NO"/>
@@ -13,7 +14,8 @@
         <result property="note" column="NOTE"/>
         <result property="projectId" column="PROJECT_ID"/>
     </resultMap>
-    <select id="findTestcaseByProjectId" resultMap="testcaseMap" parameterType="org.teamone.projecttemplate.query.entity.Testcase">
+
+    <select id="selectTestcaseByProjectId" resultMap="testcaseMap" parameterType="org.teamone.projecttemplate.query.entity.Testcase">
         SELECT
                 ID
               , TEST_NO
@@ -27,7 +29,8 @@
          WHERE PROJECT_ID = #{projectId}
         ORDER BY TEST_NO ASC
     </select>
-    <select id="findTestcaseBySeparateAndProjectId" resultMap="testcaseMap" parameterType="org.teamone.projecttemplate.query.entity.Testcase">
+
+    <select id="selectTestcaseBySeparateAndProjectId" resultMap="testcaseMap" parameterType="org.teamone.projecttemplate.query.entity.Testcase">
         SELECT
                 ID
               , TEST_NO
@@ -42,7 +45,8 @@
            AND PROJECT_ID = #{projectId}
          ORDER BY TEST_NO ASC
     </select>
-    <select id="findTestcaseByResultAndProjectId" resultMap="testcaseMap" parameterType="org.teamone.projecttemplate.query.entity.Testcase">
+
+    <select id="selectTestcaseByResultAndProjectId" resultMap="testcaseMap" parameterType="org.teamone.projecttemplate.query.entity.Testcase">
         SELECT
                 ID
               , TEST_NO
@@ -57,7 +61,8 @@
            AND PROJECT_ID = #{projectId}
          ORDER BY TEST_NO ASC
     </select>
-    <select id="findTestcaseById" resultMap="testcaseMap" parameterType="org.teamone.projecttemplate.query.entity.Testcase">
+
+    <select id="selectTestcaseById" resultMap="testcaseMap" parameterType="org.teamone.projecttemplate.query.entity.Testcase">
         SELECT
                 ID
               , TEST_NO
@@ -70,4 +75,5 @@
           FROM tbl_project_testcase
          WHERE ID = #{id};
     </select>
+
 </mapper>

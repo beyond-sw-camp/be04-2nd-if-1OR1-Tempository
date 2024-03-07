@@ -3,7 +3,6 @@ package org.teamone.projecttemplate.command.controller;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,13 +14,13 @@ import org.teamone.projecttemplate.command.vo.TestcaseSequenceRequest;
 
 @RestController
 @RequestMapping("/testcase")
-public class TestcaseController {
+public class CommandTestcaseController {
     private final CommandTestcaseService commandTestcaseService;
 
     private final ModelMapper modelMapper;
 
     @Autowired
-    public TestcaseController(CommandTestcaseService commandTestcaseService, ModelMapper modelMapper) {
+    public CommandTestcaseController(CommandTestcaseService commandTestcaseService, ModelMapper modelMapper) {
         this.commandTestcaseService = commandTestcaseService;
         this.modelMapper = modelMapper;
     }
