@@ -12,7 +12,7 @@ import org.teamone.projecttemplate.command.vo.DefinitionOfTableRequest;
 import org.teamone.projecttemplate.command.vo.DefinitionOfTableResponse;
 
 @RestController
-@RequestMapping("/")
+@RequestMapping("/definition")
 public class DefinitionOfTableController {
     private Environment env;
     private ModelMapper modelMapper;
@@ -28,7 +28,7 @@ public class DefinitionOfTableController {
     }
 
     /* 설명. ID를 통한 Insert, Update 테이블 정의서 */
-    @PostMapping("/insert_and_update_definitions")
+    @PostMapping("/regist_and_modify")
     public ResponseEntity<DefinitionOfTableResponse> registDefinition(@RequestBody DefinitionOfTableRequest definitionOfTableRequest) {
         DefinitionOfTableDTO definitionOfTableDTO = modelMapper.map(definitionOfTableRequest, DefinitionOfTableDTO.class);
 
@@ -50,9 +50,19 @@ public class DefinitionOfTableController {
                 definitionOfTableDTO, DefinitionOfTableResponse.class
         );
         return ResponseEntity.status(HttpStatus.CREATED).body(definitionOfTableResponse);
-
     }
 
     /* 설명. 테이블 정의서 ID를 통한 Delete 테이블 정의서 */
+    @PostMapping("/remove_by_deifintion_id")
+    public ResponseEntity<DefinitionOfTableResponse> removeDefinitionByDefinitionId(
+            @RequestBody DefinitionOfTableRequest definitionOfTableRequest){
+        DefinitionOfTableDTO definitionOfTableDTO = modelMapper.map(definitionOfTableRequest, DefinitionOfTableDTO.class);
+
+        commandDefinitionOfTableService.removeDefinitionDefinitionId(definitionOfTableDTO);
+        DefinitionOfTableResponse definitionOfTableResponse = modelMapper.map(
+                definitionOfTableDTO, DefinitionOfTableResponse.class
+        );
+        return ResponseEntity.status(HttpStatus.CREATED).body(definitionOfTableResponse);
+    }
 
 }

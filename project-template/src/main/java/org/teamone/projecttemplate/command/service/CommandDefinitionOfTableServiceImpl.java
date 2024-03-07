@@ -39,4 +39,13 @@ public class CommandDefinitionOfTableServiceImpl implements CommandDefinitionOfT
         CommandDefinitionOfTable definitionOfTable = modelMapper.map(definitionOfTableDTO, CommandDefinitionOfTable.class);
         commandDefinitionOfTableRepository.deleteById(definitionOfTable.getProjectId());
     }
+
+    /* 설명. Delete Definition of Table By Table ID */
+    @Transactional
+    @Override
+    public void removeDefinitionDefinitionId(DefinitionOfTableDTO definitionOfTableDTO) {
+        modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
+        CommandDefinitionOfTable definitionOfTable = modelMapper.map(definitionOfTableDTO, CommandDefinitionOfTable.class);
+        commandDefinitionOfTableRepository.deleteById(definitionOfTable.getId());
+    }
 }
