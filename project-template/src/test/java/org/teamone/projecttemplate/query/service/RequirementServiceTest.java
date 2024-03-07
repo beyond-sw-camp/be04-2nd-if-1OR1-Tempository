@@ -37,4 +37,14 @@ class RequirementServiceTest {
 
         Assertions.assertNotNull(requirementList);
     }
+
+    @DisplayName("요구사항 id로 요구사항 조회")
+    @Test
+    void findRequirementById() {
+        int id  = 1;
+
+        Requirement requirement = requirementService.findRequirementById(id);
+
+        Assertions.assertNotNull(requirement);
+    }
 }
