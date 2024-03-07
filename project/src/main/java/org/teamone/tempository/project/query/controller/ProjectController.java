@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import org.teamone.tempository.project.query.dto.ProjectDTO;
 import org.teamone.tempository.project.query.service.ProjectService;
 import org.teamone.tempository.project.query.vo.ResponseProject;
+import org.teamone.tempository.project.query.vo.ResponseProjectIssue;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -69,10 +70,10 @@ public class ProjectController {
 
         List<ProjectDTO> projectId = projectService.getProjectJoinUserById(id);
 
-        List<ResponseProject> responseProjects = ProjectDTOToResponseProject(projectId);
+        List<ResponseProject> responseProjectJoinMemberList = ProjectDTOToResponseProject(projectId);
 
 
-        return ResponseEntity.status(HttpStatus.OK).body(responseProjects);
+        return ResponseEntity.status(HttpStatus.OK).body(responseProjectJoinMemberList);
     }
 
     private List<ResponseProject> ProjectDTOToResponseProject(List<ProjectDTO> projectId) {
@@ -87,7 +88,7 @@ public class ProjectController {
             responseProject.setPublic(projectDTO.isPublic());
             responseProject.setLikeCnt(projectDTO.getLikeCnt());
             responseProject.setStatus(projectDTO.getStatus());
-            responseProject.setProjectMemberList(projectDTO.getProjectMemberList());
+            responseProject.setProjectMemberDTOList(projectDTO.getProjectMemberList());
 
             responseProjectData.add(responseProject);
 
@@ -95,6 +96,35 @@ public class ProjectController {
 
         return responseProjectData;
 
+    }
+
+    /* 설명. 프로젝트에 대한 이슈 조회 기능 */
+    @GetMapping("/findProjectIssue/{id}")
+    public ResponseEntity<List<ResponseProjectIssue>> getProjectIssueInfoById(@PathVariable String id) {
+
+
+        List<ProjectDTO> projectId = projectService.getProjectIssueById(id);
+
+        List<ResponseProjectIssue> responseProjectIssueList = ProjectDTOToResponseProjectIssue(projectId);
+
+        return ResponseEntity.status(HttpStatus.OK).body(responseProjectIssueList);
+    }
+
+    private List<ResponseProjectIssue> ProjectDTOToResponseProjectIssue(List<ProjectDTO> projectId) {
+        List<ResponseProjectIssue> responseProjectData = new ArrayList<>();
+
+        for (ProjectDTO projectDTO : projectId)
+        {
+            ResponseProjectIssue responseProjectIssue = new ResponseProjectIssue();
+            responseProjectIssue.setId(projectDTO.getId());
+            responseProjectIssue.setProjectIssueDTOList(projectDTO.getProjectIssueList());
+
+            responseProjectData.add(responseProjectIssue);
+        }
+        System.out.println("responseProjectData = " + responseProjectData);
+
+
+        return responseProjectData;
     }
 
 

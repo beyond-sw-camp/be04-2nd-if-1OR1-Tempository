@@ -17,4 +17,6 @@ public interface ProjectService {
 
 
     List<ProjectDTO> getProjectJoinUserById(String id);
+
+    List<ProjectDTO> getProjectIssueById(String id);
 }

@@ -2,7 +2,6 @@ package org.teamone.tempository.project.query.dto;
 
 import lombok.Data;
 import org.teamone.tempository.project.command.type.ProjectStatus;
-import org.teamone.tempository.project.query.entity.ProjectMember;
 
 import java.util.List;
 
@@ -18,4 +17,5 @@ public class ProjectDTO {
     private ProjectStatus status;
     private String content;
     private List<ProjectMemberDTO> projectMemberList;
+    private List<ProjectIssueDTO> projectIssueList;
 }

@@ -1,13 +1,14 @@
 package org.teamone.tempository.project.query.entity;
 
-import jakarta.persistence.*;
-import lombok.Data;
+import lombok.*;
 import org.teamone.tempository.project.command.type.ProjectStatus;
-import org.teamone.tempository.project.query.dto.ProjectDTO;
 
 import java.util.List;
 
-@Data
+@Getter
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString
 public class Project {
 
     private int id;
@@ -22,5 +23,6 @@ public class Project {
     private String content;
 
     private List<ProjectMember> projectMemberList;
+    private List<ProjectIssue> projectIssueList;
 
 }

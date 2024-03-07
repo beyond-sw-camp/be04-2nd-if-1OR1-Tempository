@@ -20,4 +20,6 @@ public interface ProjectMapper {
     List<Project> getProjectInfoById(int id);
 
     List<Project> getProjectJoinUserById(String id);
+
+    List<Project> getProjectIssueById(String id);
 }

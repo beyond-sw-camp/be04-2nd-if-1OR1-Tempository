@@ -1,12 +1,13 @@
 package org.teamone.tempository.project.query.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.teamone.tempository.project.query.dao.ProjectMapper;
 import org.teamone.tempository.project.query.dto.ProjectDTO;
+import org.teamone.tempository.project.query.dto.ProjectIssueDTO;
 import org.teamone.tempository.project.query.dto.ProjectMemberDTO;
 import org.teamone.tempository.project.query.entity.Project;
+import org.teamone.tempository.project.query.entity.ProjectIssue;
 import org.teamone.tempository.project.query.entity.ProjectMember;
 
 import java.util.ArrayList;
@@ -64,22 +65,23 @@ public class ProjectServiceImpl implements ProjectService{
     }
 
 
+    /* 설명. 프로젝트 참여 회원 조회 기능*/
     @Override
     public List<ProjectDTO> getProjectJoinUserById(String id) {
+
         List<Project> project = projectMapper.getProjectJoinUserById(id);
 
-        System.out.println("service = " + project);
 
-        List<ProjectDTO> projectDTOS = projectToProjectDTO(project);
+        List<ProjectDTO> projectDTOJoinMember = projectToProjectDTOMember(project);
 
-        System.out.println("projectDTOS = " + projectDTOS);
 
-        return projectDTOS;
+        return projectDTOJoinMember;
     }
 
-    private List<ProjectDTO> projectToProjectDTO(List<Project> projectList) {
+    private List<ProjectDTO> projectToProjectDTOMember(List<Project> projectList) {
 
-        List<ProjectDTO> projectDTOList = new ArrayList<>();
+        List<ProjectDTO> projectDTOMemberList = new ArrayList<>();
+
         for (Project project : projectList)
         {
             ProjectDTO projectDTO = new ProjectDTO();
@@ -92,11 +94,13 @@ public class ProjectServiceImpl implements ProjectService{
             projectDTO.setContent(project.getContent());
 
             List<ProjectMember> projectMemberList = project.getProjectMemberList();
-            System.out.println("service2 = " + projectMemberList);
 
             List<ProjectMemberDTO> projectMemberDTOList = new ArrayList<>();
+
             for (ProjectMember projectMember : projectMemberList) {
+
                 ProjectMemberDTO projectMemberDTO = new ProjectMemberDTO();
+
                 projectMemberDTO.setProjectId(projectMember.getProjectId());
                 projectMemberDTO.setMemberId(projectMember.getMemberId());
                 projectMemberDTO.setMemberStatus(projectMember.getMemberStatus());
@@ -104,13 +108,58 @@ public class ProjectServiceImpl implements ProjectService{
 
                 projectMemberDTOList.add(projectMemberDTO);
             }
-            System.out.println("service3 = " + projectMemberDTOList);
 
             projectDTO.setProjectMemberList(projectMemberDTOList);
-            projectDTOList.add(projectDTO);
+            projectDTOMemberList.add(projectDTO);
         }
 
-        System.out.println("service4 = " + projectDTOList);
-        return projectDTOList;
+        return projectDTOMemberList;
+    }
+
+    /* 설명. 프로젝트의 모든 프로젝트 이슈 조회 기능 */
+    @Override
+    public List<ProjectDTO> getProjectIssueById(String id) {
+
+        List<Project> project = projectMapper.getProjectIssueById(id);
+
+        List<ProjectDTO> projectDTOIssue = projectToProjectDTOIssue(project);
+
+        return projectDTOIssue;
+
+    }
+
+    private List<ProjectDTO> projectToProjectDTOIssue(List<Project> projectList) {
+
+        List<ProjectDTO> projectDTOIssueList = new ArrayList<>();
+
+        for (Project project : projectList)
+        {
+            ProjectDTO projectDTO = new ProjectDTO();
+
+            projectDTO.setId(project.getId());
+
+            List<ProjectIssue> projectIssueList = project.getProjectIssueList();
+
+            List<ProjectIssueDTO> projectIssueDTOList = new ArrayList<>();
+
+            for (ProjectIssue projectIssue : projectIssueList) {
+                ProjectIssueDTO projectIssueDTO = new ProjectIssueDTO();
+
+                projectIssueDTO.setIssueNo(projectIssue.getIssueNo());
+                projectIssueDTO.setIssueName(projectIssue.getIssueName());
+                projectIssueDTO.setIssueContent(projectIssue.getIssueContent());
+                projectIssueDTO.setIssueStatus(projectIssue.getIssueStatus());
+                projectIssueDTO.setProjectId(projectIssue.getProjectId());
+                projectIssueDTO.setManagerId(projectIssue.getManagerId());
+                projectIssueDTO.setWriterId(projectIssue.getWriterId());
+
+                projectIssueDTOList.add(projectIssueDTO);
+            }
+
+            projectDTO.setProjectIssueList(projectIssueDTOList);
+            projectDTOIssueList.add(projectDTO);
+        }
+
+        return projectDTOIssueList;
     }
 }
