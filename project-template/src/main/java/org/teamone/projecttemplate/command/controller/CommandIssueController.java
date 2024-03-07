@@ -3,7 +3,6 @@ package org.teamone.projecttemplate.command.controller;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,13 +17,13 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/issue")
-public class IssueController {
+public class CommandIssueController {
     private ModelMapper modelMapper;
     private CommandIssueService commandIssueService;
 
     @Autowired
-    public IssueController(ModelMapper modelMapper,
-                           CommandIssueService commandIssueService) {
+    public CommandIssueController(ModelMapper modelMapper,
+                                  CommandIssueService commandIssueService) {
         this.modelMapper = modelMapper;
         this.commandIssueService = commandIssueService;
     }
@@ -32,10 +31,10 @@ public class IssueController {
     /* 설명. ID를 통한 Insert, Update 이슈 */
     @PostMapping("regist_and_modify")
     public ResponseEntity<IssueResponse> registIssue(@RequestBody IssueRequest issueRequest){
-        CommandIssueDTO issueDTO = modelMapper.map(issueRequest, CommandIssueDTO.class);
+        CommandIssueDTO commandIssueDTO = modelMapper.map(issueRequest, CommandIssueDTO.class);
 
-        commandIssueService.registIssue(issueDTO);
-        IssueResponse issueResponse = modelMapper.map(issueDTO, IssueResponse.class);
+        commandIssueService.registIssue(commandIssueDTO);
+        IssueResponse issueResponse = modelMapper.map(commandIssueDTO, IssueResponse.class);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(issueResponse);
     }
@@ -46,9 +45,9 @@ public class IssueController {
     public ResponseEntity<List<IssueResponse>> modifyAllStatusToClosedByProjectId(@PathVariable("projectId") int projectId) {
         modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
 
-        List<CommandIssue> modifyIssueList = commandIssueService.modifyAllStatusToClosedByProjectId(projectId);
+        List<CommandIssue> modifyCommandIssueList = commandIssueService.modifyAllStatusToClosedByProjectId(projectId);
 
-        List<IssueResponse> issueResponses = modifyIssueList.stream()
+        List<IssueResponse> issueResponses = modifyCommandIssueList.stream()
                 .map(dot -> modelMapper.map(dot, IssueResponse.class))
                 .collect(Collectors.toList());
 
@@ -60,9 +59,9 @@ public class IssueController {
     public ResponseEntity<List<IssueResponse>> modifyAllStatusToReopenByProjectId(@PathVariable("projectId") int projectId) {
         modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
 
-        List<CommandIssue> modifyIssueList = commandIssueService.modifyAllStatusToReopenByProjectId(projectId);
+        List<CommandIssue> modifyCommandIssueList = commandIssueService.modifyAllStatusToReopenByProjectId(projectId);
 
-        List<IssueResponse> issueResponses = modifyIssueList.stream()
+        List<IssueResponse> issueResponses = modifyCommandIssueList.stream()
                 .map(dot -> modelMapper.map(dot, IssueResponse.class))
                 .collect(Collectors.toList());
 
