@@ -7,38 +7,38 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.teamone.user.command.Application.service.UserAuthService;
+import org.teamone.user.command.Application.service.CommandUserAuthService;
 import org.teamone.user.command.domain.aggregate.vo.RequestUserAuthVO;
 import org.teamone.user.command.domain.aggregate.vo.ResponseUserAuthVO;
-import org.teamone.user.command.domain.dto.UserDTO;
+import org.teamone.user.command.domain.dto.CommandUserDTO;
 
 @RestController
 @RequestMapping("/auth")
-public class UserAuthController {
+public class CommandUserAuthController {
 
-    private UserAuthService userAuthService;
+    private CommandUserAuthService commandUserAuthService;
 
     @Autowired
-    public UserAuthController(UserAuthService userAuthService) {
-        this.userAuthService = userAuthService;
+    public CommandUserAuthController(CommandUserAuthService commandUserAuthService) {
+        this.commandUserAuthService = commandUserAuthService;
     }
 
     /* 설명. 회원가입 */
     @PostMapping("/signup")
     public ResponseEntity<ResponseUserAuthVO> signUpUser(@RequestBody RequestUserAuthVO user) {
-        UserDTO userDTO = UserDTO.builder()
+        CommandUserDTO commandUserDTO = CommandUserDTO.builder()
                 .name(user.getName())
                 .nickname(user.getNickname())
                 .email(user.getEmail())
                 .password(user.getPassword())
                 .build();
 
-        UserDTO resultUserDTO = userAuthService.signUp(userDTO);
+        CommandUserDTO resultCommandUserDTO = commandUserAuthService.signUp(commandUserDTO);
 
         ResponseUserAuthVO responseUser = ResponseUserAuthVO.builder()
-                .userId(resultUserDTO.getUserId())
-                .email(resultUserDTO.getEmail())
-                .nickname(resultUserDTO.getNickname())
+                .userId(resultCommandUserDTO.getUserId())
+                .email(resultCommandUserDTO.getEmail())
+                .nickname(resultCommandUserDTO.getNickname())
                 .build();
 
         return ResponseEntity.status(HttpStatus.CREATED).body(responseUser);

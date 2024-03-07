@@ -1,5 +1,6 @@
 package org.teamone.user.common.security.auth;
 
+import jakarta.servlet.Filter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -12,19 +13,25 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
-import org.teamone.user.command.Application.service.UserAuthService;
+import org.teamone.user.command.Application.service.CommandUserAuthService;
+import org.teamone.user.query.service.QueryUserAuthService;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfiguration {
 
-    private UserAuthService userAuthService;
+    private CommandUserAuthService commandUserAuthService;
+    private QueryUserAuthService queryUserAuthService;
     private BCryptPasswordEncoder bCryptPasswordEncoder;
     private Environment env;
 
     @Autowired
-    public SecurityConfiguration(UserAuthService userAuthService, BCryptPasswordEncoder bCryptPasswordEncoder, Environment env) {
-        this.userAuthService = userAuthService;
+    public SecurityConfiguration(CommandUserAuthService commandUserAuthService,
+                                 QueryUserAuthService queryUserAuthService,
+                                 BCryptPasswordEncoder bCryptPasswordEncoder,
+                                 Environment env) {
+        this.commandUserAuthService = commandUserAuthService;
+        this.queryUserAuthService = queryUserAuthService;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
         this.env = env;
     }
@@ -32,33 +39,41 @@ public class SecurityConfiguration {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
-        AuthenticationManagerBuilder authenticationManagerBuilder =
+        AuthenticationManagerBuilder commandAuthenticationManagerBuilder =
                 http.getSharedObject(AuthenticationManagerBuilder.class);
-        authenticationManagerBuilder.userDetailsService(userAuthService).passwordEncoder(bCryptPasswordEncoder);
-//
-//        AuthenticationManager authenticationManager = authenticationManagerBuilder.build();
+        commandAuthenticationManagerBuilder.userDetailsService(commandUserAuthService).passwordEncoder(bCryptPasswordEncoder);
 
+        AuthenticationManagerBuilder queryAuthenticationManagerBuilder =
+                http.getSharedObject(AuthenticationManagerBuilder.class);
+        queryAuthenticationManagerBuilder.userDetailsService(queryUserAuthService).passwordEncoder(bCryptPasswordEncoder);
+
+        AuthenticationManager authenticationManager = queryAuthenticationManagerBuilder.build();
+
+        http.csrf((csrf) -> csrf.disable());
         http
-                .authorizeHttpRequests((authorize) -> authorize
-
-                        // 경로가 /auth 인 경우 인증 요청 X
+                .authorizeHttpRequests((auth) -> auth
                         .requestMatchers(new AntPathRequestMatcher("/auth/**")).permitAll()
-
-                        // 외의 모든 요청에 대해 인증 요구
+                        .requestMatchers(new AntPathRequestMatcher("/error")).permitAll()
                         .anyRequest().authenticated()
                 )
-                // session이 아닌 jwt를 이용해 로그인을 할 것이므로 CSRF 처리 off
-                .csrf((csrf) -> csrf.disable())
-                // 세션 관리를 상태 없이 설정합니다.
-                .sessionManagement((session) -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                );
+                .authenticationManager(authenticationManager);
+//                // 세션 관리를 상태 없이 설정
+//                .sessionManagement((session) -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
 
-        // 로그인 페이지 경로 변경
-        http
-                .formLogin(auth -> auth
-                        .loginPage("/auth/login")
-                        .permitAll());
+
+
+//        // 로그인 페이지 경로 변경
+//        http
+//                .formLogin(auth -> auth
+//                        .loginPage("/auth/login")
+//                        .permitAll());
+
+        http.addFilter(getAuthenticationFilter(authenticationManager));
 
         return http.build();
+    }
+
+    private Filter getAuthenticationFilter(AuthenticationManager authenticationManager) {
+        return new AuthenticationFilter(authenticationManager, queryUserAuthService, env);
     }
 }

@@ -6,7 +6,7 @@ import lombok.*;
 @Setter
 @NoArgsConstructor
 @ToString
-public class UserDTO {
+public class CommandUserDTO {
     private String name;
     private String nickname;
     private String email;
@@ -14,7 +14,7 @@ public class UserDTO {
     private String userId;
 
     @Builder
-    public UserDTO(String name, String nickname, String email, String password, String userId) {
+    public CommandUserDTO(String name, String nickname, String email, String password, String userId) {
         this.name = name;
         this.nickname = nickname;
         this.email = email;

@@ -6,13 +6,13 @@ import org.teamone.user.command.domain.aggregate.enums.AccessLevel;
 import org.teamone.user.command.domain.aggregate.enums.Provider;
 import org.teamone.user.command.domain.aggregate.enums.UserStatus;
 
-@Entity(name = "CommandUserEntity")
+@Entity
 @Getter
 @Setter
 @NoArgsConstructor
 @ToString
 @Table(name = "tbl_user")
-public class UserEntity {
+public class CommandUserEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -60,8 +60,8 @@ public class UserEntity {
 
 
     @Builder
-    public UserEntity(String name, String nickname, Provider provider, AccessLevel accessLevel, UserStatus userStatus,
-                      int followerCnt, int followingCnt, int grade, String email, String password, String snsId, String userId) {
+    public CommandUserEntity(String name, String nickname, Provider provider, AccessLevel accessLevel, UserStatus userStatus,
+                             int followerCnt, int followingCnt, int grade, String email, String password, String snsId, String userId) {
         this.name = name;
         this.nickname = nickname;
         this.provider = provider;
