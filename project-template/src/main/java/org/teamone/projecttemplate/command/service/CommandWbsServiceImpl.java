@@ -79,8 +79,6 @@ public class CommandWbsServiceImpl implements CommandWbsService{
             commandWbs.setWbsNo(++maxNo);
 
             wbsList.add(commandWbs);
-
-            wbsList.add(commandWbs);
         }
 
         commandWbsRepository.saveAll(wbsList);
@@ -95,27 +93,19 @@ public class CommandWbsServiceImpl implements CommandWbsService{
     public void modifyWbs(CommandWbsDTO updatedWbsDTO) {
 
         modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
-
-//        CommandWbs wbs = commandWbsRepository.findById()
-
-        // projectId와 wbsNo를 사용해서 해당하는 wbs 엔티티 찾기
         CommandWbs existingWbs = commandWbsRepository.findByProjectIdAndWbsNo(updatedWbsDTO.getProjectId(), updatedWbsDTO.getWbsNo());
 
         if (existingWbs != null) {
-
-            // 해당하는 wbs 엔티티가 존재하면 wbsDTO의 정보를 existingWbs에 업데이트
             existingWbs.setContent(updatedWbsDTO.getContent());
             existingWbs.setTaskStatus(updatedWbsDTO.getTaskStatus());
             existingWbs.setStartDate(updatedWbsDTO.getStartDate());
             existingWbs.setEndDate(updatedWbsDTO.getEndDate());
             existingWbs.setManagerId(updatedWbsDTO.getManagerId());
 
-            // 변경된 엔티티 저장
             commandWbsRepository.save(existingWbs);
         } else {
             throw new EntityNotFoundException("해당 project id와 wbs no에 대한 wbs 없음");
         }
-
     }
 
     /* 프로젝트 ID로 wbs 전체 status = completed 상태로 바꾸기(프로젝트 마무리되었을 경우) */
@@ -135,7 +125,6 @@ public class CommandWbsServiceImpl implements CommandWbsService{
     @Override
     @Transactional
     public void modifyWbsContentByProjectIdAndWbsNo(int projectId, int wbsNo, String content) {
-        // 해당하는 프로젝트 ID와 wbs no에 해당하는 wbs 조회
         CommandWbs existingWbs = commandWbsRepository.findByProjectIdAndWbsNo(projectId, wbsNo);
 
         if (existingWbs != null) {
@@ -154,17 +143,12 @@ public class CommandWbsServiceImpl implements CommandWbsService{
     @Transactional
     public CommandWbsDTO deleteWbs(int projectId, int wbsNo) {
 
-        // 삭제할 wbs 조회
         CommandWbs deletedWbs = commandWbsRepository.findByProjectIdAndWbsNo(projectId, wbsNo);
         if (deletedWbs != null) {
 
-            // 삭제할 wbs 삭제
             commandWbsRepository.deleteByProjectIdAndWbsNo(projectId, wbsNo);
-
-            // 삭제된 wbs 이후의 모든 wbs 조회
             List<CommandWbs> wbsList = commandWbsRepository.findByProjectIdAndWbsNoGreaterThan(projectId, wbsNo);
 
-            // 삭제할 wbs 이후의 번호를 감소시키고 저장
             for (CommandWbs wbs : wbsList) {
                 wbs.setWbsNo(wbs.getWbsNo() - 1);
                 commandWbsRepository.save(wbs);
@@ -175,7 +159,6 @@ public class CommandWbsServiceImpl implements CommandWbsService{
         } else {
             throw new EntityNotFoundException("해당 프로젝트 ID와 WBS NO에 대한 WBS가 존재하지 않음");
         }
-
     }
 
     /* 프로젝트 ID에 해당하는 WBS 전체 삭제 */
