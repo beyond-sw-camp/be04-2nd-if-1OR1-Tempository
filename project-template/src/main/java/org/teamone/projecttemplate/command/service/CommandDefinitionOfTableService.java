@@ -1,11 +1,12 @@
 package org.teamone.projecttemplate.command.service;
 
-import org.teamone.projecttemplate.command.dto.DefinitionOfTableDTO;
+import org.teamone.projecttemplate.command.dto.CommandDefinitionOfTableDTO;
+import org.teamone.projecttemplate.query.dto.DefinitionOfTableDTO;
 
 public interface CommandDefinitionOfTableService {
-    void registDefinition(DefinitionOfTableDTO definitionOfTableDTO);
+    void registDefinition(CommandDefinitionOfTableDTO commandDefinitionOfTableDTO);
 
-    void removeDefinitionByProjectId(DefinitionOfTableDTO definitionOfTableDTO);
+    void removeAllDefinitionByProjectId(int projectId);
 
-    void removeDefinitionDefinitionId(DefinitionOfTableDTO definitionOfTableDTO);
+    DefinitionOfTableDTO removeDefinitionByDefinitionNo(int projectId, int definitionNo);
 }

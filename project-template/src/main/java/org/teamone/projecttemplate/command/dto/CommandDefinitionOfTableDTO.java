@@ -1,9 +1,13 @@
 package org.teamone.projecttemplate.command.dto;
 
-import lombok.Data;
+import lombok.*;
 
-@Data
-public class DefinitionOfTableDTO {
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
+@Setter
+@ToString
+public class CommandDefinitionOfTableDTO {
     private int id;
     private int definitionNo;
     private String tableName;

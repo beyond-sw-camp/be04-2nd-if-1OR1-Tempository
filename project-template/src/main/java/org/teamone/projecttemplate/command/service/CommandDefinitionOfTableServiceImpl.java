@@ -1,13 +1,17 @@
 package org.teamone.projecttemplate.command.service;
 
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.teamone.projecttemplate.command.dto.DefinitionOfTableDTO;
+import org.teamone.projecttemplate.command.dto.CommandDefinitionOfTableDTO;
 import org.teamone.projecttemplate.command.entity.CommandDefinitionOfTable;
 import org.teamone.projecttemplate.command.repository.CommandDefinitionOfTableRepository;
+import org.teamone.projecttemplate.query.dto.DefinitionOfTableDTO;
+
+import java.util.List;
 
 @Service
 public class CommandDefinitionOfTableServiceImpl implements CommandDefinitionOfTableService{
@@ -25,27 +29,38 @@ public class CommandDefinitionOfTableServiceImpl implements CommandDefinitionOfT
     /* 설명. Insert, Update Definition of Table */
     @Transactional
     @Override
-    public void registDefinition(DefinitionOfTableDTO definitionOfTableDTO) {
+    public void registDefinition(CommandDefinitionOfTableDTO commandDefinitionOfTableDTO) {
         modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
-        CommandDefinitionOfTable definitionOfTable = modelMapper.map(definitionOfTableDTO, CommandDefinitionOfTable.class);
+        CommandDefinitionOfTable definitionOfTable = modelMapper.map(commandDefinitionOfTableDTO, CommandDefinitionOfTable.class);
         commandDefinitionOfTableRepository.save(definitionOfTable);
     }
 
     /* 설명. Delete Definition of Table By Project ID */
     @Transactional
     @Override
-    public void removeDefinitionByProjectId(DefinitionOfTableDTO definitionOfTableDTO) {
-        modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
-        CommandDefinitionOfTable definitionOfTable = modelMapper.map(definitionOfTableDTO, CommandDefinitionOfTable.class);
-        commandDefinitionOfTableRepository.deleteById(definitionOfTable.getProjectId());
+    public void removeAllDefinitionByProjectId(int projectId) {
+        commandDefinitionOfTableRepository.deleteAllByProjectId(projectId);
     }
 
     /* 설명. Delete Definition of Table By Table ID */
     @Transactional
     @Override
-    public void removeDefinitionDefinitionId(DefinitionOfTableDTO definitionOfTableDTO) {
-        modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
-        CommandDefinitionOfTable definitionOfTable = modelMapper.map(definitionOfTableDTO, CommandDefinitionOfTable.class);
-        commandDefinitionOfTableRepository.deleteById(definitionOfTable.getId());
+    public DefinitionOfTableDTO removeDefinitionByDefinitionNo(int projectId, int definitionNo) {
+        CommandDefinitionOfTable findDefinition = commandDefinitionOfTableRepository.findByProjectIdAndDefinitionNo(projectId, definitionNo);
+
+        if (findDefinition != null) {
+            commandDefinitionOfTableRepository.deleteByProjectIdAndDefinitionNo(projectId, definitionNo);
+            List<CommandDefinitionOfTable> definitionList = commandDefinitionOfTableRepository.findByProjectIdAndDefinitionNoGreaterThan(projectId, definitionNo);
+
+            for (CommandDefinitionOfTable definition: definitionList){
+                definition.setDefinitionNo(definition.getDefinitionNo() - 1);
+                commandDefinitionOfTableRepository.save(definition);
+            }
+
+            return modelMapper.map(findDefinition, DefinitionOfTableDTO.class);
+
+        } else {
+            throw new EntityNotFoundException("해당 프로젝트 ID와 테이블 정의서 NO에 대한 이슈가 존재하지 않음");
+        }
     }
 }

@@ -6,7 +6,7 @@ import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.teamone.projecttemplate.command.dto.DefinitionOfTableDTO;
+import org.teamone.projecttemplate.command.dto.CommandDefinitionOfTableDTO;
 import org.teamone.projecttemplate.command.service.CommandDefinitionOfTableService;
 import org.teamone.projecttemplate.command.vo.DefinitionOfTableRequest;
 import org.teamone.projecttemplate.command.vo.DefinitionOfTableResponse;
@@ -30,39 +30,27 @@ public class DefinitionOfTableController {
     /* 설명. ID를 통한 Insert, Update 테이블 정의서 */
     @PostMapping("/regist_and_modify")
     public ResponseEntity<DefinitionOfTableResponse> registDefinition(@RequestBody DefinitionOfTableRequest definitionOfTableRequest) {
-        DefinitionOfTableDTO definitionOfTableDTO = modelMapper.map(definitionOfTableRequest, DefinitionOfTableDTO.class);
+        CommandDefinitionOfTableDTO commandDefinitionOfTableDTO = modelMapper.map(definitionOfTableRequest, CommandDefinitionOfTableDTO.class);
 
-        commandDefinitionOfTableService.registDefinition(definitionOfTableDTO);
+        commandDefinitionOfTableService.registDefinition(commandDefinitionOfTableDTO);
         DefinitionOfTableResponse definitionOfTableResponse = modelMapper.map(
-                definitionOfTableDTO, DefinitionOfTableResponse.class
+                commandDefinitionOfTableDTO, DefinitionOfTableResponse.class
         );
         return ResponseEntity.status(HttpStatus.CREATED).body(definitionOfTableResponse);
     }
 
     /* 설명. 프로젝트 ID를 통한 Delete 테이블 정의서 */
-    @PostMapping("/remove_by_project_id")
-    public ResponseEntity<DefinitionOfTableResponse> removeDefinitionByProjectId(
-            @RequestBody DefinitionOfTableRequest definitionOfTableRequest){
-        DefinitionOfTableDTO definitionOfTableDTO = modelMapper.map(definitionOfTableRequest, DefinitionOfTableDTO.class);
-
-        commandDefinitionOfTableService.removeDefinitionByProjectId(definitionOfTableDTO);
-        DefinitionOfTableResponse definitionOfTableResponse = modelMapper.map(
-                definitionOfTableDTO, DefinitionOfTableResponse.class
-        );
-        return ResponseEntity.status(HttpStatus.CREATED).body(definitionOfTableResponse);
+    @DeleteMapping("/remove/{projectId}")
+    public ResponseEntity<Void> removeAllDefinitionByProjectId(@PathVariable("projectId") int projectId) {
+        commandDefinitionOfTableService.removeAllDefinitionByProjectId(projectId);
+        return ResponseEntity.ok().build();
     }
 
     /* 설명. 테이블 정의서 ID를 통한 Delete 테이블 정의서 */
-    @PostMapping("/remove_by_deifintion_id")
-    public ResponseEntity<DefinitionOfTableResponse> removeDefinitionByDefinitionId(
-            @RequestBody DefinitionOfTableRequest definitionOfTableRequest){
-        DefinitionOfTableDTO definitionOfTableDTO = modelMapper.map(definitionOfTableRequest, DefinitionOfTableDTO.class);
-
-        commandDefinitionOfTableService.removeDefinitionDefinitionId(definitionOfTableDTO);
-        DefinitionOfTableResponse definitionOfTableResponse = modelMapper.map(
-                definitionOfTableDTO, DefinitionOfTableResponse.class
-        );
-        return ResponseEntity.status(HttpStatus.CREATED).body(definitionOfTableResponse);
+    @DeleteMapping("/remove/{projectId}/{definitionNo}")
+    public ResponseEntity<Void> removeDefinitionByDefinitionNo(@PathVariable("projectId") int projectId,
+                                                               @PathVariable("definitionNo") int definitionNo) {
+        commandDefinitionOfTableService.removeDefinitionByDefinitionNo(projectId, definitionNo);
+        return ResponseEntity.ok().build();
     }
-
 }
