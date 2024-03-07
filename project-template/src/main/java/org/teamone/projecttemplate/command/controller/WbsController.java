@@ -22,23 +22,13 @@ public class WbsController {
 
     private final CommandWbsService commandWbsService;
 
-    private final Environment env;
-
     private final ModelMapper modelMapper;
 
     @Autowired
     public WbsController(CommandWbsService commandWbsService, Environment env, ModelMapper modelMapper) {
         this.commandWbsService = commandWbsService;
-        this.env = env;
         this.modelMapper = modelMapper;
     }
-
-    /* Environment 활용해 설정 값 불러오기(getProperty) */
-    @GetMapping("/health_check")
-    public String status() {
-        return "Server at " + env.getProperty("local.server.port");
-    }
-
 
     /* insert */
     /* WBS 추가(같은 프로젝트의 마지막 WBS 이후로 WBS NO 설정됨) */
