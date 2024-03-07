@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import org.teamone.tempository.project.command.dto.ProjectDTO;
 import org.teamone.tempository.project.command.service.ProjectService;
 
-@RestController
+@RestController("jpa")
 @RequestMapping("/project")
 @Slf4j
 public class ProjectController {

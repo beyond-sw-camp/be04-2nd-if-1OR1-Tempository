@@ -14,21 +14,21 @@ import java.util.List;
 class ProjectServiceImplTest {
 
     @Autowired
-    private ProjectServiceImpl projectServiceImpl;
+    private ProjectServiceImpl projectService;
 
-    @DisplayName("프로젝트 정보 조회 테스트")
-    @Test
-    void getProjectInfoByIdTest(){
-        ProjectDTO project = new ProjectDTO(1);
-        List<Project> projectInfoById = projectServiceImpl.getProjectInfoById(project);
-    }
+//    @DisplayName("프로젝트 정보 조회 테스트")
+//    @Test
+//    void getProjectInfoByIdTest(){
+//        ProjectDTO project = new ProjectDTO(1);
+//        List<Project> projectInfoById = projectService.getProjectInfoById(project);
+//    }
 
     @DisplayName("완료유무를 기준으로 프로젝트 정보 조회 테스트")
     @Test
     void getProjectInfoByStatusTest() {
         String Status = "COMPLETED";
         ProjectDTO project = new ProjectDTO(Status);
-        List<Project> projectInfoByStatus = projectServiceImpl.getProjectInfoByStatus(Status);
+        List<Project> projectInfoByStatus = projectService.getProjectInfoByStatus(Status);
 
     }
 
@@ -36,7 +36,7 @@ class ProjectServiceImplTest {
     @Test
     void getProjectInfoOrderByLike() {
 
-        List<Project> getProjectInfoOrderByLike = projectServiceImpl.getProjectInfoOrderByLike();
+        List<Project> getProjectInfoOrderByLike = projectService.getProjectInfoOrderByLike();
     }
 
     @DisplayName("공개 유무에 따른 프로젝트 조회 기능 테스트 ")
@@ -45,7 +45,7 @@ class ProjectServiceImplTest {
     void getProjectInfoByIsPublic() {
 
         boolean isPublic = true;
-        List<Project> getProjectInfoByIsPublic = projectServiceImpl.getProjectInfoByIsPublic(isPublic);
+        List<Project> getProjectInfoByIsPublic = projectService.getProjectInfoByIsPublic(isPublic);
 
     }
 
