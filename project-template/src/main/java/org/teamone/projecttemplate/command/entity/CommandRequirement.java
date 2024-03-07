@@ -1,7 +1,6 @@
 package org.teamone.projecttemplate.command.entity;
 
 import jakarta.persistence.*;
-import lombok.Data;
 
 @Entity
 @Table(name = "tbl_project_requirement")
