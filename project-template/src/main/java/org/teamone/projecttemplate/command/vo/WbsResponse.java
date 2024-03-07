@@ -11,7 +11,6 @@ import java.util.Date;
 @ToString
 public class WbsResponse {
 
-    private int id;
     private int wbsNo;
     private String content;
     private String taskStatus;
