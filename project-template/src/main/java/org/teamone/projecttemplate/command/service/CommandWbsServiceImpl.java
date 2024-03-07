@@ -9,8 +9,9 @@ import org.springframework.transaction.annotation.Transactional;
 import org.teamone.projecttemplate.command.dto.CommandWbsDTO;
 import org.teamone.projecttemplate.command.entity.CommandWbs;
 import org.teamone.projecttemplate.command.repository.CommandWbsRepository;
-import org.teamone.projecttemplate.command.vo.WbsResponse;
+import org.teamone.projecttemplate.command.vo.WbsRequest;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -29,7 +30,7 @@ public class CommandWbsServiceImpl implements CommandWbsService{
     /* WBS 추가 */
     @Override
     @Transactional
-    public void registWbs(CommandWbsDTO newWbs) {
+    public void insertWbs(CommandWbsDTO newWbs) {
         modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
 
         List<CommandWbs> wbsList = commandWbsRepository.findByProjectId(newWbs.getProjectId());
@@ -39,6 +40,29 @@ public class CommandWbsServiceImpl implements CommandWbsService{
         commandWbsRepository.save(modelMapper.map(newWbs, CommandWbs.class));
 
     }
+
+    /* Project ID에 해당하는 WBS 일괄 추가 */
+    @Override
+    @Transactional
+    public void insertManyWbsByProjectId(int projectId, List<WbsRequest> wbs) {
+        List<CommandWbs> wbsList = new ArrayList<>();
+        for (WbsRequest wbsRequest : wbs) {
+            CommandWbs commandWbs = new CommandWbs();
+            commandWbs.setProjectId(projectId);
+            commandWbs.setWbsNo(wbsRequest.getWbsNo());
+            commandWbs.setContent(wbsRequest.getContent());
+            commandWbs.setTaskStatus(wbsRequest.getTaskStatus());
+            commandWbs.setStartDate(wbsRequest.getStartDate());
+            commandWbs.setEndDate(wbsRequest.getEndDate());
+            commandWbs.setManagerId(wbsRequest.getManagerId());
+
+            wbsList.add(commandWbs);
+        }
+
+        commandWbsRepository.saveAll(wbsList);
+
+    }
+
 
     /* Project ID, Wbs No에 해당하는 WBS 수정 */
     @Override
@@ -96,6 +120,7 @@ public class CommandWbsServiceImpl implements CommandWbsService{
         }
 
     }
+
 
     /* 프로젝트 ID, WBS NO에 해당하는 WBS 하나 삭제 */
     @Override

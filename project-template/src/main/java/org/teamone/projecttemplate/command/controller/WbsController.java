@@ -41,21 +41,37 @@ public class WbsController {
 
 
     /* WBS 추가 */
-    @PostMapping("/regist")
-    public ResponseEntity<WbsResponse> registWbs(@RequestBody WbsRequest wbs) {
+    @PostMapping("/insert")
+    public ResponseEntity<WbsResponse> insertWbs(@RequestBody WbsRequest wbs) {
 
         modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
 
         // model mapper를 이용해서 받은 데이터 DTO 형식으로 변환
         CommandWbsDTO wbsDTO = modelMapper.map(wbs, CommandWbsDTO.class);
 
-        commandWbsService.registWbs(wbsDTO);
+        commandWbsService.insertWbs(wbsDTO);
 
         // 받은 DTO를 wbsresponse라는 vo로 변환
         WbsResponse wbsResponse = modelMapper.map(wbsDTO, WbsResponse.class);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(wbsResponse);
     }
+
+    /* Project ID에 해당하는 WBS 하나 추가 */
+//    @PostMapping("/insert/{projectId}")
+//    public ResponseEntity<WbsResponse> insertWbsByProjectId(@PathVariable("projectId") int projectId,
+//                                                            @RequestBody WbsRequest wbs) {
+//
+//    }
+
+    /* Project ID에 해당하는 WBS 일괄 추가 */
+    @PostMapping("/insert-many/{projectId}")
+    public ResponseEntity<Void> insertManyWbsByProjectId(@PathVariable("projectId") int projectId,
+                                                     @RequestBody List<WbsRequest> wbs) {
+        commandWbsService.insertManyWbsByProjectId(projectId, wbs);
+        return ResponseEntity.status(HttpStatus.CREATED).build();
+    }
+
 
     /* Project ID, Wbs No에 해당하는 WBS 수정 */
     @PutMapping("/modify/{projectId}/{wbsNo}")
@@ -103,15 +119,14 @@ public class WbsController {
     /* 프로젝트 ID와 WBS NO에 해당하는 WBS content만 수정 */
     @PutMapping("/modify/content/{projectId}/{wbsNo}")
     public ResponseEntity<Void> modifyWbsContentByProjectIdAndWbsNo(@PathVariable("projectId") int projectId,
-                                                                           @PathVariable("wbsNo") int wbsNo,
-                                                                           @RequestBody String content) {
+                                                                    @PathVariable("wbsNo") int wbsNo,
+                                                                    @RequestBody String content) {
         // 해당하는 프로젝트 ID와 WBS NO에 해당하는 wbs의 content만 수정
         commandWbsService.modifyWbsContentByProjectIdAndWbsNo(projectId, wbsNo, content);
 
         // 수정된 wbs 반환
         return ResponseEntity.ok().build();
     }
-
 
 
     /* 프로젝트 ID, WBS NO에 해당하는 WBS 하나 삭제 */
@@ -129,4 +144,7 @@ public class WbsController {
         commandWbsService.deleteAllWbsByProjectId(projectId);
         return ResponseEntity.ok().build();
     }
+
+
+    /*  */
 }
