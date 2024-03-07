@@ -42,7 +42,7 @@ public class CommandDefinitionOfTableServiceImpl implements CommandDefinitionOfT
         commandDefinitionOfTableRepository.deleteAllByProjectId(projectId);
     }
 
-    /* 설명. Delete Definition of Table By Table ID */
+    /* 설명. Delete Definition of Table By Project ID and Table No */
     @Transactional
     @Override
     public DefinitionOfTableDTO removeDefinitionByDefinitionNo(int projectId, int definitionNo) {

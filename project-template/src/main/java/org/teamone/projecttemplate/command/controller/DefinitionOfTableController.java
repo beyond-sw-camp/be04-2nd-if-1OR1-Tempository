@@ -14,15 +14,12 @@ import org.teamone.projecttemplate.command.vo.DefinitionOfTableResponse;
 @RestController
 @RequestMapping("/definition")
 public class DefinitionOfTableController {
-    private Environment env;
     private ModelMapper modelMapper;
     private CommandDefinitionOfTableService commandDefinitionOfTableService;
 
     @Autowired
-    public DefinitionOfTableController(Environment env,
-                                       ModelMapper modelMapper,
+    public DefinitionOfTableController(ModelMapper modelMapper,
                                        CommandDefinitionOfTableService commandDefinitionOfTableService) {
-        this.env = env;
         this.modelMapper = modelMapper;
         this.commandDefinitionOfTableService = commandDefinitionOfTableService;
     }

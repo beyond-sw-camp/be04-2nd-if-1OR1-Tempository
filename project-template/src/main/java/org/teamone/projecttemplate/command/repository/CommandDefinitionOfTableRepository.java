@@ -11,9 +11,9 @@ public interface CommandDefinitionOfTableRepository
         extends JpaRepository<CommandDefinitionOfTable, Integer> {
     void deleteAllByProjectId(int projectId);
 
-    CommandDefinitionOfTable findByProjectIdAndDefinitionNo(int projectId, int definitionNo);
-
     void deleteByProjectIdAndDefinitionNo(int projectId, int definitionNo);
+
+    CommandDefinitionOfTable findByProjectIdAndDefinitionNo(int projectId, int definitionNo);
 
     List<CommandDefinitionOfTable> findByProjectIdAndDefinitionNoGreaterThan(int projectId, int definitionNo);
 }
