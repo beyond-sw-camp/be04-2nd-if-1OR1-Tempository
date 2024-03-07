@@ -1,11 +1,9 @@
 package org.teamone.projecttemplate.command.controller;
 
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.web.bind.annotation.*;
 import org.teamone.projecttemplate.command.dto.CommandRequirementDTO;
-import org.teamone.projecttemplate.command.dto.CommandTestcaseDTO;
 import org.teamone.projecttemplate.command.service.CommandRequirementService;
 
 @RestController

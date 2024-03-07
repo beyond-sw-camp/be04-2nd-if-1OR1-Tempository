@@ -1,7 +1,5 @@
 package org.teamone.projecttemplate.command.dto;
 
-import lombok.Data;
-
 public class CommandRequirementDTO {
 
     private int id;
