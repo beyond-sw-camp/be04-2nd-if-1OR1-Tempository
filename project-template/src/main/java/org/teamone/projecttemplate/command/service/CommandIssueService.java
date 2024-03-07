@@ -10,11 +10,11 @@ import java.util.List;
 public interface CommandIssueService {
     void registIssue(CommandIssueDTO issueDTO);
 
-    List<CommandIssue> modifyAllStatusToClosedByProjectId(int projectId);
-
-    List<CommandIssue> modifyAllStatusToReopenByProjectId(int projectId);
-
     void removeAllIssueByProjectId(int projectId);
 
     CommandIssueDTO removeIssueByIssueNo(int projectId, int issueNo);
+
+    List<CommandIssue> modifyAllStatusToClosedByProjectId(int projectId);
+
+    List<CommandIssue> modifyAllStatusToReopenByProjectId(int projectId);
 }

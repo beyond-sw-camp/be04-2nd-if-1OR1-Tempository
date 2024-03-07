@@ -19,13 +19,12 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("/issue")
 public class IssueController {
-    private Environment env;
     private ModelMapper modelMapper;
     private CommandIssueService commandIssueService;
 
     @Autowired
-    public IssueController(Environment env, ModelMapper modelMapper, CommandIssueService commandIssueService) {
-        this.env = env;
+    public IssueController(ModelMapper modelMapper,
+                           CommandIssueService commandIssueService) {
         this.modelMapper = modelMapper;
         this.commandIssueService = commandIssueService;
     }
@@ -42,7 +41,7 @@ public class IssueController {
     }
 
     /* 설명. 프로젝트 ID를 통한 상태 일괄 처리 */
-    /* Closed*/
+    /* Closed */
     @PutMapping("/modify/status/closed/{projectId}")
     public ResponseEntity<List<IssueResponse>> modifyAllStatusToClosedByProjectId(@PathVariable("projectId") int projectId) {
         modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);

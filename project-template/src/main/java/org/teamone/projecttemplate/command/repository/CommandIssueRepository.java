@@ -9,13 +9,13 @@ import java.util.List;
 @Repository
 public interface CommandIssueRepository
         extends JpaRepository<CommandIssue, Integer> {
-    List<CommandIssue> findAllByProjectId(int projectId);
-
     void deleteAllByProjectId(int projectId);
 
     void deleteByProjectIdAndIssueNo(int projectId, int issueNo);
 
-    List<CommandIssue> findByProjectIdAndIssueNoGreaterThan(int projectId, int issueNo);
-
     CommandIssue findByProjectIdAndIssueNo(int projectId, int issueNo);
+
+    List<CommandIssue> findAllByProjectId(int projectId);
+
+    List<CommandIssue> findByProjectIdAndIssueNoGreaterThan(int projectId, int issueNo);
 }
