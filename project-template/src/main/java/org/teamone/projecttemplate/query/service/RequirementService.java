@@ -37,4 +37,12 @@ public class RequirementService {
 
         return requirementList;
     }
+
+    /* 설명. 요구사항 id로 요구사항 명세서 조회 */
+    public Requirement findRequirementById(int id) {
+        Requirement requirement = requirementMapper.findRequirementById(id);
+        System.out.println("requirement = " + requirement);
+
+        return requirement;
+    }
 }

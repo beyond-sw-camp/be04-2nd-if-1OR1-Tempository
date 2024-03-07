@@ -10,4 +10,6 @@ public interface RequirementMapper {
     List<Requirement> requirementInfoByProjectId(int projectId);
 
     List<Requirement> requirementInfoBySeparateAndProjectId(Requirement requirement);
+
+    Requirement findRequirementById(int id);
 }
