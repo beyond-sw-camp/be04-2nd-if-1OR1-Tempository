@@ -22,4 +22,6 @@ public interface ProjectMapper {
     List<Project> getProjectJoinUserById(String id);
 
     List<Project> getProjectIssueById(String id);
+
+    List<Project> getProjectDefinitionOfTableById(String id);
 }

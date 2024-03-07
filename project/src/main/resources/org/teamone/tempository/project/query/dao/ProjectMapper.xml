@@ -129,4 +129,47 @@
         WHERE B.PROJECT_ID = #{ id }
     </select>
 
+    <resultMap id="getProjectDefinitionOfTableMap" type="org.teamone.tempository.project.query.entity.Project">
+    <id property="id" column="ID"/>
+    <result property="name" column="NAME"/>
+    <result property="isPublic" column="IS_PUBLIC"/>
+    <result property="likeCnt" column="LIKE_CNT"/>
+    <result property="status" column="STATUS"/>
+    <result property="content" column="CONTENT"/>
+    <collection property="projectDefinitionOfTableList" ofType="org.teamone.tempository.project.query.entity.ProjectDefinitionOfTable">
+        <id property="id" column="BID"/>
+        <result property="projectId" column="PROJECT_ID"/>
+        <result property="definitionNo" column="DEFINITION_NO"/>
+        <result property="tableName" column="NAME"/>
+        <result property="propertyName" column="PROPERTY_NAME"/>
+        <result property="primaryKey" column="PRIMARY_KEY"/>
+        <result property="foreignKey" column="FOREIGN_KEY"/>
+        <result property="nullable" column="NULL_ABLE"/>
+        <result property="columnName" column="COLUMN_NAME"/>
+        <result property="defaultValue" column="DEFAULT_VALUE"/>
+        <result property="dataType" column="DATA_TYPE"/>
+        <result property="note" column="NOTE"/>
+    </collection>
+
+    </resultMap>
+    <select id="getProjectDefinitionOfTableById" resultMap="getProjectDefinitionOfTableMap" parameterType="String">
+        SELECT
+              A.ID
+            , B.DEFINITION_NO
+            , B.NAME
+            , B.PROPERTY_NAME
+            , B.PRIMARY_KEY
+            , B.FOREIGN_KEY
+            , B.NULL_ABLE
+            , B.COLUMN_NAME
+            , B.DEFAULT_VALUE
+            , B.DATA_TYPE
+            , B.NOTE
+            , B.PROJECT_ID
+            , B.ID 'BID'
+         FROM TBL_PROJECT A
+         JOIN TBL_PROJECT_DEFINITION_OF_TABLE B ON (A.ID = B.PROJECT_ID)
+        WHERE B.PROJECT_ID = #{ id }
+    </select>
+
 </mapper>

@@ -4,9 +4,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.teamone.tempository.project.query.dao.ProjectMapper;
 import org.teamone.tempository.project.query.dto.ProjectDTO;
+import org.teamone.tempository.project.query.dto.ProjectDefinitionOfTableDTO;
 import org.teamone.tempository.project.query.dto.ProjectIssueDTO;
 import org.teamone.tempository.project.query.dto.ProjectMemberDTO;
 import org.teamone.tempository.project.query.entity.Project;
+import org.teamone.tempository.project.query.entity.ProjectDefinitionOfTable;
 import org.teamone.tempository.project.query.entity.ProjectIssue;
 import org.teamone.tempository.project.query.entity.ProjectMember;
 
@@ -161,5 +163,56 @@ public class ProjectServiceImpl implements ProjectService{
         }
 
         return projectDTOIssueList;
+    }
+    /* 설명. 프로젝트의 테이블정의서 조회 기능 */
+
+    @Override
+    public List<ProjectDTO> getProjectDefinitionOfTableById(String id) {
+
+        List<Project> project = projectMapper.getProjectDefinitionOfTableById(id);
+
+        List<ProjectDTO> projectDTOProjectDefinitionOfTable = projectToProjectDTOProjectDefinitionOfTable(project);
+
+        return projectDTOProjectDefinitionOfTable;
+    }
+
+    private List<ProjectDTO> projectToProjectDTOProjectDefinitionOfTable(List<Project> projectList) {
+        List<ProjectDTO> projectDTOProjectDefinitionOfTableList = new ArrayList<>();
+        System.out.println("projectList = " + projectList);
+
+        for (Project project : projectList) {
+            ProjectDTO projectDTO = new ProjectDTO();
+
+            projectDTO.setId(project.getId());
+
+            List<ProjectDefinitionOfTable> projectDefinitionOfTableList = project.getProjectDefinitionOfTableList();
+
+            List<ProjectDefinitionOfTableDTO> projectDefinitionOfTableDTOList = new ArrayList<>();
+
+            for (ProjectDefinitionOfTable projectDefinitionOfTable : projectDefinitionOfTableList) {
+
+                ProjectDefinitionOfTableDTO projectDefinitionOfTableDTO = new ProjectDefinitionOfTableDTO();
+
+                projectDefinitionOfTableDTO.setDefinitionNo(projectDefinitionOfTable.getDefinitionNo());
+                projectDefinitionOfTableDTO.setProjectId(projectDefinitionOfTable.getProjectId());
+                projectDefinitionOfTableDTO.setNote(projectDefinitionOfTable.getNote());
+                projectDefinitionOfTableDTO.setTableName(projectDefinitionOfTable.getTableName());
+                projectDefinitionOfTableDTO.setPropertyName(projectDefinitionOfTable.getPropertyName());
+                projectDefinitionOfTableDTO.setDataType(projectDefinitionOfTable.getDataType());
+                projectDefinitionOfTableDTO.setDefaultValue(projectDefinitionOfTable.getDefaultValue());
+                projectDefinitionOfTableDTO.setNullable(projectDefinitionOfTable.isNullable());
+                projectDefinitionOfTableDTO.setColumnName(projectDefinitionOfTable.getColumnName());
+                projectDefinitionOfTableDTO.setForeignKey(projectDefinitionOfTable.isForeignKey());
+                projectDefinitionOfTableDTO.setPrimaryKey(projectDefinitionOfTable.isPrimaryKey());
+
+                projectDefinitionOfTableDTOList.add(projectDefinitionOfTableDTO);
+
+            }
+            projectDTO.setProjectDefinitionOfTableList(projectDefinitionOfTableDTOList);
+
+            projectDTOProjectDefinitionOfTableList.add(projectDTO);
+
+        }
+        return projectDTOProjectDefinitionOfTableList;
     }
 }

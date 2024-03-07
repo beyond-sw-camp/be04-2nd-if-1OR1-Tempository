@@ -12,6 +12,7 @@ import java.util.List;
 public class Project {
 
     private int id;
+
     private String name;
 
     private boolean isPublic;
@@ -23,6 +24,9 @@ public class Project {
     private String content;
 
     private List<ProjectMember> projectMemberList;
+
     private List<ProjectIssue> projectIssueList;
+
+    private List<ProjectDefinitionOfTable> projectDefinitionOfTableList;
 
 }
