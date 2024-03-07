@@ -100,6 +100,18 @@ public class WbsController {
 
     }
 
+    /* 프로젝트 ID와 WBS NO에 해당하는 WBS content만 수정 */
+    @PutMapping("/modify/content/{projectId}/{wbsNo}")
+    public ResponseEntity<Void> modifyWbsContentByProjectIdAndWbsNo(@PathVariable("projectId") int projectId,
+                                                                           @PathVariable("wbsNo") int wbsNo,
+                                                                           @RequestBody String content) {
+        // 해당하는 프로젝트 ID와 WBS NO에 해당하는 wbs의 content만 수정
+        commandWbsService.modifyWbsContentByProjectIdAndWbsNo(projectId, wbsNo, content);
+
+        // 수정된 wbs 반환
+        return ResponseEntity.ok().build();
+    }
+
 
 
     /* 프로젝트 ID, WBS NO에 해당하는 WBS 하나 삭제 */

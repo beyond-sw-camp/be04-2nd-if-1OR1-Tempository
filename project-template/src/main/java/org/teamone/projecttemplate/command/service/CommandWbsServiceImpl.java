@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.teamone.projecttemplate.command.dto.CommandWbsDTO;
 import org.teamone.projecttemplate.command.entity.CommandWbs;
 import org.teamone.projecttemplate.command.repository.CommandWbsRepository;
+import org.teamone.projecttemplate.command.vo.WbsResponse;
 
 import java.util.List;
 
@@ -79,6 +80,21 @@ public class CommandWbsServiceImpl implements CommandWbsService{
         }
 
         return commandWbsRepository.saveAll(wbsList);
+    }
+
+    @Override
+    @Transactional
+    public void modifyWbsContentByProjectIdAndWbsNo(int projectId, int wbsNo, String content) {
+        // 해당하는 프로젝트 ID와 wbs no에 해당하는 wbs 조회
+        CommandWbs existingWbs = commandWbsRepository.findByProjectIdAndWbsNo(projectId, wbsNo);
+
+        if (existingWbs != null) {
+            existingWbs.setContent(content);
+            commandWbsRepository.save(existingWbs);
+        } else {
+            throw new EntityNotFoundException("해당 프로젝트 ID와 WBS NO에 대한 WBS가 존재하지 않음");
+        }
+
     }
 
     /* 프로젝트 ID, WBS NO에 해당하는 WBS 하나 삭제 */

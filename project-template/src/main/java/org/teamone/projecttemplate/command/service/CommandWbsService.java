@@ -17,4 +17,6 @@ public interface CommandWbsService {
     void deleteAllWbsByProjectId(int projectId);
 
     List<CommandWbs> modifyAllWbsStatusToCompleted(int projectId);
+
+    void modifyWbsContentByProjectIdAndWbsNo(int projectId, int wbsNo, String content);
 }
