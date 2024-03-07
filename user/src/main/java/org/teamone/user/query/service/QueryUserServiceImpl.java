@@ -22,8 +22,6 @@ public class QueryUserServiceImpl implements QueryUserService {
 
         QueryUserEntity userEntity = userMapper.findUserById(id);
 
-        System.out.println("userEntity = " + userEntity);
-
         return QueryUserDTO.builder()
                 .id(userEntity.getId())
                 .name(userEntity.getName())
@@ -36,6 +34,20 @@ public class QueryUserServiceImpl implements QueryUserService {
                 .password(userEntity.getPassword())
                 .snsId(userEntity.getSnsId())
                 .userId(userEntity.getUserId())
+                .build();
+    }
+
+    @Override
+    public QueryUserDTO getUserByEmail(String email) {
+        QueryUserEntity userEntity = userMapper.findUserByEmail(email);
+
+        return QueryUserDTO.builder()
+                .name(userEntity.getName())
+                .nickname(userEntity.getNickname())
+                .followerCnt(userEntity.getFollowerCnt())
+                .followingCnt(userEntity.getFollowingCnt())
+                .grade(userEntity.getGrade())
+                .email(userEntity.getEmail())
                 .build();
     }
 }
