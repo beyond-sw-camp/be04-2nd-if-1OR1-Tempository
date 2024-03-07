@@ -25,7 +25,7 @@
               , PROJECT_ID
           FROM TBL_PROJECT_TESTCASE
          WHERE PROJECT_ID = #{projectId}
-        ORDER BY TEST_NO ASC;
+        ORDER BY TEST_NO ASC
     </select>
     <select id="findTestcaseBySeparateAndProjectId" resultMap="testcaseMap" parameterType="org.teamone.projecttemplate.query.entity.Testcase">
         SELECT
@@ -40,7 +40,7 @@
           FROM TBL_PROJECT_TESTCASE
          WHERE SEPARATE LIKE '%' #{separate} '%'
            AND PROJECT_ID = #{projectId}
-         ORDER BY TEST_NO ASC;
+         ORDER BY TEST_NO ASC
     </select>
     <select id="findTestcaseByResultAndProjectId" resultMap="testcaseMap" parameterType="org.teamone.projecttemplate.query.entity.Testcase">
         SELECT
@@ -55,6 +55,6 @@
           FROM TBL_PROJECT_TESTCASE
          WHERE RESULT = #{result}
            AND PROJECT_ID = #{projectId}
-         ORDER BY TEST_NO ASC;
+         ORDER BY TEST_NO ASC
     </select>
 </mapper>
