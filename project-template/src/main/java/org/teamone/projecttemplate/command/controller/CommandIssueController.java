@@ -28,7 +28,7 @@ public class CommandIssueController {
         this.commandIssueService = commandIssueService;
     }
 
-    /* 설명. ID를 통한 Insert, Update 이슈 */
+    /* 설명. Insert, Update 이슈 */
     @PostMapping("regist_and_modify")
     public ResponseEntity<IssueResponse> registIssue(@RequestBody IssueRequest issueRequest){
         CommandIssueDTO commandIssueDTO = modelMapper.map(issueRequest, CommandIssueDTO.class);
