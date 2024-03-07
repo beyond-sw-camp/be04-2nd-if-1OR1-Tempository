@@ -28,7 +28,7 @@ public class QueryProjectMemberServiceImpl implements QueryProjectMemberService{
     @Override
     public List<QueryUserDTO> getProjectMembers(String projectId) {
 
-        int id = Integer.valueOf(projectId);
+        int id = Integer.parseInt(projectId);
 
         List<QueryProjectMemberEntity> projectMemberEntities = projectMemberMapper.findProjectMembers(id);
 
