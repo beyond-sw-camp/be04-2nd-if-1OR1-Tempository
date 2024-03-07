@@ -13,8 +13,8 @@ import java.util.List;
 @Service
 public class CommandRequirementServiceImpl implements CommandRequirementService{
 
-    private CommandRequirementRepository commandRequirementRepository;
-    private ModelMapper modelMapper;
+    private final CommandRequirementRepository commandRequirementRepository;
+    private final ModelMapper modelMapper;
 
     @Autowired
     public CommandRequirementServiceImpl(CommandRequirementRepository commandRequirementRepository, ModelMapper modelMapper) {
