@@ -22,24 +22,15 @@ public class WbsController {
 
     private final CommandWbsService commandWbsService;
 
-    private final Environment env;
-
     private final ModelMapper modelMapper;
 
     @Autowired
     public WbsController(CommandWbsService commandWbsService, Environment env, ModelMapper modelMapper) {
         this.commandWbsService = commandWbsService;
-        this.env = env;
         this.modelMapper = modelMapper;
     }
 
-    /* Environment 활용해 설정 값 불러오기(getProperty) */
-    @GetMapping("/health_check")
-    public String status() {
-        return "Server at " + env.getProperty("local.server.port");
-    }
-
-
+    /* insert */
     /* WBS 추가(같은 프로젝트의 마지막 WBS 이후로 WBS NO 설정됨) */
     @PostMapping("/insert")
     public ResponseEntity<WbsResponse> insertWbs(@RequestBody WbsRequest wbs) {
@@ -56,7 +47,6 @@ public class WbsController {
 
         return ResponseEntity.status(HttpStatus.CREATED).body(wbsResponse);
     }
-
 
     /* Project ID에 해당하는 WBS 하나 추가(같은 프로젝트의 마지막 WBS 이후로 WBS NO 설정됨) */
     @PostMapping("/insert/{projectId}")
@@ -75,7 +65,6 @@ public class WbsController {
 
     }
 
-
     /* Project ID에 해당하는 WBS 일괄 추가(같은 프로젝트의 마지막 WBS 이후로 WBS NO 설정됨) */
     @PostMapping("/insert-many/{projectId}")
     public ResponseEntity<Void> insertManyWbsByProjectId(@PathVariable("projectId") int projectId,
@@ -85,6 +74,7 @@ public class WbsController {
     }
 
 
+    /* modify */
     /* Project ID, Wbs No에 해당하는 WBS 수정 */
     @PutMapping("/modify/{projectId}/{wbsNo}")
     public ResponseEntity<WbsResponse> modifyWbs(@PathVariable("projectId") int projectId,
@@ -128,7 +118,6 @@ public class WbsController {
 
     }
 
-
     /* 프로젝트 ID와 WBS NO에 해당하는 WBS content만 수정 */
     @PutMapping("/modify/content/{projectId}/{wbsNo}")
     public ResponseEntity<Void> modifyWbsContentByProjectIdAndWbsNo(@PathVariable("projectId") int projectId,
@@ -142,12 +131,14 @@ public class WbsController {
     }
 
 
-    /* 프로젝트 ID, WBS NO에 해당하는 WBS 하나 삭제 */
+    /* delete */
+    /* 프로젝트 ID, WBS NO에 해당하는 WBS 하나 삭제(wbs no 자동 업데이트 기능 추가) */
     @DeleteMapping("/delete/{projectId}/{wbsNo}")
-    public ResponseEntity<Void> deleteWbs(@PathVariable("projectId") int projectId,
+    public ResponseEntity<WbsResponse> deleteWbs(@PathVariable("projectId") int projectId,
                                           @PathVariable("wbsNo") int wbsNo) {
-        commandWbsService.deleteWbs(projectId, wbsNo);
-        return ResponseEntity.ok().build();
+        CommandWbsDTO deletedWbsDTO = commandWbsService.deleteWbs(projectId, wbsNo);
+        WbsResponse deletedWbsResponse = modelMapper.map(deletedWbsDTO, WbsResponse.class);
+        return ResponseEntity.ok().body(deletedWbsResponse);
     }
 
     /* 프로젝트 ID에 해당하는 WBS 전체 삭제 */
