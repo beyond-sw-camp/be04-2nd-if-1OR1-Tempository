@@ -2,11 +2,18 @@ package org.teamone.tempository.project.query.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.teamone.tempository.project.query.dto.ProjectDTO;
 import org.teamone.tempository.project.query.service.ProjectService;
+import org.teamone.tempository.project.query.vo.ResponseProject;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @RequestMapping("/project")
-@RestController("query")
+@RestController
 public class ProjectController {
     private final ProjectService projectService;
     private final Environment environment;
@@ -53,6 +60,40 @@ public class ProjectController {
         projectService.getProjectInfoByIsPublic(isPublic);
 
         return "Server at " + environment.getProperty("local.server.port");
+
+    }
+
+    /* 설명. 프로젝트 참여 회원 정보와 프로젝트 정보 조회 기능 */
+    @GetMapping("/findProjectMember/{id}")
+    public ResponseEntity<List<ResponseProject>> getProjectJoinUserById(@PathVariable String id) {
+
+        List<ProjectDTO> projectId = projectService.getProjectJoinUserById(id);
+
+        List<ResponseProject> responseProjects = ProjectDTOToResponseProject(projectId);
+
+
+        return ResponseEntity.status(HttpStatus.OK).body(responseProjects);
+    }
+
+    private List<ResponseProject> ProjectDTOToResponseProject(List<ProjectDTO> projectId) {
+        List<ResponseProject> responseProjectData = new ArrayList<>();
+
+        for (ProjectDTO projectDTO : projectId) {
+            ResponseProject responseProject = new ResponseProject();
+
+            responseProject.setId(projectDTO.getId());
+            responseProject.setName(projectDTO.getName());
+            responseProject.setContent(projectDTO.getContent());
+            responseProject.setPublic(projectDTO.isPublic());
+            responseProject.setLikeCnt(projectDTO.getLikeCnt());
+            responseProject.setStatus(projectDTO.getStatus());
+            responseProject.setProjectMemberList(projectDTO.getProjectMemberList());
+
+            responseProjectData.add(responseProject);
+
+        }
+
+        return responseProjectData;
 
     }
 

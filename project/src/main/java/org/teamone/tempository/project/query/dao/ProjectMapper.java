@@ -18,4 +18,6 @@ public interface ProjectMapper {
     List<Project> getProjectInfoByIsPublic(boolean isPublic);
 
     List<Project> getProjectInfoById(int id);
+
+    List<Project> getProjectJoinUserById(String id);
 }

@@ -63,34 +63,37 @@
         WHERE A.IS_PUBLIC = #{ isPublic }
 
     </select>
-<!--<resultMap id="projectJoinMemberMap" type="org.teamone.tempository.project.query.entity.Project">-->
-<!--    <id property="id" column="ID"/>-->
-<!--    <result property="name" column="NAME"/>-->
-<!--    <result property="isPublic" column="IS_PUBLIC"/>-->
-<!--    <result property="likeCnt" column="LIKE_CNT"/>-->
-<!--    <result property="status" column="STATUS"/>-->
-<!--    <collection property="ProjectMember" ofType="org.teamone.tempository.project.query.entity.ProjectMember">-->
-<!--        <id property="projectId" column="PROJECT_ID"/>-->
-<!--        <id property="memberId" column="MEMBER_ID"/>-->
-<!--        <result property="position" column="POSITION"/>-->
-<!--        <result property="memberStatus" column="MEMBER_STATUS"/>-->
-<!--    </collection>-->
+<resultMap id="projectJoinMemberMap" type="org.teamone.tempository.project.query.entity.Project">
+    <id property="id" column="ID"/>
+    <result property="name" column="NAME"/>
+    <result property="isPublic" column="IS_PUBLIC"/>
+    <result property="likeCnt" column="LIKE_CNT"/>
+    <result property="status" column="STATUS"/>
+    <result property="content" column="CONTENT"/>
+    <collection property="projectMemberList" ofType="org.teamone.tempository.project.query.entity.ProjectMember">
+        <id property="projectId" column="PROJECT_ID"/>
+        <id property="memberId" column="MEMBER_ID"/>
+        <result property="position" column="POSITION"/>
+        <result property="memberStatus" column="MEMBER_STATUS"/>
+    </collection>
 
-<!--</resultMap>-->
-<!--    <select id="getProjectJoinUserById" parameterType="org.teamone.tempository.project.query.entity.Project">-->
-<!--        SELECT-->
-<!--              A.ID-->
-<!--            , A.NAME-->
-<!--            , A.IS_PUBLIC-->
-<!--            , A.LIKE_CNT-->
-<!--            , A.STATUS-->
-<!--            , B.MEMBER_ID-->
-<!--            , B.POSITION-->
-<!--            , B.MEMBER_STATUS-->
-<!--         FROM TBL_PROJECT A-->
-<!--         JOIN TBL_PROJECT_MEMBER B ON (A.ID = B.PROJECT_ID)-->
-<!--        WHERE A.ID = #{ id }-->
-<!--    </select>-->
+</resultMap>
+    <select id="getProjectJoinUserById" resultMap="projectJoinMemberMap" parameterType="string" >
+        SELECT
+              A.ID
+            , A.NAME
+            , A.IS_PUBLIC
+            , A.LIKE_CNT
+            , A.STATUS
+            , A.CONTENT
+            , B.MEMBER_ID
+            , B.PROJECT_ID
+            , B.POSITION
+            , B.MEMBER_STATUS
+         FROM TBL_PROJECT A
+         JOIN TBL_PROJECT_MEMBER B ON (A.ID = B.PROJECT_ID)
+        WHERE A.ID = #{ id }
+    </select>
 
 
 </mapper>

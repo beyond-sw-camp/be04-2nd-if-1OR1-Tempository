@@ -1,5 +1,6 @@
 package org.teamone.tempository.project.query.service;
 
+import org.teamone.tempository.project.query.dto.ProjectDTO;
 import org.teamone.tempository.project.query.entity.Project;
 
 import java.util.List;
@@ -13,4 +14,7 @@ public interface ProjectService {
     List<Project> getProjectInfoOrderByLike();
 
     List<Project> getProjectInfoByIsPublic(boolean isPublic);
+
+
+    List<ProjectDTO> getProjectJoinUserById(String id);
 }

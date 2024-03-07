@@ -41,7 +41,7 @@ class ProjectServiceImplTest {
         projectDTO.setName("UpdateTest Project");
         projectDTO.setPublic(false);
         projectDTO.setLikeCnt(12);
-        projectDTO.setStatus(ProjectStatus.COMPLETE);
+        projectDTO.setStatus(ProjectStatus.COMPLETED);
         projectDTO.setContent("UpdateTest Content");
 
         projectService.modifyProjectById(projectDTO);

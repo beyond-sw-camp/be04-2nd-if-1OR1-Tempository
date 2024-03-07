@@ -1,13 +1,11 @@
-package org.teamone.tempository.project.query.entity;
+package org.teamone.tempository.project.query.dto;
 
-
-import jakarta.persistence.Column;
 import lombok.Data;
 import org.teamone.tempository.project.query.type.ProjectMemberStatus;
 import org.teamone.tempository.project.query.type.ProjectPosition;
-@Data
-public class ProjectMember {
 
+@Data
+public class ProjectMemberDTO {
     private int memberId;
 
     private int projectId;
