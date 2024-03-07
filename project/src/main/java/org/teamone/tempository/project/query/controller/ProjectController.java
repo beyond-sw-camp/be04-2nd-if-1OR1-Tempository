@@ -8,8 +8,6 @@ import org.springframework.web.bind.annotation.*;
 import org.teamone.tempository.project.query.dto.ProjectDTO;
 import org.teamone.tempository.project.query.service.ProjectService;
 import org.teamone.tempository.project.query.vo.ResponseProject;
-import org.teamone.tempository.project.query.vo.ResponseProjectDefinitionOfTable;
-import org.teamone.tempository.project.query.vo.ResponseProjectIssue;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -99,59 +97,6 @@ public class ProjectController {
 
     }
 
-    /* 설명. 프로젝트에 대한 이슈 조회 기능 */
-    @GetMapping("/findProjectIssue/{id}")
-    public ResponseEntity<List<ResponseProjectIssue>> getProjectIssueInfoById(@PathVariable String id) {
-
-
-        List<ProjectDTO> projectId = projectService.getProjectIssueById(id);
-
-        List<ResponseProjectIssue> responseProjectIssueList = ProjectDTOToResponseProjectIssue(projectId);
-
-        return ResponseEntity.status(HttpStatus.OK).body(responseProjectIssueList);
-    }
-
-    private List<ResponseProjectIssue> ProjectDTOToResponseProjectIssue(List<ProjectDTO> projectId) {
-        List<ResponseProjectIssue> responseProjectData = new ArrayList<>();
-
-        for (ProjectDTO projectDTO : projectId)
-        {
-            ResponseProjectIssue responseProjectIssue = new ResponseProjectIssue();
-            responseProjectIssue.setId(projectDTO.getId());
-            responseProjectIssue.setProjectIssueDTOList(projectDTO.getProjectIssueList());
-
-            responseProjectData.add(responseProjectIssue);
-        }
-
-
-        return responseProjectData;
-    }
-
-    /* 설명. 프로젝트의 테이블정의서 조회 기능 */
-    @GetMapping("/findProjectDefinitionOfTable/{id}")
-    public ResponseEntity<List<ResponseProjectDefinitionOfTable>> getProjectDefinitionOfTableById(@PathVariable String id) {
-
-
-        List<ProjectDTO> projectId = projectService.getProjectDefinitionOfTableById(id);
-
-        List<ResponseProjectDefinitionOfTable> responseProjectDefinitionOfTableList = ProjectDTOToResponseDefinitionOfTable(projectId);
-
-        return ResponseEntity.status(HttpStatus.OK).body(responseProjectDefinitionOfTableList);
-    }
-
-    private List<ResponseProjectDefinitionOfTable> ProjectDTOToResponseDefinitionOfTable(List<ProjectDTO> projectId) {
-        List<ResponseProjectDefinitionOfTable> projectDefinitionOfTableList = new ArrayList<>();
-
-        for (ProjectDTO projectDTO : projectId) {
-            ResponseProjectDefinitionOfTable responseProjectDefinitionOfTable = new ResponseProjectDefinitionOfTable();
-            responseProjectDefinitionOfTable.setId(projectDTO.getId());
-            responseProjectDefinitionOfTable.setProjectDefinitionOfTableList(projectDTO.getProjectDefinitionOfTableList());
-
-            projectDefinitionOfTableList.add(responseProjectDefinitionOfTable);
-        }
-
-        return projectDefinitionOfTableList;
-    }
 
 
 }

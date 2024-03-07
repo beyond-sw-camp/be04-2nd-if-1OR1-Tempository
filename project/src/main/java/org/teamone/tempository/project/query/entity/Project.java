@@ -25,8 +25,5 @@ public class Project {
 
     private List<ProjectMember> projectMemberList;
 
-    private List<ProjectIssue> projectIssueList;
-
-    private List<ProjectDefinitionOfTable> projectDefinitionOfTableList;
 
 }

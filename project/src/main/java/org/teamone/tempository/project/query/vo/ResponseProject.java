@@ -2,7 +2,6 @@ package org.teamone.tempository.project.query.vo;
 
 import lombok.Data;
 import org.teamone.tempository.project.command.type.ProjectStatus;
-import org.teamone.tempository.project.query.dto.ProjectIssueDTO;
 import org.teamone.tempository.project.query.dto.ProjectMemberDTO;
 
 import java.util.List;
