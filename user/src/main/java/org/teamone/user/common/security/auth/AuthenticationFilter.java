@@ -62,8 +62,6 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 
         String userEmail = ((User) authResult.getPrincipal()).getUsername();
 
-        System.out.println("토큰키 = " + environment.getProperty("token.secret"));
-
         /* 설명. DB를 다녀와 사용자의 고유 아이디(userId)를 가져올 예정(Principal 객체(Authentication)에는 없는 값이므로) */
         QueryUserDTO userDetails = queryUserAuthService.getUserDetailsByEmail(userEmail);
         String userId = userDetails.getUserId();
