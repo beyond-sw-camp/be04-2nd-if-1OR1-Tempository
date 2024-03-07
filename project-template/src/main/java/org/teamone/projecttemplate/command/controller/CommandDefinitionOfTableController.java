@@ -2,7 +2,6 @@ package org.teamone.projecttemplate.command.controller;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,13 +12,13 @@ import org.teamone.projecttemplate.command.vo.DefinitionOfTableResponse;
 
 @RestController
 @RequestMapping("/definition")
-public class DefinitionOfTableController {
+public class CommandDefinitionOfTableController {
     private ModelMapper modelMapper;
     private CommandDefinitionOfTableService commandDefinitionOfTableService;
 
     @Autowired
-    public DefinitionOfTableController(ModelMapper modelMapper,
-                                       CommandDefinitionOfTableService commandDefinitionOfTableService) {
+    public CommandDefinitionOfTableController(ModelMapper modelMapper,
+                                              CommandDefinitionOfTableService commandDefinitionOfTableService) {
         this.modelMapper = modelMapper;
         this.commandDefinitionOfTableService = commandDefinitionOfTableService;
     }

@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 import org.teamone.projecttemplate.command.dto.CommandDefinitionOfTableDTO;
 import org.teamone.projecttemplate.command.entity.CommandDefinitionOfTable;
 import org.teamone.projecttemplate.command.repository.CommandDefinitionOfTableRepository;
-import org.teamone.projecttemplate.query.dto.DefinitionOfTableDTO;
 
 import java.util.List;
 
@@ -31,8 +30,8 @@ public class CommandDefinitionOfTableServiceImpl implements CommandDefinitionOfT
     @Override
     public void registDefinition(CommandDefinitionOfTableDTO commandDefinitionOfTableDTO) {
         modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
-        CommandDefinitionOfTable definitionOfTable = modelMapper.map(commandDefinitionOfTableDTO, CommandDefinitionOfTable.class);
-        commandDefinitionOfTableRepository.save(definitionOfTable);
+        CommandDefinitionOfTable commandDefinitionOfTable = modelMapper.map(commandDefinitionOfTableDTO, CommandDefinitionOfTable.class);
+        commandDefinitionOfTableRepository.save(commandDefinitionOfTable);
     }
 
     /* 설명. Delete Definition of Table By Project ID */
@@ -45,19 +44,19 @@ public class CommandDefinitionOfTableServiceImpl implements CommandDefinitionOfT
     /* 설명. Delete Definition of Table By Project ID and Table No */
     @Transactional
     @Override
-    public DefinitionOfTableDTO removeDefinitionByDefinitionNo(int projectId, int definitionNo) {
+    public CommandDefinitionOfTableDTO removeDefinitionByDefinitionNo(int projectId, int definitionNo) {
         CommandDefinitionOfTable findDefinition = commandDefinitionOfTableRepository.findByProjectIdAndDefinitionNo(projectId, definitionNo);
 
         if (findDefinition != null) {
             commandDefinitionOfTableRepository.deleteByProjectIdAndDefinitionNo(projectId, definitionNo);
-            List<CommandDefinitionOfTable> definitionList = commandDefinitionOfTableRepository.findByProjectIdAndDefinitionNoGreaterThan(projectId, definitionNo);
+            List<CommandDefinitionOfTable> commandDefinitionList = commandDefinitionOfTableRepository.findByProjectIdAndDefinitionNoGreaterThan(projectId, definitionNo);
 
-            for (CommandDefinitionOfTable definition: definitionList){
-                definition.setDefinitionNo(definition.getDefinitionNo() - 1);
-                commandDefinitionOfTableRepository.save(definition);
+            for (CommandDefinitionOfTable commandDefinitionOfTable: commandDefinitionList){
+                commandDefinitionOfTable.setDefinitionNo(commandDefinitionOfTable.getDefinitionNo() - 1);
+                commandDefinitionOfTableRepository.save(commandDefinitionOfTable);
             }
 
-            return modelMapper.map(findDefinition, DefinitionOfTableDTO.class);
+            return modelMapper.map(findDefinition, CommandDefinitionOfTableDTO.class);
 
         } else {
             throw new EntityNotFoundException("해당 프로젝트 ID와 테이블 정의서 NO에 대한 이슈가 존재하지 않음");
