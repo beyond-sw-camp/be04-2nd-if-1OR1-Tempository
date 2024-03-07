@@ -95,5 +95,4 @@
         WHERE A.ID = #{ id }
     </select>
 
-
 </mapper>

@@ -1,10 +1,14 @@
 package org.teamone.tempository.project.query.dto;
 
-import lombok.Data;
+import lombok.*;
 import org.teamone.tempository.project.query.type.ProjectMemberStatus;
 import org.teamone.tempository.project.query.type.ProjectPosition;
 
-@Data
+@Getter
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString
+@Setter
 public class ProjectMemberDTO {
     private int memberId;
 

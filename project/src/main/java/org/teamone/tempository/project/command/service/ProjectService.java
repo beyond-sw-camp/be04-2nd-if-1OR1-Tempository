@@ -1,6 +1,5 @@
 package org.teamone.tempository.project.command.service;
 
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -12,19 +11,16 @@ import org.teamone.tempository.project.command.type.ProjectStatus;
 @Service("projectServiceJpa")
 public class ProjectService {
 
-    private ModelMapper mapper;
     private final ProjectRepository projectRepository;
 
     @Autowired
-    public ProjectService(ModelMapper modelMapper, ProjectRepository projectRepository) {
-        this.mapper = modelMapper;
+    public ProjectService(ProjectRepository projectRepository) {
         this.projectRepository = projectRepository;
     }
 
     /* 설명. 프로젝트 작성하기 (Insert) */
     @Transactional
     public void registProject(ProjectDTO newProject) {
-//        projectRepository.save(mapper.map(newProject, Project.class)); mapper 이용 (작동됨)
 
         Project project = Project.builder()
                 .name(newProject.getName())
@@ -59,6 +55,7 @@ public class ProjectService {
     public void deleteProjectById(int id) throws IllegalAccessException {
 
         projectRepository.findById(id).orElseThrow(IllegalAccessException::new);
+
         projectRepository.deleteById(id);
     }
 }

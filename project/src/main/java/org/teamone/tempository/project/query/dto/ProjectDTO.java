@@ -1,11 +1,15 @@
 package org.teamone.tempository.project.query.dto;
 
-import lombok.Data;
+import lombok.*;
 import org.teamone.tempository.project.command.type.ProjectStatus;
 
 import java.util.List;
 
-@Data
+@Getter
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString
+@Setter
 public class ProjectDTO {
     private int id;
     private String name;
