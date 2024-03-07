@@ -48,17 +48,22 @@ public class CommandRequirementServiceImpl implements CommandRequirementService{
     /* 설명. 요구사항 명세서 순서 수정(한칸) */
     @Override
     @Transactional
-    public void modifySequenceRequirement(int id, int num) {
-        CommandRequirement commandRequirement = commandRequirementRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("변경할 요구사항이 존재하지 않습니다."));
-        System.out.println("commandRequirement = " + commandRequirement);
+    public void modifySequenceRequirement(CommandRequirementDTO commandRequirementDTO, int num) {
 
-        CommandRequirement sequenceRequirement = commandRequirementRepository
-                .findByProjectIdAndRequirementNo(
-                        commandRequirement.getProjectId(),
-                        commandRequirement.getRequirementNo() + num
-                );
-        System.out.println("sequenceRequirement = " + sequenceRequirement);
+        int projectId = commandRequirementDTO.getProjectId();
+        int requirementNo = commandRequirementDTO.getRequirementNo();
+
+        /* 설명, 바꿀 요구사항 */
+        CommandRequirement commandRequirement = commandRequirementRepository.findByProjectIdAndRequirementNo(
+                projectId,
+                requirementNo
+        );
+
+        /* 설명. 다음 순서의 요구사항 */
+        CommandRequirement sequenceRequirement = commandRequirementRepository.findByProjectIdAndRequirementNo(
+                projectId,
+                requirementNo + num
+        );
 
         if (sequenceRequirement == null)
             throw new IllegalArgumentException("요구 사항 순서 변경 없음");
@@ -67,25 +72,21 @@ public class CommandRequirementServiceImpl implements CommandRequirementService{
         sequenceRequirement.setRequirementNo(sequenceRequirement.getRequirementNo() - num);
     }
 
-    /* 설명. 요구사항 id로 요구사항 명세서 삭제  */
+    /* 설명. 프로젝트 id와 requirementNo로 요구사항 명세서 삭제  */
     @Override
     @Transactional
-    public void deleteRequirement(int id) {
-        System.out.println("id = " + id);
-        CommandRequirement commandRequirement = commandRequirementRepository
-                .findById(id)
-                .orElseThrow(IllegalArgumentException::new);
-        System.out.println("commandRequirement = " + commandRequirement);
+    public void deleteRequirement(int projectId, int requirementNo) {
 
-        List<CommandRequirement> commandRequirementList = commandRequirementRepository.findByProjectIdOrderByRequirementNoAsc(commandRequirement.getProjectId());
-        int requirementNo = commandRequirement.getRequirementNo();
+        /* 설명. 프로젝트 id와 requirementNo로 요구사항 명세서 삭제  */
+        commandRequirementRepository.deleteByProjectIdAndRequirementNo(projectId, requirementNo);
 
+        /* 설명. 해당 요구사항 명세서 다음 순서의 요구사항 명세서들 조회 */
+        List<CommandRequirement> commandRequirementList = commandRequirementRepository
+                .findByProjectIdAndRequirementNoGreaterThanOrderByRequirementNoAsc(projectId, requirementNo);
 
-        for (int i = requirementNo; i < commandRequirementList.size(); i++) {
-            commandRequirementList.get(i).setRequirementNo(i);
+        for (CommandRequirement nextRequirement: commandRequirementList){
+            nextRequirement.setRequirementNo(nextRequirement.getRequirementNo() -1);
         }
-
-        commandRequirementRepository.deleteById(id);
     }
 
     @Override

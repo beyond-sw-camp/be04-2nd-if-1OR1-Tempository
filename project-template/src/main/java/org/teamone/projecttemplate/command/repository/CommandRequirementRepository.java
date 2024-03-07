@@ -15,4 +15,8 @@ public interface CommandRequirementRepository extends JpaRepository<CommandRequi
     List<CommandRequirement> findByProjectIdOrderByRequirementNoAsc(int projectId);
 
     void deleteAllByProjectId(int projectId);
+
+    void deleteByProjectIdAndRequirementNo(int projectId, int requirementNo);
+
+    List<CommandRequirement> findByProjectIdAndRequirementNoGreaterThanOrderByRequirementNoAsc(int projectId, int requirementNo);
 }
