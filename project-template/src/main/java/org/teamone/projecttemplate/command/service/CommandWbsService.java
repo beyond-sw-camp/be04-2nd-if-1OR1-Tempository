@@ -22,4 +22,6 @@ public interface CommandWbsService {
     void modifyWbsContentByProjectIdAndWbsNo(int projectId, int wbsNo, String content);
 
     void insertManyWbsByProjectId(int projectId, List<WbsRequest> wbs);
+
+    CommandWbsDTO insertWbsByProjectId(CommandWbsDTO wbsDTO);
 }

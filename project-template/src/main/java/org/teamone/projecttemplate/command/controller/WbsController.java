@@ -40,7 +40,7 @@ public class WbsController {
     }
 
 
-    /* WBS 추가 */
+    /* WBS 추가(같은 프로젝트의 마지막 WBS 이후로 WBS NO 설정됨) */
     @PostMapping("/insert")
     public ResponseEntity<WbsResponse> insertWbs(@RequestBody WbsRequest wbs) {
 
@@ -57,14 +57,26 @@ public class WbsController {
         return ResponseEntity.status(HttpStatus.CREATED).body(wbsResponse);
     }
 
-    /* Project ID에 해당하는 WBS 하나 추가 */
-//    @PostMapping("/insert/{projectId}")
-//    public ResponseEntity<WbsResponse> insertWbsByProjectId(@PathVariable("projectId") int projectId,
-//                                                            @RequestBody WbsRequest wbs) {
-//
-//    }
 
-    /* Project ID에 해당하는 WBS 일괄 추가 */
+    /* Project ID에 해당하는 WBS 하나 추가(같은 프로젝트의 마지막 WBS 이후로 WBS NO 설정됨) */
+    @PostMapping("/insert/{projectId}")
+    public ResponseEntity<WbsResponse> insertWbsByProjectId(@PathVariable("projectId") int projectId,
+                                                            @RequestBody WbsRequest wbs) {
+        modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
+
+        CommandWbsDTO wbsDTO = modelMapper.map(wbs, CommandWbsDTO.class);
+        wbsDTO.setProjectId(projectId);
+
+        CommandWbsDTO createdWbsDTO = commandWbsService.insertWbsByProjectId(wbsDTO);
+
+        WbsResponse wbsResponse = modelMapper.map(createdWbsDTO, WbsResponse.class);
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(wbsResponse);
+
+    }
+
+
+    /* Project ID에 해당하는 WBS 일괄 추가(같은 프로젝트의 마지막 WBS 이후로 WBS NO 설정됨) */
     @PostMapping("/insert-many/{projectId}")
     public ResponseEntity<Void> insertManyWbsByProjectId(@PathVariable("projectId") int projectId,
                                                      @RequestBody List<WbsRequest> wbs) {
@@ -116,6 +128,7 @@ public class WbsController {
 
     }
 
+
     /* 프로젝트 ID와 WBS NO에 해당하는 WBS content만 수정 */
     @PutMapping("/modify/content/{projectId}/{wbsNo}")
     public ResponseEntity<Void> modifyWbsContentByProjectIdAndWbsNo(@PathVariable("projectId") int projectId,
@@ -146,5 +159,4 @@ public class WbsController {
     }
 
 
-    /*  */
 }

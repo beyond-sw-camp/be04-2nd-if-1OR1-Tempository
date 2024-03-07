@@ -41,20 +41,45 @@ public class CommandWbsServiceImpl implements CommandWbsService{
 
     }
 
-    /* Project ID에 해당하는 WBS 일괄 추가 */
+
+    /* Project ID에 해당하는 WBS 하나 추가(같은 프로젝트의 마지막 WBS 이후로 WBS NO 설정됨) */
+    @Override
+    @Transactional
+    public CommandWbsDTO insertWbsByProjectId(CommandWbsDTO newWbs) {
+        modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
+
+        List<CommandWbs> wbsList = commandWbsRepository.findByProjectId(newWbs.getProjectId());
+        int maxNo = wbsList.size();
+        newWbs.setWbsNo(maxNo + 1);
+
+        CommandWbs commandWbs = modelMapper.map(newWbs, CommandWbs.class);
+        CommandWbs savedEntity = commandWbsRepository.save(commandWbs);
+
+        return modelMapper.map(savedEntity, CommandWbsDTO.class);
+    }
+
+
+    /* Project ID에 해당하는 WBS 일괄 추가(같은 프로젝트의 마지막 WBS 이후로 WBS NO 설정됨) */
     @Override
     @Transactional
     public void insertManyWbsByProjectId(int projectId, List<WbsRequest> wbs) {
         List<CommandWbs> wbsList = new ArrayList<>();
+
+        List<CommandWbs> existingWbsList = commandWbsRepository.findByProjectId(projectId);
+        int maxNo = existingWbsList.size();
+
         for (WbsRequest wbsRequest : wbs) {
             CommandWbs commandWbs = new CommandWbs();
             commandWbs.setProjectId(projectId);
-            commandWbs.setWbsNo(wbsRequest.getWbsNo());
             commandWbs.setContent(wbsRequest.getContent());
             commandWbs.setTaskStatus(wbsRequest.getTaskStatus());
             commandWbs.setStartDate(wbsRequest.getStartDate());
             commandWbs.setEndDate(wbsRequest.getEndDate());
             commandWbs.setManagerId(wbsRequest.getManagerId());
+
+            commandWbs.setWbsNo(++maxNo);
+
+            wbsList.add(commandWbs);
 
             wbsList.add(commandWbs);
         }
