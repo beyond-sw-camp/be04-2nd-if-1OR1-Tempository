@@ -5,6 +5,7 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
+@Setter
 @ToString
 public class IssueResponse {
     private int id;
