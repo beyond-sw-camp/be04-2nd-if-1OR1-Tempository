@@ -19,8 +19,8 @@ public class RequirementService {
     }
 
     /* 설명. projectId로 요구사항 명세서 내용 조회 */
-    public List<Requirement> requirementInfoByProjectId(int projectId) {
-        List<Requirement> requirementList = requirementMapper.requirementInfoByProjectId(projectId);
+    public List<Requirement> findRequirementByProjectId(int projectId) {
+        List<Requirement> requirementList = requirementMapper.findRequirementByProjectId(projectId);
 
         requirementList.forEach(System.out::println);
 
@@ -28,10 +28,10 @@ public class RequirementService {
     }
 
     /* 설명. separate와 projectId로 요구사항 명세서 내용 조회 */
-    public List<Requirement> requirementInfoBySeparateAndProjectId(RequirementDTO requirementDTO) {
+    public List<Requirement> findRequirementBySeparateAndProjectId(RequirementDTO requirementDTO) {
         Requirement requirement = new Requirement(requirementDTO.getSeparate(), requirementDTO.getProjectId());
 
-        List<Requirement> requirementList = requirementMapper.requirementInfoBySeparateAndProjectId(requirement);
+        List<Requirement> requirementList = requirementMapper.findRequirementBySeparateAndProjectId(requirement);
 
         requirementList.forEach(System.out::println);
 

@@ -6,13 +6,9 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.teamone.projecttemplate.query.dto.RequirementDTO;
-import org.teamone.projecttemplate.query.dto.TestcaseDTO;
 import org.teamone.projecttemplate.query.entity.Requirement;
-import org.teamone.projecttemplate.query.entity.Testcase;
 
 import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 class RequirementServiceTest {
@@ -22,18 +18,18 @@ class RequirementServiceTest {
 
     @DisplayName("projectId로 요구사항 조회 테스트")
     @Test
-    void requirementInfoByProjectIdTest() {
-        List<Requirement> requirementList = requirementService.requirementInfoByProjectId(1);
+    void findRequirementInfoByProjectIdTest() {
+        List<Requirement> requirementList = requirementService.findRequirementByProjectId(1);
 
         Assertions.assertNotNull(requirementList);
     }
 
     @DisplayName("separate와 projectId 요구사항 조회")
     @Test
-    void requirementInfoBySeparateAndProjectId() {
+    void finRequirementInfoBySeparateAndProjectId() {
         RequirementDTO requirementDTO = new RequirementDTO("상품", 1);
 
-        List<Requirement> requirementList = requirementService.requirementInfoBySeparateAndProjectId(requirementDTO);
+        List<Requirement> requirementList = requirementService.findRequirementBySeparateAndProjectId(requirementDTO);
 
         Assertions.assertNotNull(requirementList);
     }

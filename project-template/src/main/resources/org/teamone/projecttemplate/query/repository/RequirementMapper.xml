@@ -12,7 +12,7 @@
         <result property="note" column="NOTE"/>
         <result property="projectId" column="PROJECT_ID"/>
     </resultMap>
-    <select id="requirementInfoByProjectId" resultMap="requirementResultMap" parameterType="org.teamone.projecttemplate.query.entity.Requirement">
+    <select id="findRequirementByProjectId" resultMap="requirementResultMap" parameterType="org.teamone.projecttemplate.query.entity.Requirement">
         SELECT
                 ID
               , REQUIREMENT_NO
@@ -25,7 +25,7 @@
          WHERE PROJECT_ID = #{projectId}
          ORDER BY REQUIREMENT_NO ASC
     </select>
-    <select id="requirementInfoBySeparateAndProjectId" resultMap="requirementResultMap" parameterType="org.teamone.projecttemplate.query.entity.Requirement">
+    <select id="findRequirementBySeparateAndProjectId" resultMap="requirementResultMap" parameterType="org.teamone.projecttemplate.query.entity.Requirement">
         SELECT
                 ID
               , REQUIREMENT_NO
