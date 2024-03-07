@@ -35,14 +35,14 @@ public class CommandDefinitionOfTableController {
         return ResponseEntity.status(HttpStatus.CREATED).body(definitionOfTableResponse);
     }
 
-    /* 설명. 프로젝트 ID를 통한 Delete 테이블 정의서 */
+    /* 설명. 프로젝트 ID를 통한 Delete 모든 테이블 정의서 */
     @DeleteMapping("/remove/{projectId}")
     public ResponseEntity<Void> removeAllDefinitionByProjectId(@PathVariable("projectId") int projectId) {
         commandDefinitionOfTableService.removeAllDefinitionByProjectId(projectId);
         return ResponseEntity.ok().build();
     }
 
-    /* 설명. 테이블 정의서 ID를 통한 Delete 테이블 정의서 */
+    /* 설명. 프로젝트 ID와 정의서 번호를 통한 Delete 테이블 정의서 */
     @DeleteMapping("/remove/{projectId}/{definitionNo}")
     public ResponseEntity<Void> removeDefinitionByDefinitionNo(@PathVariable("projectId") int projectId,
                                                                @PathVariable("definitionNo") int definitionNo) {
