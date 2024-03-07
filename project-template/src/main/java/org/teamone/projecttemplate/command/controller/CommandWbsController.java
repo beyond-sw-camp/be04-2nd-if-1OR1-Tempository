@@ -18,14 +18,14 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/wbs")
-public class WbsController {
+public class CommandWbsController {
 
     private final CommandWbsService commandWbsService;
 
     private final ModelMapper modelMapper;
 
     @Autowired
-    public WbsController(CommandWbsService commandWbsService, Environment env, ModelMapper modelMapper) {
+    public CommandWbsController(CommandWbsService commandWbsService, ModelMapper modelMapper) {
         this.commandWbsService = commandWbsService;
         this.modelMapper = modelMapper;
     }
@@ -36,9 +36,9 @@ public class WbsController {
     public ResponseEntity<WbsResponse> registWbs(@RequestBody WbsRequest wbs) {
 
         modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
-        CommandWbsDTO wbsDTO = modelMapper.map(wbs, CommandWbsDTO.class);
-        commandWbsService.registWbs(wbsDTO);
-        WbsResponse wbsResponse = modelMapper.map(wbsDTO, WbsResponse.class);
+        CommandWbsDTO commandWbsDTO = modelMapper.map(wbs, CommandWbsDTO.class);
+        commandWbsService.registWbs(commandWbsDTO);
+        WbsResponse wbsResponse = modelMapper.map(commandWbsDTO, WbsResponse.class);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(wbsResponse);
     }
@@ -49,10 +49,11 @@ public class WbsController {
                                                             @RequestBody WbsRequest wbs) {
 
         modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
-        CommandWbsDTO wbsDTO = modelMapper.map(wbs, CommandWbsDTO.class);
-        wbsDTO.setProjectId(projectId);
-        CommandWbsDTO createdWbsDTO = commandWbsService.registWbsByProjectId(wbsDTO);
-        WbsResponse wbsResponse = modelMapper.map(createdWbsDTO, WbsResponse.class);
+
+        CommandWbsDTO commandWbsDTO = modelMapper.map(wbs, CommandWbsDTO.class);
+        commandWbsDTO.setProjectId(projectId);
+        CommandWbsDTO createdCommandWbsDTO = commandWbsService.registWbsByProjectId(commandWbsDTO);
+        WbsResponse wbsResponse = modelMapper.map(createdCommandWbsDTO, WbsResponse.class);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(wbsResponse);
 
@@ -77,11 +78,11 @@ public class WbsController {
                                                  @RequestBody WbsRequest wbs) {
 
         modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
-        CommandWbsDTO wbsDTO = modelMapper.map(wbs, CommandWbsDTO.class);
-        wbsDTO.setProjectId(projectId);
-        wbsDTO.setWbsNo(wbsNo);
-        commandWbsService.modifyWbs(wbsDTO);
-        WbsResponse wbsResponse = modelMapper.map(wbsDTO, WbsResponse.class);
+        CommandWbsDTO commandWbsDTO = modelMapper.map(wbs, CommandWbsDTO.class);
+        commandWbsDTO.setProjectId(projectId);
+        commandWbsDTO.setWbsNo(wbsNo);
+        commandWbsService.modifyWbs(commandWbsDTO);
+        WbsResponse wbsResponse = modelMapper.map(commandWbsDTO, WbsResponse.class);
 
         return ResponseEntity.ok().body(wbsResponse);
 
@@ -92,8 +93,8 @@ public class WbsController {
     public ResponseEntity<List<WbsResponse>> modifyAllWbsStatusToCompleted(@PathVariable("projectId") int projectId) {
 
         modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
-        List<CommandWbs> modifiedWbsList = commandWbsService.modifyAllWbsStatusToCompleted(projectId);
-        List<WbsResponse> wbsResponse = modifiedWbsList.stream()
+        List<CommandWbs> modifiedCommandWbsList = commandWbsService.modifyAllWbsStatusToCompleted(projectId);
+        List<WbsResponse> wbsResponse = modifiedCommandWbsList.stream()
                 .map(wbs -> modelMapper.map(wbs, WbsResponse.class))
                 .collect(Collectors.toList());
 
@@ -119,8 +120,8 @@ public class WbsController {
     public ResponseEntity<WbsResponse> removeWbs(@PathVariable("projectId") int projectId,
                                           @PathVariable("wbsNo") int wbsNo) {
 
-        CommandWbsDTO removedWbsDTO = commandWbsService.removeWbs(projectId, wbsNo);
-        WbsResponse removedWbsResponse = modelMapper.map(removedWbsDTO, WbsResponse.class);
+        CommandWbsDTO removedCommandWbsDTO = commandWbsService.removeWbs(projectId, wbsNo);
+        WbsResponse removedWbsResponse = modelMapper.map(removedCommandWbsDTO, WbsResponse.class);
         return ResponseEntity.ok().body(removedWbsResponse);
     }
 
