@@ -10,17 +10,18 @@ public interface CommandWbsService {
 
     void insertWbs(CommandWbsDTO wbsDTO);
 
+    void insertManyWbsByProjectId(int projectId, List<WbsRequest> wbs);
+
+    CommandWbsDTO insertWbsByProjectId(CommandWbsDTO wbsDTO);
+
     void modifyWbs(CommandWbsDTO wbsDTO);
-
-    CommandWbsDTO deleteWbs(int projectId, int wbsNo);
-
-    void deleteAllWbsByProjectId(int projectId);
 
     List<CommandWbs> modifyAllWbsStatusToCompleted(int projectId);
 
     void modifyWbsContentByProjectIdAndWbsNo(int projectId, int wbsNo, String content);
 
-    void insertManyWbsByProjectId(int projectId, List<WbsRequest> wbs);
+    CommandWbsDTO deleteWbs(int projectId, int wbsNo);
 
-    CommandWbsDTO insertWbsByProjectId(CommandWbsDTO wbsDTO);
+    void deleteAllWbsByProjectId(int projectId);
+
 }
