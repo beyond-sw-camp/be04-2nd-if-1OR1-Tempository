@@ -66,4 +66,25 @@ public class CommandRequirementServiceImpl implements CommandRequirementService{
         commandRequirement.setRequirementNo(commandRequirement.getRequirementNo() + num);
         sequenceRequirement.setRequirementNo(sequenceRequirement.getRequirementNo() - num);
     }
+
+    /* 설명. 요구사항 id로 요구사항 명세서 삭제  */
+    @Override
+    @Transactional
+    public void deleteRequirement(int id) {
+        System.out.println("id = " + id);
+        CommandRequirement commandRequirement = commandRequirementRepository
+                .findById(id)
+                .orElseThrow(IllegalArgumentException::new);
+        System.out.println("commandRequirement = " + commandRequirement);
+
+        List<CommandRequirement> commandRequirementList = commandRequirementRepository.findByProjectIdOrderByRequirementNoAsc(commandRequirement.getProjectId());
+        int requirementNo = commandRequirement.getRequirementNo();
+
+
+        for (int i = requirementNo; i < commandRequirementList.size(); i++) {
+            commandRequirementList.get(i).setRequirementNo(i);
+        }
+
+        commandRequirementRepository.deleteById(id);
+    }
 }

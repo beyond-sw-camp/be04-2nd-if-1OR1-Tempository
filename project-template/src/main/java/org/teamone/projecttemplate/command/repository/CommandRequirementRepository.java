@@ -11,4 +11,6 @@ public interface CommandRequirementRepository extends JpaRepository<CommandRequi
     List<CommandRequirement> findByProjectId(int projectId);
 
     CommandRequirement findByProjectIdAndRequirementNo(int projectId, int requirementNo);
+
+    List<CommandRequirement> findByProjectIdOrderByRequirementNoAsc(int projectId);
 }

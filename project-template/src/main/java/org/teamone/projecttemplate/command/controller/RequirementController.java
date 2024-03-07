@@ -45,7 +45,13 @@ public class RequirementController {
     }
 
 
-    /* 설명. 요구사항 명세서 삭제 */
+    /* 설명. 요구사항 id로 요구사항 명세서 삭제 */
+    @PostMapping("/delete")
+    public String deleteRequirement(@RequestParam("id") int id){
+        commandRequirementService.deleteRequirement(id);
+
+        return "Server at " + environment.getProperty("local.server.port");
+    }
 
     /* 설명. 요구사항 명세서 전체 삭제 */
 }
