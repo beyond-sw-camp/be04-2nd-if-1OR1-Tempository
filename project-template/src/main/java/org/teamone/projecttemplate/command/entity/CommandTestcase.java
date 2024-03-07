@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 
 @Entity
 @Table(name="tbl_project_testcase")
-public class CommandTestcaseEntity {
+public class CommandTestcase {
 
     @Id
     @Column(name="ID")
@@ -32,15 +32,15 @@ public class CommandTestcaseEntity {
     @Column(name="PROJECT_ID", nullable = false)
     private int projectId;
 
-    public CommandTestcaseEntity() {
+    public CommandTestcase() {
     }
 
-    public CommandTestcaseEntity(String separate, int projectId) {
+    public CommandTestcase(String separate, int projectId) {
         this.separate = separate;
         this.projectId = projectId;
     }
 
-    public CommandTestcaseEntity(int testNo, String separate, String content, String expectedValue, String result, String note, int projectId) {
+    public CommandTestcase(int testNo, String separate, String content, String expectedValue, String result, String note, int projectId) {
         this.testNo = testNo;
         this.separate = separate;
         this.content = content;
@@ -50,7 +50,7 @@ public class CommandTestcaseEntity {
         this.projectId = projectId;
     }
 
-    public CommandTestcaseEntity(int id, int testNo, String separate, String content, String expectedValue, String result, String note, int projectId) {
+    public CommandTestcase(int id, int testNo, String separate, String content, String expectedValue, String result, String note, int projectId) {
         this.id = id;
         this.testNo = testNo;
         this.separate = separate;
