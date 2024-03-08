@@ -115,6 +115,7 @@ public class ProjectServiceImpl implements ProjectService{
         return projectDTOMemberList;
     }
 
+    /* 설명. 프로젝트 내용 검색을 통한 프로젝트 조회 기능 */
     @Override
     public List<Project> getProjectInfoByContent(String content) {
         List<Project> findProjectByContent = projectMapper.getProjectInfoByContent(content);
