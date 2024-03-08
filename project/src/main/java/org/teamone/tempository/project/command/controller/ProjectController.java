@@ -42,9 +42,10 @@ public class ProjectController {
 
     /* 설명. 프로젝트 삭제 기능*/
     @PostMapping("/delete")
-    public String deleteProjectById(@RequestParam("id") int id) throws IllegalAccessException {
+    public String deleteProjectById(@RequestParam("id") int id)  {
 
         projectService.deleteProjectById(id);
+
 
         return "Server at " + environment.getProperty("local.server.port");
     }

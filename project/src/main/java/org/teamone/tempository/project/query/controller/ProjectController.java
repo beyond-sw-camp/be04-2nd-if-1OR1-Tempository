@@ -101,6 +101,7 @@ public class ProjectController {
     /* 설명. 내용 검색을 통한 프로젝트 조회 */
     @PostMapping("/searchContent")
     public String getProjectInfoByContent(@RequestBody String Content) {
+
         projectService.getProjectInfoByContent(Content);
 
         return "Server at " + environment.getProperty("local.server.port");
@@ -108,6 +109,7 @@ public class ProjectController {
 
     @PostMapping("/searchName")
     public String getProjectInfoByName(@RequestBody String name) {
+
         projectService.getProjectInfoByName(name);
 
         return "Server at " + environment.getProperty("local.server.port");

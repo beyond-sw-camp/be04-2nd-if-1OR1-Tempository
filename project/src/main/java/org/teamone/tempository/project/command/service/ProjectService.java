@@ -52,9 +52,7 @@ public class ProjectService {
 
     /* 설명. 프로젝트 삭제하기(Delete) */
     @Transactional
-    public void deleteProjectById(int id) throws IllegalAccessException {
-
-        projectRepository.findById(id).orElseThrow(IllegalAccessException::new);
+    public void deleteProjectById(int id)  {
 
         projectRepository.deleteById(id);
     }

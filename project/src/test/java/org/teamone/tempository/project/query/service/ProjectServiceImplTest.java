@@ -16,18 +16,18 @@ class ProjectServiceImplTest {
     @Autowired
     private ProjectServiceImpl projectService;
 
-//    @DisplayName("프로젝트 정보 조회 테스트")
-//    @Test
-//    void getProjectInfoByIdTest(){
-//        ProjectDTO project = new ProjectDTO(1);
-//        List<Project> projectInfoById = projectService.getProjectInfoById(project);
-//    }
+    @DisplayName("프로젝트 정보 조회 테스트")
+    @Test
+    void getProjectInfoByIdTest(){
+        int id = 1;
+        projectService.getProjectInfoById(id);
+    }
 
     @DisplayName("완료유무를 기준으로 프로젝트 정보 조회 테스트")
     @Test
     void getProjectInfoByStatusTest() {
         ProjectStatus Status = ProjectStatus.COMPLETED;
-        List<Project> projectInfoByStatus = projectService.getProjectInfoByStatus(Status);
+        projectService.getProjectInfoByStatus(Status);
 
     }
 
@@ -44,7 +44,7 @@ class ProjectServiceImplTest {
     void getProjectInfoByIsPublic() {
 
         boolean isPublic = true;
-        List<Project> getProjectInfoByIsPublic = projectService.getProjectInfoByIsPublic(isPublic);
+         projectService.getProjectInfoByIsPublic(isPublic);
 
     }
 

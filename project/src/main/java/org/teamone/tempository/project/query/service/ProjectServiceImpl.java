@@ -28,7 +28,16 @@ public class ProjectServiceImpl implements ProjectService{
 
         List<Project> findProjectInfoById = projectMapper.getProjectInfoById(id);
 
-        findProjectInfoById.forEach(System.out::println);
+        if(findProjectInfoById != null && findProjectInfoById.size() > 0) {
+
+            findProjectInfoById.forEach(System.out::println);
+
+        }
+        else{
+
+            System.out.println("프로젝트가 존재하지 않습니다.");
+
+        }
 
         return findProjectInfoById;
     }
