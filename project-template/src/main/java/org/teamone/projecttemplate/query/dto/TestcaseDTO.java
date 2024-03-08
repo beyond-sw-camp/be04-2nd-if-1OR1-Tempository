@@ -23,11 +23,6 @@ public class TestcaseDTO {
         this.result = result;
     }
 
-    public TestcaseDTO(int testNo, int projectId) {
-        this.testNo = testNo;
-        this.projectId = projectId;
-    }
-
     public TestcaseDTO(int testNo, String separate, String content, String expectedValue, String result, String note, int projectId) {
         this.testNo = testNo;
         this.separate = separate;

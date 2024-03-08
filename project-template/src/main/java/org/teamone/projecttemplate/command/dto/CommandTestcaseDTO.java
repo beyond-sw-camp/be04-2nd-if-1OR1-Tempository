@@ -13,25 +13,6 @@ public class CommandTestcaseDTO {
     public CommandTestcaseDTO() {
     }
 
-    public CommandTestcaseDTO(int testNo, String separate, String content, String expectedValue, String result, String note, int projectId) {
-        this.testNo = testNo;
-        this.separate = separate;
-        this.content = content;
-        this.expectedValue = expectedValue;
-        this.result = result;
-        this.note = note;
-        this.projectId = projectId;
-    }
-
-    public CommandTestcaseDTO(String separate, String content, String expectedValue, String result, String note, int projectId) {
-        this.separate = separate;
-        this.content = content;
-        this.expectedValue = expectedValue;
-        this.result = result;
-        this.note = note;
-        this.projectId = projectId;
-    }
-
     public CommandTestcaseDTO(int id, int testNo, String separate, String content, String expectedValue, String result, String note, int projectId) {
         this.id = id;
         this.testNo = testNo;
