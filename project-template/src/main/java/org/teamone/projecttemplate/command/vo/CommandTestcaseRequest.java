@@ -1,9 +1,6 @@
 package org.teamone.projecttemplate.command.vo;
 
-import lombok.Setter;
-
-@Setter
-public class TestcaseResponse {
+public class CommandTestcaseRequest {
     private int testNo;
     private String separate;
     private String content;
@@ -12,7 +9,17 @@ public class TestcaseResponse {
     private String note;
     private int projectId;
 
-    public TestcaseResponse() {
+    public CommandTestcaseRequest() {
+    }
+
+    public CommandTestcaseRequest(int testNo, String separate, String content, String expectedValue, String result, String note, int projectId) {
+        this.testNo = testNo;
+        this.separate = separate;
+        this.content = content;
+        this.expectedValue = expectedValue;
+        this.result = result;
+        this.note = note;
+        this.projectId = projectId;
     }
 
     public int getTestNo() {
@@ -43,37 +50,9 @@ public class TestcaseResponse {
         return projectId;
     }
 
-    public void setTestNo(int testNo) {
-        this.testNo = testNo;
-    }
-
-    public void setSeparate(String separate) {
-        this.separate = separate;
-    }
-
-    public void setContent(String content) {
-        this.content = content;
-    }
-
-    public void setExpectedValue(String expectedValue) {
-        this.expectedValue = expectedValue;
-    }
-
-    public void setResult(String result) {
-        this.result = result;
-    }
-
-    public void setNote(String note) {
-        this.note = note;
-    }
-
-    public void setProjectId(int projectId) {
-        this.projectId = projectId;
-    }
-
     @Override
     public String toString() {
-        return "TestcaseResponse{" +
+        return "TestcaseRequest{" +
                 "testNo=" + testNo +
                 ", separate='" + separate + '\'' +
                 ", content='" + content + '\'' +

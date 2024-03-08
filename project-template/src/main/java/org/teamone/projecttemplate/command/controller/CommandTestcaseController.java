@@ -8,9 +8,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.teamone.projecttemplate.command.dto.CommandTestcaseDTO;
 import org.teamone.projecttemplate.command.service.CommandTestcaseService;
-import org.teamone.projecttemplate.command.vo.TestcaseRequest;
-import org.teamone.projecttemplate.command.vo.TestcaseResponse;
-import org.teamone.projecttemplate.command.vo.TestcaseSequenceRequest;
+import org.teamone.projecttemplate.command.vo.CommandTestcaseRequest;
+import org.teamone.projecttemplate.command.vo.CommandTestcaseResponse;
+import org.teamone.projecttemplate.command.vo.CommandTestcaseSequenceRequest;
 
 @RestController
 @RequestMapping("/testcase")
@@ -27,48 +27,48 @@ public class CommandTestcaseController {
 
     /* 설명. 테스트케이스 추가(testNo 자동 설정) */
     @PostMapping("/regist")
-    public ResponseEntity<TestcaseResponse> registTestcase(@RequestBody TestcaseRequest testcaseRequest) {
+    public ResponseEntity<CommandTestcaseResponse> registTestcase(@RequestBody CommandTestcaseRequest commandTestcaseRequest) {
         modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
-        CommandTestcaseDTO commandTestcaseDTO = modelMapper.map(testcaseRequest, CommandTestcaseDTO.class);
+        CommandTestcaseDTO commandTestcaseDTO = modelMapper.map(commandTestcaseRequest, CommandTestcaseDTO.class);
 
         commandTestcaseService.registTestcase(commandTestcaseDTO);
 
-        TestcaseResponse testcaseResponse = modelMapper.map(commandTestcaseDTO, TestcaseResponse.class);
+        CommandTestcaseResponse commandTestcaseResponse = modelMapper.map(commandTestcaseDTO, CommandTestcaseResponse.class);
 
-        return ResponseEntity.status(HttpStatus.CREATED).body(testcaseResponse);
+        return ResponseEntity.status(HttpStatus.CREATED).body(commandTestcaseResponse);
     }
 
     /* 설명. 테스트케이스 수정 */
     @PutMapping("/modify")
-    public ResponseEntity<TestcaseResponse> modifyTestcase(
-            @RequestBody TestcaseRequest testcaseRequest) {
+    public ResponseEntity<CommandTestcaseResponse> modifyTestcase(
+            @RequestBody CommandTestcaseRequest commandTestcaseRequest) {
         modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
-        CommandTestcaseDTO commandTestcaseDTO = modelMapper.map(testcaseRequest, CommandTestcaseDTO.class);
+        CommandTestcaseDTO commandTestcaseDTO = modelMapper.map(commandTestcaseRequest, CommandTestcaseDTO.class);
 
         commandTestcaseService.modifyTestcase(commandTestcaseDTO);
 
-        TestcaseResponse testcaseResponse = modelMapper.map(commandTestcaseDTO, TestcaseResponse.class);
+        CommandTestcaseResponse commandTestcaseResponse = modelMapper.map(commandTestcaseDTO, CommandTestcaseResponse.class);
 
-        return ResponseEntity.ok().body(testcaseResponse);
+        return ResponseEntity.ok().body(commandTestcaseResponse);
     }
 
     /* 설명. 테스트케이스 순서 수정 */
     /* 설명. 프로젝트 id와 TEST_NO로 정수(-1: 순서 위로, 1: 순서 아래로)만큼 순서 변경 */
     @PutMapping("/modify/sequence")
-    public ResponseEntity<TestcaseResponse> modifyTestcaseSequence(
-            @RequestBody TestcaseSequenceRequest testcaseSequenceRequest){
+    public ResponseEntity<CommandTestcaseResponse> modifyTestcaseSequence(
+            @RequestBody CommandTestcaseSequenceRequest commandTestcaseSequenceRequest){
         CommandTestcaseDTO commandTestcaseDTO = new CommandTestcaseDTO();
 
-        commandTestcaseDTO.setProjectId(testcaseSequenceRequest.getProjectId());
-        commandTestcaseDTO.setTestNo(testcaseSequenceRequest.getTestNo());
-        int num = testcaseSequenceRequest.getNum();
+        commandTestcaseDTO.setProjectId(commandTestcaseSequenceRequest.getProjectId());
+        commandTestcaseDTO.setTestNo(commandTestcaseSequenceRequest.getTestNo());
+        int num = commandTestcaseSequenceRequest.getNum();
 
         /* 설명.  순서 변경 후 변경된 DTO 반환 */
         commandTestcaseDTO = commandTestcaseService.modifyTestcaseSequence(commandTestcaseDTO, num);
 
-        TestcaseResponse testcaseResponse = modelMapper.map(commandTestcaseDTO, TestcaseResponse.class);
+        CommandTestcaseResponse commandTestcaseResponse = modelMapper.map(commandTestcaseDTO, CommandTestcaseResponse.class);
 
-        return ResponseEntity.ok().body(testcaseResponse);
+        return ResponseEntity.ok().body(commandTestcaseResponse);
     }
 
     /* 설명. 프로젝트 id와 testNo로 테스트케이스 삭제 */

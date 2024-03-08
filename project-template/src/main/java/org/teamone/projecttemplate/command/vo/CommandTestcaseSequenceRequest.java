@@ -1,14 +1,14 @@
 package org.teamone.projecttemplate.command.vo;
 
-public class TestcaseSequenceRequest {
+public class CommandTestcaseSequenceRequest {
     private int projectId;
     private int testNo;
     private int num;
 
-    public TestcaseSequenceRequest() {
+    public CommandTestcaseSequenceRequest() {
     }
 
-    public TestcaseSequenceRequest(int projectId, int testNo, int num) {
+    public CommandTestcaseSequenceRequest(int projectId, int testNo, int num) {
         this.projectId = projectId;
         this.testNo = testNo;
         this.num = num;
