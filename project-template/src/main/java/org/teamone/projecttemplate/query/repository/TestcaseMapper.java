@@ -4,6 +4,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.teamone.projecttemplate.query.entity.Testcase;
 
 import java.util.List;
+import java.util.Map;
 
 @Mapper
 public interface TestcaseMapper {
@@ -14,4 +15,6 @@ public interface TestcaseMapper {
     List<Testcase> selectTestcaseByResultAndProjectId(Testcase testcase);
 
     Testcase selectTestcaseById(int id);
+
+    Testcase selectTestcaseByTestNoAndProjectId(Map<String, Integer> intMap);
 }

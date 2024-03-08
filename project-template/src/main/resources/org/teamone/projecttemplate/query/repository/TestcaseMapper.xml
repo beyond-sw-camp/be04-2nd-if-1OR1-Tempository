@@ -72,8 +72,23 @@
               , RESULT
               , NOTE
               , PROJECT_ID
-          FROM tbl_project_testcase
+          FROM TBL_PROJECT_TESTCASE
          WHERE ID = #{id};
+    </select>
+
+    <select id="selectTestcaseByTestNoAndProjectId" resultMap="testcaseMap" parameterType="hashmap">
+        SELECT
+                ID
+              , TEST_NO
+              , SEPARATE
+              , CONTENT
+              , EXPECTED_VALUE
+              , RESULT
+              , NOTE
+              , PROJECT_ID
+          FROM TBL_PROJECT_TESTCASE
+         WHERE TEST_NO = #{testNo}
+           AND PROJECT_ID = #{projectId};
     </select>
 
 </mapper>
