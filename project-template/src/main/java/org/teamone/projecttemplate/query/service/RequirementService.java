@@ -6,7 +6,9 @@ import org.teamone.projecttemplate.query.dto.RequirementDTO;
 import org.teamone.projecttemplate.query.entity.Requirement;
 import org.teamone.projecttemplate.query.repository.RequirementMapper;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class RequirementService {
@@ -42,6 +44,18 @@ public class RequirementService {
     public Requirement findRequirementById(int id) {
         Requirement requirement = requirementMapper.selectRequirementById(id);
         System.out.println("requirement = " + requirement);
+
+        return requirement;
+    }
+
+    /* 설명. 테스트케이스 id와 requirementNo로 조회 */
+    public Requirement findRequirementByRequirementNoAndProjectId(int requirementNo, int projectId) {
+        Map<String, Integer> intMap = new HashMap<>();
+        intMap.put("requirementNo", requirementNo);
+        intMap.put("projectId", projectId);
+
+        Requirement requirement = requirementMapper.selectRequirementByRequirementNoAndProjectId(intMap);
+        System.out.println(requirement);
 
         return requirement;
     }

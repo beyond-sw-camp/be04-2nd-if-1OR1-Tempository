@@ -4,6 +4,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.teamone.projecttemplate.query.entity.Requirement;
 
 import java.util.List;
+import java.util.Map;
 
 @Mapper
 public interface RequirementMapper {
@@ -12,4 +13,6 @@ public interface RequirementMapper {
     List<Requirement> selectRequirementBySeparateAndProjectId(Requirement requirement);
 
     Requirement selectRequirementById(int id);
+
+    Requirement selectRequirementByRequirementNoAndProjectId(Map<String, Integer> intMap);
 }

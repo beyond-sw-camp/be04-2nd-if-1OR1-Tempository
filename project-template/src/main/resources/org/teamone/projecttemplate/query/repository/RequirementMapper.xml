@@ -55,5 +55,19 @@
           FROM TBL_PROJECT_REQUIREMENT
          WHERE ID = #{id};
     </select>
-    
+
+    <select id="selectRequirementByRequirementNoAndProjectId" resultMap="requirementResultMap">
+        SELECT
+                 ID
+              , REQUIREMENT_NO
+              , SEPARATE
+              , NAME
+              , CONTENT
+              , NOTE
+              , PROJECT_ID
+          FROM TBL_PROJECT_REQUIREMENT
+         WHERE REQUIREMENT_NO = #{requirementNo}
+           AND PROJECT_ID = #{projectId};
+    </select>
+
 </mapper>
