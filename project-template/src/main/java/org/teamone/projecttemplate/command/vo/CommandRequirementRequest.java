@@ -1,6 +1,6 @@
 package org.teamone.projecttemplate.command.vo;
 
-public class RequirementRequest {
+public class CommandRequirementRequest {
     private int requirementNo;
     private String separate;
     private String name;
@@ -8,10 +8,10 @@ public class RequirementRequest {
     private String note;
     private int projectId;
 
-    public RequirementRequest() {
+    public CommandRequirementRequest() {
     }
 
-    public RequirementRequest(int requirementNo, String separate, String name, String content, String note, int projectId) {
+    public CommandRequirementRequest(int requirementNo, String separate, String name, String content, String note, int projectId) {
         this.requirementNo = requirementNo;
         this.separate = separate;
         this.name = name;

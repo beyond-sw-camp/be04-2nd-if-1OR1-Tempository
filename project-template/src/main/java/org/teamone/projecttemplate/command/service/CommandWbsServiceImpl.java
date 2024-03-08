@@ -9,7 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.teamone.projecttemplate.command.dto.CommandWbsDTO;
 import org.teamone.projecttemplate.command.entity.CommandWbs;
 import org.teamone.projecttemplate.command.repository.CommandWbsRepository;
-import org.teamone.projecttemplate.command.vo.WbsRequest;
+import org.teamone.projecttemplate.command.vo.CommandWbsRequest;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -61,20 +61,20 @@ public class CommandWbsServiceImpl implements CommandWbsService{
     /* Project ID에 해당하는 WBS 일괄 추가(같은 프로젝트의 마지막 WBS 이후로 WBS NO 설정됨) */
     @Override
     @Transactional
-    public void registManyWbsByProjectId(int projectId, List<WbsRequest> wbs) {
+    public void registManyWbsByProjectId(int projectId, List<CommandWbsRequest> wbs) {
         List<CommandWbs> commandWbsList = new ArrayList<>();
 
         List<CommandWbs> existingCommandWbsList = commandWbsRepository.findByProjectId(projectId);
         int maxNo = existingCommandWbsList.size();
 
-        for (WbsRequest wbsRequest : wbs) {
+        for (CommandWbsRequest commandWbsRequest : wbs) {
             CommandWbs commandWbs = new CommandWbs();
             commandWbs.setProjectId(projectId);
-            commandWbs.setContent(wbsRequest.getContent());
-            commandWbs.setTaskStatus(wbsRequest.getTaskStatus());
-            commandWbs.setStartDate(wbsRequest.getStartDate());
-            commandWbs.setEndDate(wbsRequest.getEndDate());
-            commandWbs.setManagerId(wbsRequest.getManagerId());
+            commandWbs.setContent(commandWbsRequest.getContent());
+            commandWbs.setTaskStatus(commandWbsRequest.getTaskStatus());
+            commandWbs.setStartDate(commandWbsRequest.getStartDate());
+            commandWbs.setEndDate(commandWbsRequest.getEndDate());
+            commandWbs.setManagerId(commandWbsRequest.getManagerId());
 
             commandWbs.setWbsNo(++maxNo);
 

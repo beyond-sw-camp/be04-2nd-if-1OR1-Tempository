@@ -2,7 +2,7 @@ package org.teamone.projecttemplate.command.service;
 
 import org.teamone.projecttemplate.command.dto.CommandWbsDTO;
 import org.teamone.projecttemplate.command.entity.CommandWbs;
-import org.teamone.projecttemplate.command.vo.WbsRequest;
+import org.teamone.projecttemplate.command.vo.CommandWbsRequest;
 
 import java.util.List;
 
@@ -12,7 +12,7 @@ public interface CommandWbsService {
 
     CommandWbsDTO registWbsByProjectId(CommandWbsDTO wbsDTO);
 
-    void registManyWbsByProjectId(int projectId, List<WbsRequest> wbs);
+    void registManyWbsByProjectId(int projectId, List<CommandWbsRequest> wbs);
 
     void modifyWbs(CommandWbsDTO wbsDTO);
 

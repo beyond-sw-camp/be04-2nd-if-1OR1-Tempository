@@ -7,8 +7,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.teamone.projecttemplate.command.dto.CommandDefinitionOfTableDTO;
 import org.teamone.projecttemplate.command.service.CommandDefinitionOfTableService;
-import org.teamone.projecttemplate.command.vo.DefinitionOfTableRequest;
-import org.teamone.projecttemplate.command.vo.DefinitionOfTableResponse;
+import org.teamone.projecttemplate.command.vo.CommandDefinitionOfTableRequest;
+import org.teamone.projecttemplate.command.vo.CommandDefinitionOfTableResponse;
 
 @RestController
 @RequestMapping("/definition")
@@ -25,12 +25,12 @@ public class CommandDefinitionOfTableController {
 
     /* 설명. Insert, Update 테이블 정의서 */
     @PostMapping("/regist-and-modify")
-    public ResponseEntity<DefinitionOfTableResponse> registDefinition(@RequestBody DefinitionOfTableRequest definitionOfTableRequest) {
+    public ResponseEntity<CommandDefinitionOfTableResponse> registDefinition(@RequestBody CommandDefinitionOfTableRequest definitionOfTableRequest) {
         CommandDefinitionOfTableDTO commandDefinitionOfTableDTO = modelMapper.map(definitionOfTableRequest, CommandDefinitionOfTableDTO.class);
 
         commandDefinitionOfTableService.registDefinition(commandDefinitionOfTableDTO);
-        DefinitionOfTableResponse definitionOfTableResponse = modelMapper.map(
-                commandDefinitionOfTableDTO, DefinitionOfTableResponse.class
+        CommandDefinitionOfTableResponse definitionOfTableResponse = modelMapper.map(
+                commandDefinitionOfTableDTO, CommandDefinitionOfTableResponse.class
         );
         return ResponseEntity.status(HttpStatus.CREATED).body(definitionOfTableResponse);
     }

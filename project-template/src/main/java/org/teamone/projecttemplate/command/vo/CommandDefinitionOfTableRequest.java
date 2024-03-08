@@ -7,7 +7,7 @@ import lombok.*;
 @Getter
 @Setter
 @ToString
-public class DefinitionOfTableRequest {
+public class CommandDefinitionOfTableRequest {
     private int definitionNo;
     private String tableName;
     private String propertyName;

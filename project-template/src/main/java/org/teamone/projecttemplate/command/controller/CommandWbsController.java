@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import org.teamone.projecttemplate.command.dto.CommandWbsDTO;
 import org.teamone.projecttemplate.command.entity.CommandWbs;
 import org.teamone.projecttemplate.command.service.CommandWbsService;
-import org.teamone.projecttemplate.command.vo.WbsRequest;
+import org.teamone.projecttemplate.command.vo.CommandWbsRequest;
 import org.teamone.projecttemplate.command.vo.WbsResponse;
 
 import java.util.List;
@@ -32,7 +32,7 @@ public class CommandWbsController {
     /* regist */
     /* WBS 추가(같은 프로젝트의 마지막 WBS 이후로 WBS NO 설정됨) */
     @PostMapping("/regist")
-    public ResponseEntity<WbsResponse> registWbs(@RequestBody WbsRequest wbs) {
+    public ResponseEntity<WbsResponse> registWbs(@RequestBody CommandWbsRequest wbs) {
 
         modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
         CommandWbsDTO commandWbsDTO = modelMapper.map(wbs, CommandWbsDTO.class);
@@ -45,7 +45,7 @@ public class CommandWbsController {
     /* Project ID에 해당하는 WBS 하나 추가(같은 프로젝트의 마지막 WBS 이후로 WBS NO 설정됨) */
     @PostMapping("/regist/{projectId}")
     public ResponseEntity<WbsResponse> registWbsByProjectId(@PathVariable("projectId") int projectId,
-                                                            @RequestBody WbsRequest wbs) {
+                                                            @RequestBody CommandWbsRequest wbs) {
 
         modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
 
@@ -61,7 +61,7 @@ public class CommandWbsController {
     /* Project ID에 해당하는 WBS 일괄 추가(같은 프로젝트의 마지막 WBS 이후로 WBS NO 설정됨) */
     @PostMapping("/regist-many/{projectId}")
     public ResponseEntity<Void> registManyWbsByProjectId(@PathVariable("projectId") int projectId,
-                                                     @RequestBody List<WbsRequest> wbs) {
+                                                     @RequestBody List<CommandWbsRequest> wbs) {
 
         commandWbsService.registManyWbsByProjectId(projectId, wbs);
 
@@ -74,7 +74,7 @@ public class CommandWbsController {
     @PutMapping("/modify/{projectId}/{wbsNo}")
     public ResponseEntity<WbsResponse> modifyWbs(@PathVariable("projectId") int projectId,
                                                  @PathVariable("wbsNo") int wbsNo,
-                                                 @RequestBody WbsRequest wbs) {
+                                                 @RequestBody CommandWbsRequest wbs) {
 
         modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
         CommandWbsDTO commandWbsDTO = modelMapper.map(wbs, CommandWbsDTO.class);

@@ -7,7 +7,7 @@ import lombok.*;
 @Getter
 @Setter
 @ToString
-public class IssueResponse {
+public class CommandIssueRequest {
     private int issueNo;
     private String issueName;
     private String issueStatus;

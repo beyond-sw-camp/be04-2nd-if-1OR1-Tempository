@@ -8,7 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.teamone.projecttemplate.command.dto.CommandRequirementDTO;
 import org.teamone.projecttemplate.command.service.CommandRequirementService;
-import org.teamone.projecttemplate.command.vo.RequirementRequest;
+import org.teamone.projecttemplate.command.vo.CommandRequirementRequest;
 import org.teamone.projecttemplate.command.vo.RequirementResponse;
 import org.teamone.projecttemplate.command.vo.RequirementSequenceRequest;
 
@@ -26,9 +26,9 @@ public class CommandRequirementController {
 
     /* 설명. 요구사항 명세서 추가(RequirementNo 자동 추가) */
     @PostMapping("/regist")
-    public ResponseEntity<RequirementResponse> registRequirement(@RequestBody RequirementRequest requirementRequest) {
+    public ResponseEntity<RequirementResponse> registRequirement(@RequestBody CommandRequirementRequest commandRequirementRequest) {
         modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
-        CommandRequirementDTO commandRequirementDTO = modelMapper.map(requirementRequest, CommandRequirementDTO.class);
+        CommandRequirementDTO commandRequirementDTO = modelMapper.map(commandRequirementRequest, CommandRequirementDTO.class);
 
         commandRequirementService.registRequirement(commandRequirementDTO);
 
@@ -40,9 +40,9 @@ public class CommandRequirementController {
     /* 설명. 요구사항 명세서 수정 */
     @PutMapping("/modify")
     public ResponseEntity<RequirementResponse> modifyRequirement(
-            @RequestBody RequirementRequest requirementRequest) {
+            @RequestBody CommandRequirementRequest commandRequirementRequest) {
         modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
-        CommandRequirementDTO commandRequirementDTO = modelMapper.map(requirementRequest, CommandRequirementDTO.class);
+        CommandRequirementDTO commandRequirementDTO = modelMapper.map(commandRequirementRequest, CommandRequirementDTO.class);
 
         commandRequirementService.modifyRequirement(commandRequirementDTO);
 
