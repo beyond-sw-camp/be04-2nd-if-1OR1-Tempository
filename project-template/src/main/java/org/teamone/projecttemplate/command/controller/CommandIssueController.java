@@ -18,8 +18,8 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("/issue")
 public class CommandIssueController {
-    private ModelMapper modelMapper;
-    private CommandIssueService commandIssueService;
+    private final ModelMapper modelMapper;
+    private final CommandIssueService commandIssueService;
 
     @Autowired
     public CommandIssueController(ModelMapper modelMapper,

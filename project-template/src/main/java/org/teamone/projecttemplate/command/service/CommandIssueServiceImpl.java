@@ -16,8 +16,8 @@ import java.util.List;
 @Service
 public class CommandIssueServiceImpl implements CommandIssueService {
 
-    private CommandIssueRepository commandIssueRepository;
-    private ModelMapper modelMapper;
+    private final CommandIssueRepository commandIssueRepository;
+    private final ModelMapper modelMapper;
 
     @Autowired
     public CommandIssueServiceImpl(CommandIssueRepository commandIssueRepository,
