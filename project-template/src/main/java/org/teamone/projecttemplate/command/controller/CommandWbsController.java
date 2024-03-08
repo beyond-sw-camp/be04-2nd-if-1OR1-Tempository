@@ -10,7 +10,7 @@ import org.teamone.projecttemplate.command.dto.CommandWbsDTO;
 import org.teamone.projecttemplate.command.entity.CommandWbs;
 import org.teamone.projecttemplate.command.service.CommandWbsService;
 import org.teamone.projecttemplate.command.vo.CommandWbsRequest;
-import org.teamone.projecttemplate.command.vo.WbsResponse;
+import org.teamone.projecttemplate.command.vo.CommandWbsResponse;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -32,29 +32,29 @@ public class CommandWbsController {
     /* regist */
     /* WBS 추가(같은 프로젝트의 마지막 WBS 이후로 WBS NO 설정됨) */
     @PostMapping("/regist")
-    public ResponseEntity<WbsResponse> registWbs(@RequestBody CommandWbsRequest wbs) {
+    public ResponseEntity<CommandWbsResponse> registWbs(@RequestBody CommandWbsRequest wbs) {
 
         modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
         CommandWbsDTO commandWbsDTO = modelMapper.map(wbs, CommandWbsDTO.class);
         commandWbsService.registWbs(commandWbsDTO);
-        WbsResponse wbsResponse = modelMapper.map(commandWbsDTO, WbsResponse.class);
+        CommandWbsResponse commandWbsResponse = modelMapper.map(commandWbsDTO, CommandWbsResponse.class);
 
-        return ResponseEntity.status(HttpStatus.CREATED).body(wbsResponse);
+        return ResponseEntity.status(HttpStatus.CREATED).body(commandWbsResponse);
     }
 
     /* Project ID에 해당하는 WBS 하나 추가(같은 프로젝트의 마지막 WBS 이후로 WBS NO 설정됨) */
     @PostMapping("/regist/{projectId}")
-    public ResponseEntity<WbsResponse> registWbsByProjectId(@PathVariable("projectId") int projectId,
-                                                            @RequestBody CommandWbsRequest wbs) {
+    public ResponseEntity<CommandWbsResponse> registWbsByProjectId(@PathVariable("projectId") int projectId,
+                                                                   @RequestBody CommandWbsRequest wbs) {
 
         modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
 
         CommandWbsDTO commandWbsDTO = modelMapper.map(wbs, CommandWbsDTO.class);
         commandWbsDTO.setProjectId(projectId);
         CommandWbsDTO createdCommandWbsDTO = commandWbsService.registWbsByProjectId(commandWbsDTO);
-        WbsResponse wbsResponse = modelMapper.map(createdCommandWbsDTO, WbsResponse.class);
+        CommandWbsResponse commandWbsResponse = modelMapper.map(createdCommandWbsDTO, CommandWbsResponse.class);
 
-        return ResponseEntity.status(HttpStatus.CREATED).body(wbsResponse);
+        return ResponseEntity.status(HttpStatus.CREATED).body(commandWbsResponse);
 
     }
 
@@ -72,32 +72,32 @@ public class CommandWbsController {
     /* modify */
     /* Project ID, Wbs No에 해당하는 WBS 수정 */
     @PutMapping("/modify/{projectId}/{wbsNo}")
-    public ResponseEntity<WbsResponse> modifyWbs(@PathVariable("projectId") int projectId,
-                                                 @PathVariable("wbsNo") int wbsNo,
-                                                 @RequestBody CommandWbsRequest wbs) {
+    public ResponseEntity<CommandWbsResponse> modifyWbs(@PathVariable("projectId") int projectId,
+                                                        @PathVariable("wbsNo") int wbsNo,
+                                                        @RequestBody CommandWbsRequest wbs) {
 
         modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
         CommandWbsDTO commandWbsDTO = modelMapper.map(wbs, CommandWbsDTO.class);
         commandWbsDTO.setProjectId(projectId);
         commandWbsDTO.setWbsNo(wbsNo);
         commandWbsService.modifyWbs(commandWbsDTO);
-        WbsResponse wbsResponse = modelMapper.map(commandWbsDTO, WbsResponse.class);
+        CommandWbsResponse commandWbsResponse = modelMapper.map(commandWbsDTO, CommandWbsResponse.class);
 
-        return ResponseEntity.ok().body(wbsResponse);
+        return ResponseEntity.ok().body(commandWbsResponse);
 
     }
 
     /* 프로젝트 ID로 wbs 전체 status = completed 상태로 바꾸기(프로젝트 마무리되었을 경우) */
     @PutMapping("/modify/completed/{projectId}")
-    public ResponseEntity<List<WbsResponse>> modifyAllWbsStatusToCompleted(@PathVariable("projectId") int projectId) {
+    public ResponseEntity<List<CommandWbsResponse>> modifyAllWbsStatusToCompleted(@PathVariable("projectId") int projectId) {
 
         modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
         List<CommandWbs> modifiedCommandWbsList = commandWbsService.modifyAllWbsStatusToCompleted(projectId);
-        List<WbsResponse> wbsResponse = modifiedCommandWbsList.stream()
-                .map(wbs -> modelMapper.map(wbs, WbsResponse.class))
+        List<CommandWbsResponse> commandWbsResponse = modifiedCommandWbsList.stream()
+                .map(wbs -> modelMapper.map(wbs, CommandWbsResponse.class))
                 .collect(Collectors.toList());
 
-        return ResponseEntity.ok().body(wbsResponse);
+        return ResponseEntity.ok().body(commandWbsResponse);
 
     }
 
@@ -116,12 +116,12 @@ public class CommandWbsController {
     /* remove */
     /* 프로젝트 ID, WBS NO에 해당하는 WBS 하나 삭제(wbs no 자동 업데이트 기능 추가) */
     @DeleteMapping("/remove/{projectId}/{wbsNo}")
-    public ResponseEntity<WbsResponse> removeWbs(@PathVariable("projectId") int projectId,
-                                          @PathVariable("wbsNo") int wbsNo) {
+    public ResponseEntity<CommandWbsResponse> removeWbs(@PathVariable("projectId") int projectId,
+                                                        @PathVariable("wbsNo") int wbsNo) {
 
         CommandWbsDTO removedCommandWbsDTO = commandWbsService.removeWbs(projectId, wbsNo);
-        WbsResponse removedWbsResponse = modelMapper.map(removedCommandWbsDTO, WbsResponse.class);
-        return ResponseEntity.ok().body(removedWbsResponse);
+        CommandWbsResponse removedCommandWbsResponse = modelMapper.map(removedCommandWbsDTO, CommandWbsResponse.class);
+        return ResponseEntity.ok().body(removedCommandWbsResponse);
     }
 
     /* 프로젝트 ID에 해당하는 WBS 전체 삭제 */

@@ -9,7 +9,7 @@ import java.util.Date;
 @Getter
 @Setter
 @ToString
-public class WbsResponse {
+public class CommandWbsResponse {
 
     private int wbsNo;
     private String content;
