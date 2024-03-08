@@ -21,4 +21,6 @@ public interface ProjectService {
 
 
     List<Project> getProjectInfoByContent(String content);
+
+    List<Project> getProjectInfoByName(String name);
 }

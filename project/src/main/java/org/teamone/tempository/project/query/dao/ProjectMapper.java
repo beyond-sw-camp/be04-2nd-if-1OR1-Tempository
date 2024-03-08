@@ -23,4 +23,6 @@ public interface ProjectMapper {
     List<Project> getProjectJoinUserById(String id);
 
     List<Project> getProjectInfoByContent(String content);
+
+    List<Project> getProjectInfoByName(String name);
 }

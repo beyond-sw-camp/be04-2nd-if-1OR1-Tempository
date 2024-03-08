@@ -106,6 +106,12 @@ public class ProjectController {
         return "Server at " + environment.getProperty("local.server.port");
     }
 
+    @PostMapping("/searchName")
+    public String getProjectInfoByName(@RequestBody String name) {
+        projectService.getProjectInfoByName(name);
 
+        return "Server at " + environment.getProperty("local.server.port");
+
+    }
 
 }

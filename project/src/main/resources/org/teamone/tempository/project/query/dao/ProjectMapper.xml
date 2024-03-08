@@ -107,4 +107,16 @@
         WHERE A.CONTENT LIKE '%' #{content} '%'
     </select>
 
+    <select id="getProjectInfoByName" resultMap="projectResultMap" parameterType="org.teamone.tempository.project.query.entity.Project">
+        SELECT
+              A.ID
+            , A.NAME
+            , A.IS_PUBLIC
+            , A.LIKE_CNT
+            , A.STATUS
+            , A.CONTENT
+         FROM TBL_PROJECT A
+        WHERE A.NAME LIKE '%' #{name} '%'
+    </select>
+
 </mapper>

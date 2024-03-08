@@ -50,9 +50,16 @@ class ProjectServiceImplTest {
 
     @DisplayName("프로젝트 내용 검색을 통한 프로젝트 조회 기능 테스트")
     @Test
-    void getProjectInfoByContent() {
+    void getProjectInfoByContentTest() {
         String Content = "인공 지능";
         projectService.getProjectInfoByContent(Content);
+    }
+
+    @DisplayName("프로젝트 이름 검색을 통한 프로젝트 조회 기능 테스트")
+    @Test
+    void getProjectInfoByNameTest() {
+        String name = "블록체인";
+        projectService.getProjectInfoByName(name);
     }
 
 }

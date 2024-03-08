@@ -123,4 +123,14 @@ public class ProjectServiceImpl implements ProjectService{
 
         return findProjectByContent;
     }
+
+    /* 설명. 프로젝트 이름 검색을 통한 프로젝트 조회 기능 */
+
+    @Override
+    public List<Project> getProjectInfoByName(String name) {
+        List<Project> findProjectByName = projectMapper.getProjectInfoByName(name);
+        findProjectByName.forEach(System.out::println);
+
+        return findProjectByName;
+    }
 }
