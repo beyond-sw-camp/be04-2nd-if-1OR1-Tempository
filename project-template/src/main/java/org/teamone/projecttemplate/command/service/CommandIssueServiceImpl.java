@@ -31,7 +31,12 @@ public class CommandIssueServiceImpl implements CommandIssueService {
     @Override
     public void registIssue(CommandIssueDTO issueDTO) {
         modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
+        List<CommandIssue> commandIssueList = commandIssueRepository.findByProjectId(issueDTO.getProjectId());
+
+        int maxNo = commandIssueList.size();
+        issueDTO.setIssueNo(maxNo + 1);
         CommandIssue commandIssue = modelMapper.map(issueDTO, CommandIssue.class);
+
         commandIssueRepository.save(commandIssue);
     }
 
