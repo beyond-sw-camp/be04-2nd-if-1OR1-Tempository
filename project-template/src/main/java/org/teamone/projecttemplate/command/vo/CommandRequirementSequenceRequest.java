@@ -1,14 +1,14 @@
 package org.teamone.projecttemplate.command.vo;
 
-public class RequirementSequenceRequest {
+public class CommandRequirementSequenceRequest {
     private int projectId;
     private int requirementNo;
     private int num;
 
-    public RequirementSequenceRequest() {
+    public CommandRequirementSequenceRequest() {
     }
 
-    public RequirementSequenceRequest(int projectId, int requirementNo, int num) {
+    public CommandRequirementSequenceRequest(int projectId, int requirementNo, int num) {
         this.projectId = projectId;
         this.requirementNo = requirementNo;
         this.num = num;

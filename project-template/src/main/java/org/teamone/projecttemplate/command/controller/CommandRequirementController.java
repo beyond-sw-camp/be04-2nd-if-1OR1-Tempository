@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.*;
 import org.teamone.projecttemplate.command.dto.CommandRequirementDTO;
 import org.teamone.projecttemplate.command.service.CommandRequirementService;
 import org.teamone.projecttemplate.command.vo.CommandRequirementRequest;
-import org.teamone.projecttemplate.command.vo.RequirementResponse;
-import org.teamone.projecttemplate.command.vo.RequirementSequenceRequest;
+import org.teamone.projecttemplate.command.vo.CommandRequirementResponse;
+import org.teamone.projecttemplate.command.vo.CommandRequirementSequenceRequest;
 
 @RestController
 @RequestMapping("/requirement")
@@ -26,48 +26,48 @@ public class CommandRequirementController {
 
     /* 설명. 요구사항 명세서 추가(RequirementNo 자동 추가) */
     @PostMapping("/regist")
-    public ResponseEntity<RequirementResponse> registRequirement(@RequestBody CommandRequirementRequest commandRequirementRequest) {
+    public ResponseEntity<CommandRequirementResponse> registRequirement(@RequestBody CommandRequirementRequest commandRequirementRequest) {
         modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
         CommandRequirementDTO commandRequirementDTO = modelMapper.map(commandRequirementRequest, CommandRequirementDTO.class);
 
         commandRequirementService.registRequirement(commandRequirementDTO);
 
-        RequirementResponse requirementResponse = modelMapper.map(commandRequirementDTO, RequirementResponse.class);
+        CommandRequirementResponse commandRequirementResponse = modelMapper.map(commandRequirementDTO, CommandRequirementResponse.class);
 
-        return ResponseEntity.status(HttpStatus.CREATED).body(requirementResponse);
+        return ResponseEntity.status(HttpStatus.CREATED).body(commandRequirementResponse);
     }
 
     /* 설명. 요구사항 명세서 수정 */
     @PutMapping("/modify")
-    public ResponseEntity<RequirementResponse> modifyRequirement(
+    public ResponseEntity<CommandRequirementResponse> modifyRequirement(
             @RequestBody CommandRequirementRequest commandRequirementRequest) {
         modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
         CommandRequirementDTO commandRequirementDTO = modelMapper.map(commandRequirementRequest, CommandRequirementDTO.class);
 
         commandRequirementService.modifyRequirement(commandRequirementDTO);
 
-        RequirementResponse requirementResponse = modelMapper.map(commandRequirementDTO, RequirementResponse.class);
+        CommandRequirementResponse commandRequirementResponse = modelMapper.map(commandRequirementDTO, CommandRequirementResponse.class);
 
-        return ResponseEntity.status(HttpStatus.OK).body(requirementResponse);
+        return ResponseEntity.status(HttpStatus.OK).body(commandRequirementResponse);
     }
 
     /* 설명. 요구사항 명세서 순서 수정(한칸) */
     @PutMapping("/modify/sequence")
-    public ResponseEntity<RequirementResponse> modifyRequirementSequence(
-            @RequestBody RequirementSequenceRequest requirementSequenceRequest) {
+    public ResponseEntity<CommandRequirementResponse> modifyRequirementSequence(
+            @RequestBody CommandRequirementSequenceRequest commandRequirementSequenceRequest) {
         modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
         CommandRequirementDTO commandRequirementDTO = new CommandRequirementDTO();
 
-        commandRequirementDTO.setRequirementNo(requirementSequenceRequest.getRequirementNo());
-        commandRequirementDTO.setProjectId(requirementSequenceRequest.getProjectId());
+        commandRequirementDTO.setRequirementNo(commandRequirementSequenceRequest.getRequirementNo());
+        commandRequirementDTO.setProjectId(commandRequirementSequenceRequest.getProjectId());
 
-        int num = requirementSequenceRequest.getNum();
+        int num = commandRequirementSequenceRequest.getNum();
 
         commandRequirementDTO = commandRequirementService.modifyRequirementSequence(commandRequirementDTO, num);
 
-        RequirementResponse requirementResponse = modelMapper.map(commandRequirementDTO, RequirementResponse.class);
+        CommandRequirementResponse commandRequirementResponse = modelMapper.map(commandRequirementDTO, CommandRequirementResponse.class);
 
-        return ResponseEntity.status(HttpStatus.OK).body(requirementResponse);
+        return ResponseEntity.status(HttpStatus.OK).body(commandRequirementResponse);
     }
 
 
