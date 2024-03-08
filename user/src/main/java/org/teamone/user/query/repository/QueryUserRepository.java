@@ -7,4 +7,6 @@ import org.teamone.user.query.domainData.entity.QueryUserEntity;
 @Repository
 public interface QueryUserRepository extends JpaRepository<QueryUserEntity, Integer> {
     QueryUserEntity findByEmail(String email);
+
+    QueryUserEntity findByUserId(String userId);
 }

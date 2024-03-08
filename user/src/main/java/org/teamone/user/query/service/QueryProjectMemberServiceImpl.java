@@ -12,10 +12,10 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class QueryProjectMemberServiceImpl implements QueryProjectMemberService{
+public class QueryProjectMemberServiceImpl implements QueryProjectMemberService {
 
-    private ProjectMemberMapper projectMemberMapper;
-    private UserMapper userMapper;
+    private final ProjectMemberMapper projectMemberMapper;
+    private final UserMapper userMapper;
 
     @Autowired
     public QueryProjectMemberServiceImpl(ProjectMemberMapper projectMemberMapper,
@@ -26,7 +26,7 @@ public class QueryProjectMemberServiceImpl implements QueryProjectMemberService{
 
     /* 설명. 프로젝트에 참가한 회원들을 반환하는 메소드 */
     @Override
-    public List<QueryUserDTO> getProjectMembers(String projectId) {
+    public List<QueryUserDTO> getProjectMembersDetailsByProjectId(String projectId) {
 
         int id = Integer.parseInt(projectId);
 

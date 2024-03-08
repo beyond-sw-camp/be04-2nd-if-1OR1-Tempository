@@ -4,7 +4,7 @@ import org.teamone.user.query.dto.QueryUserDTO;
 
 public interface QueryUserService {
 
-    QueryUserDTO getUserById(String id);
+    QueryUserDTO getUserDetailsById(String id);
 
-    QueryUserDTO getUserByEmail(String email);
+    QueryUserDTO getUserDetailsByEmail(String email);
 }

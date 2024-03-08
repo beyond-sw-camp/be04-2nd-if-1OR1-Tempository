@@ -11,12 +11,10 @@ import lombok.ToString;
 public class ResponseUserAuthVO {
     private String nickname;
     private String email;
-    private String userId;
 
     @Builder
     public ResponseUserAuthVO(String nickname, String email, String userId) {
         this.nickname = nickname;
         this.email = email;
-        this.userId = userId;
     }
 }

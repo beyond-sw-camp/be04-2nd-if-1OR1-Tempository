@@ -23,6 +23,7 @@ public class QueryUserAuthServiceImpl implements QueryUserAuthService {
 
     @Override
     public QueryUserDTO getUserDetailsByEmail(String email) {
+
         QueryUserEntity userEntity = queryUserRepository.findByEmail(email);
 
         if (userEntity == null) {
@@ -43,13 +44,25 @@ public class QueryUserAuthServiceImpl implements QueryUserAuthService {
                 .userId(userEntity.getUserId())
                 .build();
 
-
         return userDTO;
     }
 
     @Override
-    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+    public UserDetails loadUserByUserId(String userId) throws UsernameNotFoundException {
+        QueryUserEntity queryUserEntity = queryUserRepository.findByUserId(userId);
 
+        if (queryUserEntity == null) {
+            throw new UsernameNotFoundException(userId + " 유저는 존재하지 않습니다.");
+        }
+
+        return new User(queryUserEntity.getEmail(), queryUserEntity.getPassword(),
+                true, true, true, true,
+                new ArrayList<>());
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        System.out.println("email = " + email);
         QueryUserEntity queryUserEntity = queryUserRepository.findByEmail(email);
 
         if (queryUserEntity == null) {

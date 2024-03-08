@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
 @RequestMapping("project")
 public class QueryProjectMemberController {
 
-    private QueryProjectMemberService queryProjectMemberService;
+    private final QueryProjectMemberService queryProjectMemberService;
 
     @Autowired
     public QueryProjectMemberController(QueryProjectMemberService queryProjectMemberService) {
@@ -28,7 +28,7 @@ public class QueryProjectMemberController {
     /* 설명. 프로젝트 참여중인 회원들 반환 */
     @GetMapping("/join-members/{projectId}")
     public ResponseEntity<List<ResponseProjectMemberVO>> projectJoinMembers(@PathVariable("projectId") String id) {
-        List<QueryUserDTO> userDTOs = queryProjectMemberService.getProjectMembers(id);
+        List<QueryUserDTO> userDTOs = queryProjectMemberService.getProjectMembersDetailsByProjectId(id);
 
         List<ResponseProjectMemberVO> response = userDTOs.stream()
                 .map(userDTO -> ResponseProjectMemberVO.builder()
