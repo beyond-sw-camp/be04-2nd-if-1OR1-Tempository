@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.teamone.tempository.project.query.entity.Project;
-import org.teamone.tempository.project.query.dto.ProjectDTO;
+import org.teamone.tempository.project.query.type.ProjectStatus;
 
 
 import java.util.List;
@@ -26,8 +26,7 @@ class ProjectServiceImplTest {
     @DisplayName("완료유무를 기준으로 프로젝트 정보 조회 테스트")
     @Test
     void getProjectInfoByStatusTest() {
-        String Status = "COMPLETED";
-        ProjectDTO project = new ProjectDTO(Status);
+        ProjectStatus Status = ProjectStatus.COMPLETED;
         List<Project> projectInfoByStatus = projectService.getProjectInfoByStatus(Status);
 
     }
@@ -49,7 +48,11 @@ class ProjectServiceImplTest {
 
     }
 
-
-
+    @DisplayName("프로젝트 내용 검색을 통한 프로젝트 조회 기능 테스트")
+    @Test
+    void getProjectInfoByContent() {
+        String Content = "인공 지능";
+        projectService.getProjectInfoByContent(Content);
+    }
 
 }

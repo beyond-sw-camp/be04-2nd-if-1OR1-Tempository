@@ -7,6 +7,7 @@ import org.teamone.tempository.project.query.dto.ProjectDTO;
 import org.teamone.tempository.project.query.dto.ProjectMemberDTO;
 import org.teamone.tempository.project.query.entity.Project;
 import org.teamone.tempository.project.query.entity.ProjectMember;
+import org.teamone.tempository.project.query.type.ProjectStatus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,7 +36,7 @@ public class ProjectServiceImpl implements ProjectService{
 
 
     /* 설명. Status를 이용하여 프로젝트 완료나 미완료 상태인 프로젝트를 조회 */
-    public List<Project> getProjectInfoByStatus(String Status) {
+    public List<Project> getProjectInfoByStatus(ProjectStatus Status) {
 
         List<Project> findProjectInfoByStatus = projectMapper.getProjectInfoByStatus(Status);
 
@@ -63,7 +64,7 @@ public class ProjectServiceImpl implements ProjectService{
     }
 
 
-    /* 설명. 프로젝트 참여 회원 조회 기능*/
+    /* 설명. 프로젝트 참여 회원 조회 기능 */
     @Override
     public List<ProjectDTO> getProjectJoinUserById(String id) {
 
@@ -114,5 +115,11 @@ public class ProjectServiceImpl implements ProjectService{
         return projectDTOMemberList;
     }
 
+    @Override
+    public List<Project> getProjectInfoByContent(String content) {
+        List<Project> findProjectByContent = projectMapper.getProjectInfoByContent(content);
+        findProjectByContent.forEach(System.out::println);
 
+        return findProjectByContent;
+    }
 }

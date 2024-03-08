@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.teamone.tempository.project.query.dto.ProjectDTO;
 import org.teamone.tempository.project.query.service.ProjectService;
+import org.teamone.tempository.project.query.type.ProjectStatus;
 import org.teamone.tempository.project.query.vo.ResponseProject;
 
 import java.util.ArrayList;
@@ -36,7 +37,7 @@ public class ProjectController {
 
     /* 설명. Status를 이용하여 프로젝트 완료나 미완료 상태인 프로젝트를 조회 */
     @PostMapping("/findByStatus")
-    public String getProjectInfoByStatus(@RequestParam String Status) {
+    public String getProjectInfoByStatus(@RequestParam ProjectStatus Status) {
 
         projectService.getProjectInfoByStatus(Status);
 
@@ -95,6 +96,14 @@ public class ProjectController {
 
         return responseProjectData;
 
+    }
+
+    /* 설명. 내용 검색을 통한 프로젝트 조회 */
+    @PostMapping("/searchContent")
+    public String getProjectInfoByContent(@RequestBody String Content) {
+        projectService.getProjectInfoByContent(Content);
+
+        return "Server at " + environment.getProperty("local.server.port");
     }
 
 

@@ -2,6 +2,7 @@ package org.teamone.tempository.project.query.dao;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.teamone.tempository.project.query.entity.Project;
+import org.teamone.tempository.project.query.type.ProjectStatus;
 
 import java.util.List;
 
@@ -11,7 +12,7 @@ public interface ProjectMapper {
 
     List<Project> getProjectInfoById(Project project);
 
-    List<Project> getProjectInfoByStatus(String status);
+    List<Project> getProjectInfoByStatus(ProjectStatus status);
 
     List<Project> getProjectInfoOrderByLike();
 
@@ -21,4 +22,5 @@ public interface ProjectMapper {
 
     List<Project> getProjectJoinUserById(String id);
 
+    List<Project> getProjectInfoByContent(String content);
 }
