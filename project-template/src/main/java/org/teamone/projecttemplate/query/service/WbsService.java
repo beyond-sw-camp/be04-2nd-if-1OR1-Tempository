@@ -22,8 +22,6 @@ public class WbsService {
     public List<Wbs> selectAllWbsByProjectId(int projectId) {
 
         List<Wbs> wbsList = wbsMapper.selectAllWbsByProjectId(projectId);
-        wbsList.forEach(System.out::println);
-
         return wbsList;
     }
 
@@ -31,8 +29,6 @@ public class WbsService {
     public List<Wbs> selectWbsByManagerId(int managerId) {
 
         List<Wbs> wbsList = wbsMapper.selectWbsByManagerId(managerId);
-        wbsList.forEach(System.out::println);
-
         return wbsList;
     }
 
@@ -40,8 +36,6 @@ public class WbsService {
     public List<Wbs> selectWbsByProjectIdAndManagerId(int projectId, int managerId) {
 
         List<Wbs> wbsList = wbsMapper.selectWbsByProjectIdAndManagerId(projectId, managerId);
-        wbsList.forEach(System.out::println);
-
         return wbsList;
     }
 
