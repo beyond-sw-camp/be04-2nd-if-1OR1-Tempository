@@ -15,7 +15,7 @@
         <result property="projectId" column="PROJECT_ID"/>
     </resultMap>
 
-    <select id="selectTestcaseByProjectId" resultMap="testcaseMap" parameterType="org.teamone.projecttemplate.query.entity.Testcase">
+    <select id="selectTestcaseByProjectId" resultMap="testcaseMap">
         SELECT
                 ID
               , TEST_NO
@@ -30,7 +30,7 @@
         ORDER BY TEST_NO ASC
     </select>
 
-    <select id="selectTestcaseBySeparateAndProjectId" resultMap="testcaseMap" parameterType="org.teamone.projecttemplate.query.entity.Testcase">
+    <select id="selectTestcaseBySeparateAndProjectId" resultMap="testcaseMap">
         SELECT
                 ID
               , TEST_NO
@@ -46,7 +46,7 @@
          ORDER BY TEST_NO ASC
     </select>
 
-    <select id="selectTestcaseByResultAndProjectId" resultMap="testcaseMap" parameterType="org.teamone.projecttemplate.query.entity.Testcase">
+    <select id="selectTestcaseByResultAndProjectId" resultMap="testcaseMap">
         SELECT
                 ID
               , TEST_NO
@@ -62,7 +62,7 @@
          ORDER BY TEST_NO ASC
     </select>
 
-    <select id="selectTestcaseById" resultMap="testcaseMap" parameterType="org.teamone.projecttemplate.query.entity.Testcase">
+    <select id="selectTestcaseById" resultMap="testcaseMap">
         SELECT
                 ID
               , TEST_NO
