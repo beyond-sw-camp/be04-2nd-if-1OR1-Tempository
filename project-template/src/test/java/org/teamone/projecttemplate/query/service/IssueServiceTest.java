@@ -15,11 +15,18 @@ class IssueServiceTest {
     @Autowired
     private IssueService issueService;
 
+//    @DisplayName("프로젝트 ID에 해당하는 이슈 조회")
+//    @Test
+//    void findIssueByProjectId() {
+//        IssueDTO issueDTO = new IssueDTO(1);
+//        List<Issue> findIssueByProjectId = issueService.selectIssueByProjectId(issueDTO);
+//        findIssueByProjectId.forEach(System.out::println);
+//    }
+
     @DisplayName("프로젝트 ID에 해당하는 이슈 조회")
     @Test
     void findIssueByProjectId() {
-        IssueDTO issueDTO = new IssueDTO(1);
-        List<Issue> findIssueByProjectId = issueService.selectIssueByProjectId(issueDTO);
+        List<IssueDTO> findIssueByProjectId = issueService.selectIssueByProjectId(1);
         findIssueByProjectId.forEach(System.out::println);
     }
 
