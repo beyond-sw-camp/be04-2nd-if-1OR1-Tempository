@@ -87,6 +87,6 @@ public class CommandRequirementController {
     public ResponseEntity<String> removeAllRequirement(@PathVariable("projectId") int projectId) {
         commandRequirementService.removeAllRequirment(projectId);
 
-        return ResponseEntity.ok("테스트케이스가 전체 삭제되었습니다.");
+        return ResponseEntity.ok("요구사항 명세서가 전체 삭제되었습니다.");
     }
 }

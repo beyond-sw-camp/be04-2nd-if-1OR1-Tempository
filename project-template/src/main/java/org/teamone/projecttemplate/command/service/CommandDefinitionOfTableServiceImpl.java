@@ -15,8 +15,8 @@ import java.util.List;
 @Service
 public class CommandDefinitionOfTableServiceImpl implements CommandDefinitionOfTableService{
 
-    private CommandDefinitionOfTableRepository commandDefinitionOfTableRepository;
-    private ModelMapper modelMapper;
+    private final CommandDefinitionOfTableRepository commandDefinitionOfTableRepository;
+    private final ModelMapper modelMapper;
 
     @Autowired
     public CommandDefinitionOfTableServiceImpl(CommandDefinitionOfTableRepository commandDefinitionOfTableRepository,

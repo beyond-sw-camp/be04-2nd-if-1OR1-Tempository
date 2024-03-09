@@ -13,8 +13,8 @@ import org.teamone.projecttemplate.command.vo.CommandDefinitionOfTableResponse;
 @RestController
 @RequestMapping("/definition")
 public class CommandDefinitionOfTableController {
-    private ModelMapper modelMapper;
-    private CommandDefinitionOfTableService commandDefinitionOfTableService;
+    private final ModelMapper modelMapper;
+    private final CommandDefinitionOfTableService commandDefinitionOfTableService;
 
     @Autowired
     public CommandDefinitionOfTableController(ModelMapper modelMapper,
