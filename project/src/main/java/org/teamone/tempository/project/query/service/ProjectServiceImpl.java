@@ -38,13 +38,14 @@ public class ProjectServiceImpl implements ProjectService {
 
             findProjectInfoById.forEach(System.out::println);
 
-        } else {
-
-            System.out.println("프로젝트가 존재하지 않습니다.");
+            return findProjectInfoById;
 
         }
 
-        return findProjectInfoById;
+        System.out.println("프로젝트가 존재하지 않습니다.");
+        throw new IllegalArgumentException("프로젝트가 존재하지않습니다.");
+
+
     }
 
 
@@ -92,8 +93,7 @@ public class ProjectServiceImpl implements ProjectService {
         List<Project> project = projectMapper.getProjectJoinUserById(id);
 
 
-
-        List<ProjectDTO> projectDTOJoinMember = projectToProjectDTOMember(project,token,id);
+        List<ProjectDTO> projectDTOJoinMember = projectToProjectDTOMember(project, token, id);
 
 
         return projectDTOJoinMember;
@@ -105,7 +105,7 @@ public class ProjectServiceImpl implements ProjectService {
 
         HttpHeaders headers = new HttpHeaders();
 
-        List<ResponseUser> userList = projectServiceClient.findProjectMembers(id,token);
+        List<ResponseUser> userList = projectServiceClient.findProjectMembers(id, token);
 
 
         for (Project project : projectList) {
