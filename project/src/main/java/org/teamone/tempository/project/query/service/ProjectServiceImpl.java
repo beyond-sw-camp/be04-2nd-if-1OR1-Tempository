@@ -70,6 +70,12 @@ public class ProjectServiceImpl implements ProjectService {
     /* 설명. 공개 유무에 따른 프로젝트 조회 기능 */
 
     public List<Project> getProjectInfoByIsPublic(boolean isPublic) {
+
+        if (!isPublic) {
+            System.out.println("조회할 수 없는 프로젝트입니다.");
+            throw new IllegalArgumentException("조회할 수 없는 프로젝트입니다.");
+        }
+
         List<Project> findProjectInfoByIsPublic = projectMapper.getProjectInfoByIsPublic(isPublic);
         findProjectInfoByIsPublic.forEach(System.out::println);
 
@@ -100,9 +106,6 @@ public class ProjectServiceImpl implements ProjectService {
         HttpHeaders headers = new HttpHeaders();
 
         List<ResponseUser> userList = projectServiceClient.findProjectMembers(id,token);
-
-        System.out.println("userList = " + userList);
-
 
 
         for (Project project : projectList) {
