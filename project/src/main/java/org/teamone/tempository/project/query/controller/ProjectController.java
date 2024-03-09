@@ -1,14 +1,15 @@
 package org.teamone.tempository.project.query.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.teamone.tempository.project.query.dto.ProjectDTO;
+import org.teamone.tempository.project.query.entity.Project;
 import org.teamone.tempository.project.query.service.ProjectService;
 import org.teamone.tempository.project.query.type.ProjectStatus;
-import org.teamone.tempository.project.query.vo.ResponseProject;
+import org.teamone.tempository.project.query.vo.ResponseProjectId;
+import org.teamone.tempository.project.query.vo.ResponseProjectMember;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,103 +18,130 @@ import java.util.List;
 @RestController
 public class ProjectController {
     private final ProjectService projectService;
-    private final Environment environment;
 
     @Autowired
-    public ProjectController(ProjectService projectService, Environment environment) {
+    public ProjectController(ProjectService projectService) {
         this.projectService = projectService;
-        this.environment = environment;
     }
 
     /* 설명. ID를 이용하여 프로젝트 정보 조회 */
     @GetMapping("/findById/{id}")
-    public String getProjectInfoById(@PathVariable("id") int id) {
+    public ResponseEntity<List<Project>> getProjectInfoById(@PathVariable("id") String id) {
 
-        projectService.getProjectInfoById(id);
+        List<Project> projectInfoById = projectService.getProjectInfoById(id);
 
-        return "Server at " + environment.getProperty("local.server.port");
+        return ResponseEntity.status(HttpStatus.OK).body(projectInfoById);
     }
 
 
     /* 설명. Status를 이용하여 프로젝트 완료나 미완료 상태인 프로젝트를 조회 */
-    @PostMapping("/findByStatus")
-    public String getProjectInfoByStatus(@RequestParam ProjectStatus Status) {
+    @PostMapping("/findByStatus/{status}")
+    public ResponseEntity<List<Project>> getProjectInfoByStatus(@PathVariable("status") ProjectStatus Status) {
 
-        projectService.getProjectInfoByStatus(Status);
+        List<Project> projectInfoByStatus = projectService.getProjectInfoByStatus(Status);
 
-        return "Server at " + environment.getProperty("local.server.port");
+        return ResponseEntity.status(HttpStatus.OK).body(projectInfoByStatus);
     }
 
     /* 설명. 좋아요 순으로 프로젝트 조회 기능 */
     @GetMapping("/findOrderByLike")
-    public String getProjectInfoOrderByLike() {
+    public ResponseEntity<List<Project>> getProjectInfoOrderByLike() {
 
-        projectService.getProjectInfoOrderByLike();
+        List<Project> projectInfoOrderByLike = projectService.getProjectInfoOrderByLike();
 
-        return "Server at " + environment.getProperty("local.server.port");
+        return ResponseEntity.status(HttpStatus.OK).body(projectInfoOrderByLike);
 
     }
 
     /* 설명. 공개 유무에 따른 프로젝트 조회 기능 */
-    @PostMapping("/findByIsPublic")
-    public String getProjectInfoByIsPublic(@RequestParam("isPublic") boolean isPublic) {
+    @GetMapping("/findByIsPublic/{isPublic}")
+    public ResponseEntity<List<Project>> getProjectInfoByIsPublic(@PathVariable("isPublic") boolean isPublic) {
 
-        projectService.getProjectInfoByIsPublic(isPublic);
+        List<Project> projectInfoByIsPublic = projectService.getProjectInfoByIsPublic(isPublic);
 
-        return "Server at " + environment.getProperty("local.server.port");
+        return ResponseEntity.status(HttpStatus.OK).body(projectInfoByIsPublic);
 
     }
 
     /* 설명. 프로젝트 참여 회원 정보와 프로젝트 정보 조회 기능 */
-    @GetMapping("/findProjectMember/{id}")
-    public ResponseEntity<List<ResponseProject>> getProjectJoinUserById(@PathVariable String id) {
+    @GetMapping("/findProjectMember/{projectId}")
+    public ResponseEntity<List<ResponseProjectMember>> getProjectJoinUserById(@PathVariable String projectId
+                                                                    ,@RequestHeader("Authorization") String token) {
 
-        List<ProjectDTO> projectId = projectService.getProjectJoinUserById(id);
+        List<ProjectDTO> projectDTOId = projectService.getProjectJoinUserById(projectId,token);
 
-        List<ResponseProject> responseProjectJoinMemberList = ProjectDTOToResponseProject(projectId);
+        List<ResponseProjectMember> responseProjectMemberJoinMemberList = ProjectDTOToResponseProject(projectDTOId);
 
 
-        return ResponseEntity.status(HttpStatus.OK).body(responseProjectJoinMemberList);
+        return ResponseEntity.status(HttpStatus.OK).body(responseProjectMemberJoinMemberList);
     }
 
-    private List<ResponseProject> ProjectDTOToResponseProject(List<ProjectDTO> projectId) {
-        List<ResponseProject> responseProjectData = new ArrayList<>();
+    private List<ResponseProjectMember> ProjectDTOToResponseProject(List<ProjectDTO> projectId) {
+        List<ResponseProjectMember> responseProjectMemberData = new ArrayList<>();
 
         for (ProjectDTO projectDTO : projectId) {
-            ResponseProject responseProject = new ResponseProject();
+            ResponseProjectMember responseProjectMember = new ResponseProjectMember();
 
-            responseProject.setId(projectDTO.getId());
-            responseProject.setName(projectDTO.getName());
-            responseProject.setContent(projectDTO.getContent());
-            responseProject.setPublic(projectDTO.isPublic());
-            responseProject.setLikeCnt(projectDTO.getLikeCnt());
-            responseProject.setStatus(projectDTO.getStatus());
-            responseProject.setProjectMemberDTOList(projectDTO.getProjectMemberList());
+            responseProjectMember.setId(projectDTO.getId());
+            responseProjectMember.setName(projectDTO.getName());
+            responseProjectMember.setContent(projectDTO.getContent());
+            responseProjectMember.setPublic(projectDTO.isPublic());
+            responseProjectMember.setLikeCnt(projectDTO.getLikeCnt());
+            responseProjectMember.setStatus(projectDTO.getStatus());
+            responseProjectMember.setProjectMemberDTOList(projectDTO.getProjectMemberList());
 
-            responseProjectData.add(responseProject);
+            responseProjectMemberData.add(responseProjectMember);
 
         }
 
-        return responseProjectData;
+        return responseProjectMemberData;
 
     }
 
     /* 설명. 내용 검색을 통한 프로젝트 조회 */
-    @PostMapping("/searchContent")
-    public String getProjectInfoByContent(@RequestBody String Content) {
+    @GetMapping("/searchContent/{content}")
+    public ResponseEntity<List<Project>> getProjectInfoByContent(@PathVariable("content") String Content) {
 
-        projectService.getProjectInfoByContent(Content);
+        List<Project> projectInfoByContent = projectService.getProjectInfoByContent(Content);
 
-        return "Server at " + environment.getProperty("local.server.port");
+        return ResponseEntity.status(HttpStatus.OK).body(projectInfoByContent);
     }
 
-    @PostMapping("/searchName")
-    public String getProjectInfoByName(@RequestBody String name) {
+    /* 설명. 프로젝트 이름에 따른 프로젝트 조회 */
+    @GetMapping("/searchName/{name}")
+    public ResponseEntity<List<Project>> getProjectInfoByName(@PathVariable("name") String name) {
 
-        projectService.getProjectInfoByName(name);
+        List<Project> projectInfoByName = projectService.getProjectInfoByName(name);
 
-        return "Server at " + environment.getProperty("local.server.port");
+        return ResponseEntity.status(HttpStatus.OK).body(projectInfoByName);
 
+    }
+
+    /* 설명. 요청이 들어온 ID를 통하여 프로젝트 이름 전달하는 기능. */
+    @GetMapping("/findProjectNameById/{id}")
+    public ResponseEntity<List<ResponseProjectId>> findProjectNameById(@PathVariable("id") String id) {
+
+        List<ProjectDTO> projectInfoById = projectService.findProjectNameById(id);
+
+
+        List<ResponseProjectId> responseProjectList = ProjectDTOToResponseProjectId(projectInfoById);
+
+        return ResponseEntity.status(HttpStatus.OK).body(responseProjectList);
+    }
+
+    /* 필기. 프로젝트 DTO을 ResponseProject 타입 List로 변환 */
+    private List<ResponseProjectId> ProjectDTOToResponseProjectId(List<ProjectDTO> projectInfoById) {
+        List<ResponseProjectId> Responselist = new ArrayList<>();
+
+        for (ProjectDTO projectDTO : projectInfoById) {
+            ResponseProjectId responseProjectMember = new ResponseProjectId();
+
+            responseProjectMember.setId(projectDTO.getId());
+            responseProjectMember.setName(projectDTO.getName());
+
+            Responselist.add(responseProjectMember);
+        }
+        return Responselist;
     }
 
 }

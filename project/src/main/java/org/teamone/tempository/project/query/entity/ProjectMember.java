@@ -4,6 +4,9 @@ package org.teamone.tempository.project.query.entity;
 import lombok.*;
 import org.teamone.tempository.project.query.type.ProjectMemberStatus;
 import org.teamone.tempository.project.query.type.ProjectPosition;
+import org.teamone.tempository.project.query.vo.ResponseUser;
+
+import java.util.List;
 
 @Getter
 @NoArgsConstructor
@@ -18,4 +21,6 @@ public class ProjectMember {
     private ProjectPosition position;
 
     private ProjectMemberStatus memberStatus;
+
+
 }
