@@ -16,7 +16,7 @@ import org.teamone.user.query.service.QueryUserService;
 @RequestMapping
 public class QueryUserController {
 
-    private QueryUserService queryUserService;
+    private final QueryUserService queryUserService;
 
     @Autowired
     public QueryUserController(QueryUserService queryUserService) {
@@ -30,7 +30,7 @@ public class QueryUserController {
         /* 필기. 이후에 유저는 접근 못하는 validation 추가할 것 */
 
         try {
-            QueryUserDTO userDTO = queryUserService.getUserById(id);
+            QueryUserDTO userDTO = queryUserService.getUserDetailsById(id);
 
             ResponseUserForServiceVO response = ResponseUserForServiceVO.builder()
                     .name(userDTO.getName())
@@ -53,7 +53,7 @@ public class QueryUserController {
     @GetMapping("/email/{email}")
     public ResponseEntity<ResponseUserForPublicVO> getUserByEmail(@PathVariable("email") String email) {
         try {
-            QueryUserDTO userDTO = queryUserService.getUserByEmail(email);
+            QueryUserDTO userDTO = queryUserService.getUserDetailsByEmail(email);
 
             ResponseUserForPublicVO response = ResponseUserForPublicVO.builder()
                     .name(userDTO.getName())

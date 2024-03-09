@@ -2,9 +2,6 @@ package org.teamone.user.command.domain.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,14 +13,13 @@ import org.teamone.user.command.domain.aggregate.enums.AccessLevel;
 import org.teamone.user.command.domain.aggregate.enums.Provider;
 import org.teamone.user.command.domain.aggregate.enums.UserStatus;
 
-import java.util.ArrayList;
 import java.util.UUID;
 
 @Service
 public class CommandUserAuthServiceImpl implements CommandUserAuthService {
 
     private final CommandUserRepository commandUserRepository;
-    private BCryptPasswordEncoder bCryptPasswordEncoder;
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Autowired
     public CommandUserAuthServiceImpl(CommandUserRepository commandUserRepository,
@@ -63,19 +59,5 @@ public class CommandUserAuthServiceImpl implements CommandUserAuthService {
                 .build();
 
         return commandUserDTO;
-    }
-
-    @Override
-    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-
-        CommandUserEntity commandUserEntity = commandUserRepository.findByEmail(email);
-
-        if (commandUserEntity == null) {
-            throw new UsernameNotFoundException(email + " 유저는 존재하지 않습니다.");
-        }
-
-        return new User(commandUserEntity.getEmail(), commandUserEntity.getPassword(),
-                true, true, true, true,
-                new ArrayList<>());
     }
 }

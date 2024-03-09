@@ -9,6 +9,4 @@ public interface CommandUserRepository extends JpaRepository<CommandUserEntity, 
 
     boolean existsByEmail(String email);
     boolean existsByNickname(String nickname);
-
-    CommandUserEntity findByEmail(String email);
 }

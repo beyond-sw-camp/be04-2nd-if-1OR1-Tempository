@@ -16,7 +16,7 @@ import org.teamone.user.command.domain.dto.CommandUserDTO;
 @RequestMapping("/auth")
 public class CommandUserAuthController {
 
-    private CommandUserAuthService commandUserAuthService;
+    private final CommandUserAuthService commandUserAuthService;
 
     @Autowired
     public CommandUserAuthController(CommandUserAuthService commandUserAuthService) {
@@ -36,7 +36,6 @@ public class CommandUserAuthController {
         CommandUserDTO resultCommandUserDTO = commandUserAuthService.signUp(commandUserDTO);
 
         ResponseUserAuthVO responseUser = ResponseUserAuthVO.builder()
-                .userId(resultCommandUserDTO.getUserId())
                 .email(resultCommandUserDTO.getEmail())
                 .nickname(resultCommandUserDTO.getNickname())
                 .build();

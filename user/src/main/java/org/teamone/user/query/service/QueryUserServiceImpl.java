@@ -9,7 +9,7 @@ import org.teamone.user.query.repository.UserMapper;
 @Service
 public class QueryUserServiceImpl implements QueryUserService {
 
-    private UserMapper userMapper;
+    private final UserMapper userMapper;
 
     @Autowired
     public QueryUserServiceImpl(UserMapper userMapper) {
@@ -17,7 +17,7 @@ public class QueryUserServiceImpl implements QueryUserService {
     }
 
     @Override
-    public QueryUserDTO getUserById(String input) {
+    public QueryUserDTO getUserDetailsById(String input) {
         int id = Integer.parseInt(input);
 
         QueryUserEntity userEntity = userMapper.findUserById(id);
@@ -38,7 +38,7 @@ public class QueryUserServiceImpl implements QueryUserService {
     }
 
     @Override
-    public QueryUserDTO getUserByEmail(String email) {
+    public QueryUserDTO getUserDetailsByEmail(String email) {
         QueryUserEntity userEntity = userMapper.findUserByEmail(email);
 
         return QueryUserDTO.builder()
