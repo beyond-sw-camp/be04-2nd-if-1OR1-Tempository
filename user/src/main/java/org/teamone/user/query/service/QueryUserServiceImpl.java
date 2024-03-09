@@ -2,6 +2,7 @@ package org.teamone.user.query.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.teamone.user.common.security.auth.JwtUserResolver;
 import org.teamone.user.query.domainData.entity.QueryUserEntity;
 import org.teamone.user.query.dto.QueryUserDTO;
 import org.teamone.user.query.repository.UserMapper;
@@ -55,7 +56,6 @@ public class QueryUserServiceImpl implements QueryUserService {
 
     @Override
     public QueryUserDTO getUserByToken(String token) {
-
         String userId = jwtUserResolver.resolveUserFromToken(token);
 
         QueryUserEntity userEntity = userMapper.findUserByUserId(userId);

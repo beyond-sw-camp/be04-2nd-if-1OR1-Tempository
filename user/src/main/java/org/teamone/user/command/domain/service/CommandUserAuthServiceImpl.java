@@ -12,6 +12,7 @@ import org.teamone.user.command.domain.repository.CommandUserRepository;
 import org.teamone.user.command.domain.aggregate.enums.AccessLevel;
 import org.teamone.user.command.domain.aggregate.enums.Provider;
 import org.teamone.user.command.domain.aggregate.enums.UserStatus;
+import org.teamone.user.common.security.auth.JwtUserResolver;
 
 import java.util.UUID;
 
@@ -19,12 +20,14 @@ import java.util.UUID;
 public class CommandUserAuthServiceImpl implements CommandUserAuthService {
 
     private final CommandUserRepository commandUserRepository;
+    private final JwtUserResolver jwtUserResolver;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Autowired
-    public CommandUserAuthServiceImpl(CommandUserRepository commandUserRepository,
+    public CommandUserAuthServiceImpl(CommandUserRepository commandUserRepository, JwtUserResolver jwtUserResolver,
                                       BCryptPasswordEncoder bCryptPasswordEncoder) {
         this.commandUserRepository = commandUserRepository;
+        this.jwtUserResolver = jwtUserResolver;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
 
@@ -59,5 +62,36 @@ public class CommandUserAuthServiceImpl implements CommandUserAuthService {
                 .build();
 
         return commandUserDTO;
+    }
+
+    @Override
+    @Transactional
+    public CommandUserDTO modifyUserInfo(CommandUserDTO updatedUserInfo, String token) {
+
+        String userId = jwtUserResolver.resolveUserFromTokenForUser(token);
+
+        CommandUserEntity user = commandUserRepository.findByUserId(userId);
+
+        if (updatedUserInfo.getName() != null) {
+            user.setName(updatedUserInfo.getName());
+        }
+
+        if (updatedUserInfo.getNickname() != null) {
+
+            if (commandUserRepository.existsByNickname(updatedUserInfo.getNickname())) {
+
+                throw new DuplicateKeyException("이미 사용 중인 닉네임입니다.");
+            }
+            user.setNickname(updatedUserInfo.getNickname());
+        }
+
+        commandUserRepository.save(user);
+
+        CommandUserDTO result = CommandUserDTO.builder()
+                .name(user.getName())
+                .nickname(user.getNickname())
+                .build();
+
+        return result;
     }
 }

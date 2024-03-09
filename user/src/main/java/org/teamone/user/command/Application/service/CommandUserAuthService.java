@@ -5,4 +5,6 @@ import org.teamone.user.command.domain.dto.CommandUserDTO;
 public interface CommandUserAuthService {
 
     CommandUserDTO signUp(CommandUserDTO newUser);
+
+    CommandUserDTO modifyUserInfo(CommandUserDTO updatedUserInfo, String token);
 }

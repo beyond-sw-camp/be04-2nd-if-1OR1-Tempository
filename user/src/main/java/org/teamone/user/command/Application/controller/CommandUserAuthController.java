@@ -1,6 +1,9 @@
 package org.teamone.user.command.Application.controller;
 
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DuplicateKeyException;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -41,5 +44,35 @@ public class CommandUserAuthController {
                 .build();
 
         return ResponseEntity.status(HttpStatus.CREATED).body(responseUser);
+    }
+
+    @PostMapping("/updateInfo")
+    public ResponseEntity<ResponseUserAuthVO> updateUserInfo(@RequestBody RequestUserAuthVO user, HttpServletRequest request) {
+
+        CommandUserDTO commandUserDTO =CommandUserDTO.builder()
+                .name(user.getName())
+                .nickname(user.getNickname())
+                .build();
+
+        String token = request.getHeader(HttpHeaders.AUTHORIZATION);
+        try {
+            CommandUserDTO resultCommandUserDTO = commandUserAuthService.modifyUserInfo(commandUserDTO, token);
+
+            ResponseUserAuthVO response = ResponseUserAuthVO.builder()
+                    .name(resultCommandUserDTO.getName())
+                    .nickname(resultCommandUserDTO.getNickname())
+                    .build();
+
+            return ResponseEntity.status(HttpStatus.OK).body(response);
+        } catch (DuplicateKeyException e) {
+            ResponseUserAuthVO response = ResponseUserAuthVO.builder()
+                    .message(e.getMessage())
+                    .build();
+
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
+        }
+
+
+
     }
 }
