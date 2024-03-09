@@ -3,12 +3,11 @@ package org.teamone.user.query.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.teamone.user.query.domainData.vo.RequestUserInfoByTokenVO;
 import org.teamone.user.query.domainData.vo.ResponseUserForPublicVO;
 import org.teamone.user.query.domainData.vo.ResponseUserForServiceVO;
+import org.teamone.user.query.domainData.vo.ResponseUserInfoByTokenVO;
 import org.teamone.user.query.dto.QueryUserDTO;
 import org.teamone.user.query.service.QueryUserService;
 
@@ -67,6 +66,29 @@ public class QueryUserController {
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
                     .body(ResponseUserForPublicVO.builder().message("해당 유저를 찾을 수 없습니다").build());
+        }
+    }
+
+    @PostMapping("/token")
+    public ResponseEntity<ResponseUserInfoByTokenVO> getUserByToken(@RequestBody RequestUserInfoByTokenVO request) {
+
+        try {
+            String token = request.getToken();
+
+            QueryUserDTO userDTO = queryUserService.getUserByToken(token);
+
+            ResponseUserInfoByTokenVO response = ResponseUserInfoByTokenVO.builder()
+                    .id(userDTO.getId())
+                    .name(userDTO.getName())
+                    .nickname(userDTO.getNickname())
+                    .email(userDTO.getEmail())
+                    .userId(userDTO.getUserId())
+                    .build();
+
+            return ResponseEntity.status(HttpStatus.OK).body(response);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body(ResponseUserInfoByTokenVO.builder().message("해당 유저를 찾을 수 없습니다").build());
         }
     }
 }

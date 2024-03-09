@@ -23,12 +23,18 @@
     <select id="findUserById" resultMap="userMap" parameterType="org.teamone.user.query.domainData.entity.QueryUserEntity">
         SELECT *
           FROM TBL_USER A
-         WHERE ID = #{ id } AND USER_STATUS = 'ACTIVE'
+         WHERE ID = #{ id }
     </select>
 
     <select id="findUserByEmail" resultMap="userMap" parameterType="org.teamone.user.query.domainData.entity.QueryUserEntity">
         SELECT *
           FROM TBL_USER A
-         WHERE EMAIL = #{ email } AND USER_STATUS = 'ACTIVE'
+         WHERE EMAIL = #{ email }
+    </select>
+
+    <select id="findUserByUserId" resultMap="userMap" parameterType="org.teamone.user.query.domainData.entity.QueryUserEntity">
+        SELECT *
+        FROM TBL_USER A
+        WHERE USER_ID = #{ userId }
     </select>
 </mapper>

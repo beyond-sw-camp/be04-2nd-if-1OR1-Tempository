@@ -52,7 +52,7 @@ public class QueryUserAuthServiceImpl implements QueryUserAuthService {
         QueryUserEntity queryUserEntity = queryUserRepository.findByUserId(userId);
 
         if (queryUserEntity == null) {
-            throw new UsernameNotFoundException(userId + " 유저는 존재하지 않습니다.");
+            throw new UsernameNotFoundException("해당 유저는 존재하지 않습니다.");
         }
 
         return new User(queryUserEntity.getEmail(), queryUserEntity.getPassword(),

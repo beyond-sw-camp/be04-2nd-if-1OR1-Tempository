@@ -9,4 +9,6 @@ public interface UserMapper {
     QueryUserEntity findUserById(int id);
 
     QueryUserEntity findUserByEmail(String email);
+
+    QueryUserEntity findUserByUserId(String userId);
 }

@@ -7,4 +7,6 @@ public interface QueryUserService {
     QueryUserDTO getUserDetailsById(String id);
 
     QueryUserDTO getUserDetailsByEmail(String email);
+
+    QueryUserDTO getUserByToken(String token);
 }

@@ -10,10 +10,12 @@ import org.teamone.user.query.repository.UserMapper;
 public class QueryUserServiceImpl implements QueryUserService {
 
     private final UserMapper userMapper;
+    private final JwtUserResolver jwtUserResolver;
 
     @Autowired
-    public QueryUserServiceImpl(UserMapper userMapper) {
+    public QueryUserServiceImpl(UserMapper userMapper, JwtUserResolver jwtUserResolver) {
         this.userMapper = userMapper;
+        this.jwtUserResolver = jwtUserResolver;
     }
 
     @Override
@@ -48,6 +50,22 @@ public class QueryUserServiceImpl implements QueryUserService {
                 .followingCnt(userEntity.getFollowingCnt())
                 .grade(userEntity.getGrade())
                 .email(userEntity.getEmail())
+                .build();
+    }
+
+    @Override
+    public QueryUserDTO getUserByToken(String token) {
+
+        String userId = jwtUserResolver.resolveUserFromToken(token);
+
+        QueryUserEntity userEntity = userMapper.findUserByUserId(userId);
+
+        return QueryUserDTO.builder()
+                .id(userEntity.getId())
+                .name(userEntity.getName())
+                .nickname(userEntity.getNickname())
+                .email(userEntity.getEmail())
+                .userId(userEntity.getUserId())
                 .build();
     }
 }
