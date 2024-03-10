@@ -40,14 +40,6 @@ public class RequirementService {
         return requirementList;
     }
 
-    /* 설명. 요구사항 id로 요구사항 명세서 조회 */
-    public Requirement findRequirementById(int id) {
-        Requirement requirement = requirementMapper.selectRequirementById(id);
-        System.out.println("requirement = " + requirement);
-
-        return requirement;
-    }
-
     /* 설명. 테스트케이스 id와 requirementNo로 조회 */
     public Requirement findRequirementByRequirementNoAndProjectId(int requirementNo, int projectId) {
         Map<String, Integer> intMap = new HashMap<>();

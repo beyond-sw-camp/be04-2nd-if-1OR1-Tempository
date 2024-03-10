@@ -43,19 +43,6 @@
          ORDER BY REQUIREMENT_NO ASC
     </select>
 
-    <select id="selectRequirementById" resultMap="requirementResultMap">
-        SELECT
-                ID
-              , REQUIREMENT_NO
-              , SEPARATE
-              , NAME
-              , CONTENT
-              , NOTE
-              , PROJECT_ID
-          FROM TBL_PROJECT_REQUIREMENT
-         WHERE ID = #{id};
-    </select>
-
     <select id="selectRequirementByRequirementNoAndProjectId" resultMap="requirementResultMap" parameterType="hashmap">
         SELECT
                  ID
