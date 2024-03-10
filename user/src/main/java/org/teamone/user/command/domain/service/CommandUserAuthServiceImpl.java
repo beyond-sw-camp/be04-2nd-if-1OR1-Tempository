@@ -1,5 +1,6 @@
 package org.teamone.user.command.domain.service;
 
+import org.apache.http.auth.InvalidCredentialsException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -91,6 +92,24 @@ public class CommandUserAuthServiceImpl implements CommandUserAuthService {
                 .name(user.getName())
                 .nickname(user.getNickname())
                 .build();
+
+        return result;
+    }
+
+    @Override
+    public String modifyPassword(String oldPassword, String newPassword, String token) throws InvalidCredentialsException {
+
+        String userId = jwtUserResolver.resolveUserFromTokenForUser(token);
+
+        CommandUserEntity user = commandUserRepository.findByUserId(userId);
+
+        if (!bCryptPasswordEncoder.matches(oldPassword, user.getPassword())) {
+            throw new InvalidCredentialsException("비밀번호가 일치하지 않습니다.");
+        }
+
+        user.setPassword(bCryptPasswordEncoder.encode(newPassword));
+        commandUserRepository.save(user);
+        String result = "비밀번호 변경 성공";
 
         return result;
     }

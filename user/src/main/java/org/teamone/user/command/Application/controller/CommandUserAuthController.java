@@ -11,7 +11,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.teamone.user.command.Application.service.CommandUserAuthService;
+import org.teamone.user.command.domain.aggregate.vo.RequestUpdatePasswordVO;
 import org.teamone.user.command.domain.aggregate.vo.RequestUserAuthVO;
+import org.teamone.user.command.domain.aggregate.vo.ResponseUpdatePasswordVO;
 import org.teamone.user.command.domain.aggregate.vo.ResponseUserAuthVO;
 import org.teamone.user.command.domain.dto.CommandUserDTO;
 
@@ -49,7 +51,7 @@ public class CommandUserAuthController {
     @PostMapping("/updateInfo")
     public ResponseEntity<ResponseUserAuthVO> updateUserInfo(@RequestBody RequestUserAuthVO user, HttpServletRequest request) {
 
-        CommandUserDTO commandUserDTO =CommandUserDTO.builder()
+        CommandUserDTO commandUserDTO = CommandUserDTO.builder()
                 .name(user.getName())
                 .nickname(user.getNickname())
                 .build();
@@ -71,8 +73,29 @@ public class CommandUserAuthController {
 
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
         }
+    }
 
+    @PostMapping("/updatePassword")
+    public ResponseEntity<ResponseUpdatePasswordVO> updatePassword(@RequestBody RequestUpdatePasswordVO user, HttpServletRequest request) {
 
+        try {
+            String oldPassword = user.getOldPassword();
+            String newPassword = user.getNewPassword();
+            String token = request.getHeader(HttpHeaders.AUTHORIZATION);
 
+            String result = commandUserAuthService.modifyPassword(oldPassword, newPassword, token);
+
+            ResponseUpdatePasswordVO response = ResponseUpdatePasswordVO.builder()
+                    .message(result)
+                    .build();
+
+            return ResponseEntity.status(HttpStatus.OK).body(response);
+        } catch (Exception e) {
+            ResponseUpdatePasswordVO response = ResponseUpdatePasswordVO.builder()
+                    .message(e.getMessage())
+                    .build();
+
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
+        }
     }
 }

@@ -52,7 +52,7 @@ public class SecurityConfiguration {
         http.csrf((csrf) -> csrf.disable());
         http
                 .authorizeHttpRequests((auth) -> auth
-                                .requestMatchers(new AntPathRequestMatcher("/auth/**")).permitAll()
+                                .requestMatchers(new AntPathRequestMatcher("/auth/signup")).permitAll()
                                 .anyRequest().authenticated()
                 )
                 .authenticationManager(authenticationManager)
