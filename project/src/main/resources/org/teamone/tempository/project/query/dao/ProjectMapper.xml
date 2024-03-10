@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.teamone.tempository.project.query.dao.ProjectMapper">
+
+    <resultMap id="projectResultMap" type="org.teamone.tempository.project.query.entity.Project">
+        <id property="id" column="ID"/>
+        <result property="name" column="NAME"/>
+        <result property="isPublic" column="IS_PUBLIC"/>
+        <result property="likeCnt" column="LIKE_CNT"/>
+        <result property="status" column="STATUS"/>
+        <result property="content" column="CONTENT"/>
+    </resultMap>
+
+    <select id="getProjectInfoById" resultMap="projectResultMap" parameterType="string">
+        SELECT
+              A.ID
+            , A.NAME
+            , A.IS_PUBLIC
+            , A.LIKE_CNT
+            , A.STATUS
+            , A.CONTENT
+         FROM TBL_PROJECT A
+        WHERE A.ID = #{ id }
+    </select>
+
+    <select id="findProjectNameById" resultMap="projectResultMap" parameterType="String">
+        SELECT
+          A.ID
+        , A.NAME
+        FROM TBL_PROJECT A
+        WHERE A.ID = #{ id }
+    </select>
+
+    <select id="getProjectInfoByStatus" resultMap="projectResultMap" parameterType="org.teamone.tempository.project.query.entity.Project">
+        SELECT
+              A.ID
+            , A.NAME
+            , A.IS_PUBLIC
+            , A.LIKE_CNT
+            , A.STATUS
+            , A.CONTENT
+         FROM TBL_PROJECT A
+        WHERE A.STATUS = #{ status }
+
+    </select>
+
+    <select id="getProjectInfoOrderByLike" resultMap="projectResultMap" parameterType="org.teamone.tempository.project.query.entity.Project">
+        SELECT
+              A.ID
+            , A.NAME
+            , A.IS_PUBLIC
+            , A.LIKE_CNT
+            , A.STATUS
+            , A.CONTENT
+         FROM TBL_PROJECT A
+        ORDER BY LIKE_CNT DESC;
+
+    </select>
+
+    <select id="getProjectInfoByIsPublic" resultMap="projectResultMap" parameterType="org.teamone.tempository.project.query.entity.Project">
+        SELECT
+              A.ID
+            , A.NAME
+            , A.IS_PUBLIC
+            , A.LIKE_CNT
+            , A.STATUS
+            , A.CONTENT
+         FROM TBL_PROJECT A
+        WHERE A.IS_PUBLIC = #{ isPublic }
+
+    </select>
+<resultMap id="projectJoinMemberMap" type="org.teamone.tempository.project.query.entity.Project">
+    <id property="id" column="ID"/>
+    <result property="name" column="NAME"/>
+    <result property="isPublic" column="IS_PUBLIC"/>
+    <result property="likeCnt" column="LIKE_CNT"/>
+    <result property="status" column="STATUS"/>
+    <result property="content" column="CONTENT"/>
+    <collection property="projectMemberList" ofType="org.teamone.tempository.project.query.entity.ProjectMember">
+        <id property="projectId" column="PROJECT_ID"/>
+        <id property="memberId" column="MEMBER_ID"/>
+        <result property="position" column="POSITION"/>
+        <result property="memberStatus" column="MEMBER_STATUS"/>
+    </collection>
+</resultMap>
+
+    <select id="getProjectByMemberId" resultMap="projectJoinMemberMap" parameterType="String" >
+        SELECT
+              B.MEMBER_ID
+            , A.ID
+            , A.NAME
+            , A.STATUS
+            , B.POSITION
+         FROM TBL_PROJECT A
+         JOIN TBL_PROJECT_MEMBER B ON (A.ID = B.PROJECT_ID)
+        WHERE B.MEMBER_ID = #{ id }
+    </select>
+
+    <select id="getProjectInfoByContent" resultMap="projectResultMap" parameterType="org.teamone.tempository.project.query.entity.Project">
+        SELECT
+              A.ID
+            , A.NAME
+            , A.IS_PUBLIC
+            , A.LIKE_CNT
+            , A.STATUS
+            , A.CONTENT
+         FROM TBL_PROJECT A
+        WHERE A.CONTENT LIKE '%' #{content} '%'
+    </select>
+
+    <select id="getProjectInfoByName" resultMap="projectResultMap" parameterType="string">
+        SELECT
+              A.ID
+            , A.NAME
+            , A.IS_PUBLIC
+            , A.LIKE_CNT
+            , A.STATUS
+            , A.CONTENT
+         FROM TBL_PROJECT A
+        WHERE A.NAME LIKE '%' #{name} '%'
+    </select>
+
+<!--    <select id="getProjectMemberById" resultMap="projectResultMap" parameterType="string">-->
+<!--        SELECT-->
+<!--        A.ID-->
+<!--        , A.NAME-->
+<!--        , A.IS_PUBLIC-->
+<!--        , A.LIKE_CNT-->
+<!--        , A.STATUS-->
+<!--        , A.CONTENT-->
+<!--        FROM TBL_PROJECT A-->
+<!--        WHERE A.NAME LIKE '%' #{name} '%'-->
+<!--    </select>-->
+
+</mapper>
