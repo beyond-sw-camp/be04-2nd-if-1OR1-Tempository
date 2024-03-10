@@ -47,7 +47,8 @@ class RequirementServiceTest {
     @DisplayName("requirementNo와 projectId로 조회")
     @Test
     void findRequirementByRequirementNoAndProjectId() {
-        Requirement requirement = requirementService.findRequirementByRequirementNoAndProjectId(3, 1);
+        Requirement requirement =
+                requirementService.findRequirementByRequirementNoAndProjectId(3, 1);
 
         Assertions.assertNotNull(requirement);
     }

@@ -4,6 +4,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.teamone.projecttemplate.query.entity.Issue;
 
 import java.util.List;
+import java.util.Map;
 
 @Mapper
 public interface IssueMapper {
@@ -12,4 +13,6 @@ public interface IssueMapper {
     List<Issue> selectIssueByStatus(Issue issue);
 
     List<Issue> selectIssueByProjectId(int projectId);
+
+    Issue selectIssueByProjectIdAndIssueNo(Map<String, Integer> intMap);
 }

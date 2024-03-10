@@ -42,4 +42,20 @@
         FROM TBL_PROJECT_ISSUE
         WHERE ISSUE_STATUS = #{issueStatus}
     </select>
+
+    <select id="selectIssueByProjectIdAndIssueNo" resultMap="findListOfIssueMap" parameterType="hashMap">
+        SELECT
+                ID
+              , PROJECT_ID
+              , ISSUE_NO
+              , ISSUE_NAME
+              , ISSUE_STATUS
+              , ISSUE_CONTENT
+              , MANAGER_ID
+              , WRITER_ID
+          FROM TBL_PROJECT_ISSUE
+         WHERE PROJECT_ID = #{projectId}
+           AND ISSUE_NO = #{issueNo};
+    </select>
+
 </mapper>

@@ -1,16 +1,17 @@
 package org.teamone.projecttemplate.query.service;
 
 import org.modelmapper.ModelMapper;
+import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.teamone.projecttemplate.query.client.IssueServiceClient;
 import org.teamone.projecttemplate.query.dto.IssueDTO;
+import org.teamone.projecttemplate.query.dto.IssueUserDTO;
 import org.teamone.projecttemplate.query.entity.Issue;
 import org.teamone.projecttemplate.query.repository.IssueMapper;
+import org.teamone.projecttemplate.query.vo.UserResponse;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.stream.Collectors;
+import java.util.*;
 
 @Service
 public class IssueService {
@@ -19,10 +20,14 @@ public class IssueService {
     private final IssueMapper issueMapper;
     private final ModelMapper  modelMapper;
 
+    /* 설명. FeignClient 이후 추가할 부분 */
+    private IssueServiceClient issueServiceClient;
+
     @Autowired
-    public IssueService(IssueMapper issueMapper, ModelMapper  modelMapper) {
+    public IssueService(IssueMapper issueMapper, ModelMapper  modelMapper, IssueServiceClient issueServiceClient) {
         this.issueMapper = issueMapper;
         this.modelMapper = modelMapper;
+        this.issueServiceClient = issueServiceClient;
     }
 
     /* 설명. Project ID로 해당 이슈 모두 조회 */
@@ -51,4 +56,23 @@ public class IssueService {
         List<Issue> result = issueMapper.selectIssueByStatus(issue);
         return result;
     }
+
+    public IssueUserDTO selectIssueByProjectIdAndIssueNo(int projectId, int issueNo, String token) {
+        modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
+
+        Map<String, Integer> intMap = new HashMap();
+        intMap.put("projectId", projectId);
+        intMap.put("issueNo",  issueNo);
+
+        Issue issue = issueMapper.selectIssueByProjectIdAndIssueNo(intMap);
+
+        IssueUserDTO issueUserDTO = modelMapper.map(issue, IssueUserDTO.class);
+
+        UserResponse userResponse = issueServiceClient.getUserById(issue.getManagerId(), token);
+
+        issueUserDTO.setUserResponse(userResponse);
+
+        return issueUserDTO;
+    }
+
 }
