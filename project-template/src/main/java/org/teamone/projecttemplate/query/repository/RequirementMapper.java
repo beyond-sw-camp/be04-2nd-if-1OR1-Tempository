@@ -12,7 +12,5 @@ public interface RequirementMapper {
 
     List<Requirement> selectRequirementBySeparateAndProjectId(Requirement requirement);
 
-    Requirement selectRequirementById(int id);
-
     Requirement selectRequirementByRequirementNoAndProjectId(Map<String, Integer> intMap);
 }

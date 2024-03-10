@@ -14,7 +14,5 @@ public interface TestcaseMapper {
 
     List<Testcase> selectTestcaseByResultAndProjectId(Testcase testcase);
 
-    Testcase selectTestcaseById(int id);
-
     Testcase selectTestcaseByTestNoAndProjectId(Map<String, Integer> intMap);
 }

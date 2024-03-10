@@ -28,7 +28,7 @@ public class CommandTestcaseServiceImpl implements CommandTestcaseService {
     public void registTestcase(CommandTestcaseDTO commandTestcaseDTO) {
         modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
 
-        /* 설명. 프로젝트 id가 같은 프로젝트 찾음 */
+        /* 설명. 프로젝트 id가 같은 테스트케이스 찾음 */
         List<CommandTestcase> testcaseList = commandTestcaseRepository.findByProjectId(
                 commandTestcaseDTO.getProjectId());
 
