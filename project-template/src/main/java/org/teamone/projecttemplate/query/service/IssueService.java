@@ -4,7 +4,7 @@ import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.teamone.projecttemplate.query.client.IssueServiceClient;
+import org.teamone.projecttemplate.query.client.ProjectTemplateServiceClient;
 import org.teamone.projecttemplate.query.dto.IssueDTO;
 import org.teamone.projecttemplate.query.dto.IssueUserDTO;
 import org.teamone.projecttemplate.query.entity.Issue;
@@ -21,13 +21,13 @@ public class IssueService {
     private final ModelMapper  modelMapper;
 
     /* 설명. FeignClient 이후 추가할 부분 */
-    private IssueServiceClient issueServiceClient;
+    private ProjectTemplateServiceClient projectTemplateServiceClient;
 
     @Autowired
-    public IssueService(IssueMapper issueMapper, ModelMapper  modelMapper, IssueServiceClient issueServiceClient) {
+    public IssueService(IssueMapper issueMapper, ModelMapper  modelMapper, ProjectTemplateServiceClient projectTemplateServiceClient) {
         this.issueMapper = issueMapper;
         this.modelMapper = modelMapper;
-        this.issueServiceClient = issueServiceClient;
+        this.projectTemplateServiceClient = projectTemplateServiceClient;
     }
 
     /* 설명. Project ID로 해당 이슈 모두 조회 */
@@ -68,7 +68,7 @@ public class IssueService {
 
         IssueUserDTO issueUserDTO = modelMapper.map(issue, IssueUserDTO.class);
 
-        UserResponse userResponse = issueServiceClient.getUserById(issue.getManagerId(), token);
+        UserResponse userResponse = projectTemplateServiceClient.getUserById(issue.getManagerId(), token);
 
         issueUserDTO.setUserResponse(userResponse);
 
