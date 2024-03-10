@@ -62,20 +62,6 @@
          ORDER BY TEST_NO ASC
     </select>
 
-    <select id="selectTestcaseById" resultMap="testcaseMap">
-        SELECT
-                ID
-              , TEST_NO
-              , SEPARATE
-              , CONTENT
-              , EXPECTED_VALUE
-              , RESULT
-              , NOTE
-              , PROJECT_ID
-          FROM TBL_PROJECT_TESTCASE
-         WHERE ID = #{id};
-    </select>
-
     <select id="selectTestcaseByTestNoAndProjectId" resultMap="testcaseMap" parameterType="hashmap">
         SELECT
                 ID

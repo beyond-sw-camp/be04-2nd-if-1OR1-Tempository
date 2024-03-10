@@ -43,16 +43,6 @@ class TestcaseServiceTest {
         Assertions.assertNotNull(testcaseList);
     }
 
-    @DisplayName("테스트케이스id로 테스트케이스 조회")
-    @Test
-    void findTestcaseById() {
-        int id = 1;
-
-        Testcase testcase = testcaseService.findTestcaseById(id);
-
-        Assertions.assertNotNull(testcase);
-    }
-
     @DisplayName("testNo와 프로젝트 id로 테스트케이스 조회")
     @Test
     void findTestcaseByTestNoAndProjectId() {

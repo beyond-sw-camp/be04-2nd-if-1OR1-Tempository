@@ -46,14 +46,6 @@ public class TestcaseService {
         return testcaseList;
     }
 
-    /* 설명. 테스트케이스 id로 테스트케이스 조회 */
-    public Testcase findTestcaseById(int id) {
-        Testcase testcase = testcaseMapper.selectTestcaseById(id);
-        System.out.println(testcase);
-
-        return testcase;
-    }
-
     /* 설명. 프로젝트 id와 testNo를 이용해서 테스트케이스 조회 */
     public Testcase findTestcaseByTestNoAndProjectId(int testNo, int projectId) {
         Map<String, Integer> intMap = new HashMap();
