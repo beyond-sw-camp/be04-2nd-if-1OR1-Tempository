@@ -1,20 +1,23 @@
-package org.teamone.projecttemplate.command.dto;
+package org.teamone.projecttemplate.query.vo;
 
 import lombok.*;
+
+import java.util.Date;
 
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
 @ToString
-public class CommandWbsDTO {
+public class WbsResponse {
 
-    private int id;
     private int wbsNo;
     private String content;
     private String taskStatus;
-    private java.util.Date startDate;
-    private java.util.Date endDate;
+    private Date startDate;
+    private Date endDate;
     private int managerId;
     private int projectId;
+
 }
+

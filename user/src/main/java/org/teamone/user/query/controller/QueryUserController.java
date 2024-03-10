@@ -24,7 +24,7 @@ public class QueryUserController {
 
     /* 설명. id 로 유저 정보 반환 */
     @GetMapping("/id/{id}")
-    public ResponseEntity<ResponseUserForServiceVO> getUserById(@PathVariable("id") String id) {
+    public ResponseEntity<ResponseUserForServiceVO> getUserById(@PathVariable("id") String id, @RequestHeader("Authorization") String token) {
 
         /* 필기. 이후에 유저는 접근 못하는 validation 추가할 것 */
 

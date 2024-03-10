@@ -10,6 +10,7 @@ import org.teamone.projecttemplate.command.dto.CommandWbsDTO;
 import org.teamone.projecttemplate.command.entity.CommandWbs;
 import org.teamone.projecttemplate.command.repository.CommandWbsRepository;
 import org.teamone.projecttemplate.command.vo.CommandWbsRequest;
+import org.teamone.projecttemplate.query.client.ProjectTemplateServiceClient;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,10 +22,13 @@ public class CommandWbsServiceImpl implements CommandWbsService{
 
     private final CommandWbsRepository commandWbsRepository;
 
+    private final ProjectTemplateServiceClient projectTemplateServiceClient;
+
     @Autowired
-    public CommandWbsServiceImpl(ModelMapper modelMapper, CommandWbsRepository commandWbsRepository) {
+    public CommandWbsServiceImpl(ModelMapper modelMapper, CommandWbsRepository commandWbsRepository, ProjectTemplateServiceClient projectTemplateServiceClient) {
         this.modelMapper = modelMapper;
         this.commandWbsRepository = commandWbsRepository;
+        this.projectTemplateServiceClient = projectTemplateServiceClient;
     }
 
     /* insert */

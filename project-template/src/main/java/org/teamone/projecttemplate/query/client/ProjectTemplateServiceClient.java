@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.teamone.projecttemplate.query.vo.UserResponse;
 
 @FeignClient(name="user", url="localhost:8000")
-public interface IssueServiceClient {
+public interface ProjectTemplateServiceClient {
 
     @GetMapping("user/id/{id}")
     UserResponse getUserById(@PathVariable("id") int id, @RequestHeader("Authorization") String token);

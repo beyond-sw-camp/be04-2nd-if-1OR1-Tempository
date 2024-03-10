@@ -19,7 +19,6 @@ public class WbsServiceTest {
     @Test
     void selectAllWbsByProjectId() {
         List<Wbs> wbsList = wbsService.selectAllWbsByProjectId(1);
-
         Assertions.assertNotNull(wbsList);
     }
 
