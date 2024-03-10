@@ -52,8 +52,8 @@ public class ProjectService {
 
     /* 설명. 프로젝트 삭제하기(Delete) */
     @Transactional
-    public void deleteProjectById(int id)  {
+    public void deleteProjectById(String id)  {
 
-        projectRepository.deleteById(id);
+        projectRepository.deleteById(Integer.valueOf(id));
     }
 }

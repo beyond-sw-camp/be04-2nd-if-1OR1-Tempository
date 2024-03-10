@@ -13,7 +13,7 @@ import org.teamone.tempository.project.query.entity.Project;
 import java.util.List;
 
 @RestController("jpa")
-@RequestMapping("/project")
+@RequestMapping("/")
 @Slf4j
 public class ProjectController {
 
@@ -47,7 +47,7 @@ public class ProjectController {
 
     /* 설명. 프로젝트 삭제 기능*/
     @PostMapping("/delete")
-    public String deleteProjectById(@RequestParam("id") int id)  {
+    public String deleteProjectById(@RequestParam("id") String id)  {
 
         projectService.deleteProjectById(id);
 

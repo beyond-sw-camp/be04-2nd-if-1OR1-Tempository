@@ -86,11 +86,11 @@ public class ProjectServiceImpl implements ProjectService {
 
     /* 설명. 프로젝트 참여 회원 조회 기능 */
     @Override
-    public List<ProjectDTO> getProjectJoinUserById(String id, String token) {
+    public List<ProjectDTO> getProjectByMemberId(String id, String token) {
 
         HttpHeaders headers = new HttpHeaders();
 
-        List<Project> project = projectMapper.getProjectJoinUserById(id);
+        List<Project> project = projectMapper.getProjectByMemberId(id);
 
 
         List<ProjectDTO> projectDTOJoinMember = projectToProjectDTOMember(project, token, id);
@@ -113,10 +113,7 @@ public class ProjectServiceImpl implements ProjectService {
 
             projectDTO.setId(project.getId());
             projectDTO.setStatus(project.getStatus());
-            projectDTO.setLikeCnt(project.getLikeCnt());
-            projectDTO.setPublic(project.isPublic());
             projectDTO.setName(project.getName());
-            projectDTO.setContent(project.getContent());
 
             List<ProjectMember> projectMemberList = project.getProjectMemberList();
 
@@ -141,7 +138,6 @@ public class ProjectServiceImpl implements ProjectService {
             projectDTOMemberList.add(projectDTO);
         }
 
-        System.out.println("userList = " + userList);
         return projectDTOMemberList;
     }
 

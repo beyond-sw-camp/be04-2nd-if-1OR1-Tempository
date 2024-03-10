@@ -17,7 +17,7 @@ public interface ProjectService {
     List<Project> getProjectInfoByIsPublic(boolean isPublic);
 
 
-    List<ProjectDTO> getProjectJoinUserById(String id,String token);
+    List<ProjectDTO> getProjectByMemberId(String id, String token);
 
 
     List<Project> getProjectInfoByContent(String content);

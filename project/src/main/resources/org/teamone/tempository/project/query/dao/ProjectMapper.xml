@@ -86,15 +86,12 @@
     </collection>
 </resultMap>
 
-    <select id="getProjectJoinUserById" resultMap="projectJoinMemberMap" parameterType="String" >
+    <select id="getProjectByMemberId" resultMap="projectJoinMemberMap" parameterType="String" >
         SELECT
               B.MEMBER_ID
             , A.ID
             , A.NAME
-            , A.IS_PUBLIC
-            , A.LIKE_CNT
             , A.STATUS
-            , A.CONTENT
             , B.POSITION
          FROM TBL_PROJECT A
          JOIN TBL_PROJECT_MEMBER B ON (A.ID = B.PROJECT_ID)

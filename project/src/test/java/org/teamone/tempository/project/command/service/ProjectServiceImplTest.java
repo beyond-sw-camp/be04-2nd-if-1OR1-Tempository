@@ -52,7 +52,7 @@ class ProjectServiceImplTest {
     @Transactional
     void deleteProjectTest() throws IllegalAccessException {
         int id = 13;
-        projectService.deleteProjectById(id);
+        projectService.deleteProjectById(String.valueOf(id));
 
     }
 }

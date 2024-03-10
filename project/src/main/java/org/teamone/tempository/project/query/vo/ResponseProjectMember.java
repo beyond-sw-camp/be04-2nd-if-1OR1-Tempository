@@ -13,17 +13,8 @@ public class ResponseProjectMember {
 
     private String name;
 
-    private boolean isPublic;
-
-    private int likeCnt;
-
     private ProjectStatus status;
 
-    private String content;
-
     private List<ProjectMemberDTO> projectMemberDTOList;
-
-
-
 
 }

@@ -14,7 +14,7 @@ import org.teamone.tempository.project.query.vo.ResponseProjectMember;
 import java.util.ArrayList;
 import java.util.List;
 
-@RequestMapping("/project")
+@RequestMapping("/")
 @RestController
 public class ProjectController {
     private final ProjectService projectService;
@@ -35,7 +35,7 @@ public class ProjectController {
 
 
     /* 설명. Status를 이용하여 프로젝트 완료나 미완료 상태인 프로젝트를 조회 */
-    @PostMapping("/findByStatus/{status}")
+    @GetMapping("/findByStatus/{status}")
     public ResponseEntity<List<Project>> getProjectInfoByStatus(@PathVariable("status") ProjectStatus Status) {
 
         List<Project> projectInfoByStatus = projectService.getProjectInfoByStatus(Status);
@@ -64,11 +64,11 @@ public class ProjectController {
     }
 
     /* 설명. 프로젝트 참여 회원 정보와 프로젝트 정보 조회 기능 */
-    @GetMapping("/findProjectMember/{projectId}")
-    public ResponseEntity<List<ResponseProjectMember>> getProjectJoinUserById(@PathVariable String projectId
+    @GetMapping("/findProjectMember/{memberId}")
+    public ResponseEntity<List<ResponseProjectMember>> findProjectByMemberId(@PathVariable String memberId
                                                                     ,@RequestHeader("Authorization") String token) {
 
-        List<ProjectDTO> projectDTOId = projectService.getProjectJoinUserById(projectId,token);
+        List<ProjectDTO> projectDTOId = projectService.getProjectByMemberId(memberId,token);
 
         List<ResponseProjectMember> responseProjectMemberJoinMemberList = ProjectDTOToResponseProject(projectDTOId);
 
@@ -84,9 +84,6 @@ public class ProjectController {
 
             responseProjectMember.setId(projectDTO.getId());
             responseProjectMember.setName(projectDTO.getName());
-            responseProjectMember.setContent(projectDTO.getContent());
-            responseProjectMember.setPublic(projectDTO.isPublic());
-            responseProjectMember.setLikeCnt(projectDTO.getLikeCnt());
             responseProjectMember.setStatus(projectDTO.getStatus());
             responseProjectMember.setProjectMemberDTOList(projectDTO.getProjectMemberList());
 
