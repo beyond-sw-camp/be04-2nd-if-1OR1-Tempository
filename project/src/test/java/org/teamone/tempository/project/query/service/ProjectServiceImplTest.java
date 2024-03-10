@@ -19,7 +19,7 @@ class ProjectServiceImplTest {
     @DisplayName("프로젝트 정보 조회 테스트")
     @Test
     void getProjectInfoByIdTest(){
-        int id = 1;
+        String id = "1";
         projectService.getProjectInfoById(id);
     }
 

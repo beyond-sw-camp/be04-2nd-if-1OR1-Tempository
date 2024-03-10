@@ -3,9 +3,14 @@ package org.teamone.tempository.project.command.controller;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.teamone.tempository.project.command.dto.ProjectDTO;
 import org.teamone.tempository.project.command.service.ProjectService;
+import org.teamone.tempository.project.query.entity.Project;
+
+import java.util.List;
 
 @RestController("jpa")
 @RequestMapping("/project")
@@ -23,11 +28,11 @@ public class ProjectController {
 
     /* 설명. 프로젝트 등록 기능 */
     @PostMapping("/regist")
-    public String registProject(@RequestBody ProjectDTO newProject){
+    public ResponseEntity<List<Project>> registProject(@RequestBody ProjectDTO newProject){
 
         projectService.registProject(newProject);
 
-        return "Server at " + environment.getProperty("local.server.port");
+        return ResponseEntity.ok().build();
     }
 
     /* 설명. 프로젝트 수정 기능 */

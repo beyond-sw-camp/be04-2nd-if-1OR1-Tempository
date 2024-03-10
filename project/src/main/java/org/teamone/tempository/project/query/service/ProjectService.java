@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface ProjectService {
 
-    List<Project> getProjectInfoById(int id);
+    List<Project> getProjectInfoById(String id);
 
     List<Project> getProjectInfoByStatus(ProjectStatus status);
 
@@ -17,10 +17,13 @@ public interface ProjectService {
     List<Project> getProjectInfoByIsPublic(boolean isPublic);
 
 
-    List<ProjectDTO> getProjectJoinUserById(String id);
+    List<ProjectDTO> getProjectJoinUserById(String id,String token);
 
 
     List<Project> getProjectInfoByContent(String content);
 
     List<Project> getProjectInfoByName(String name);
+
+
+    List<ProjectDTO> findProjectNameById(String id);
 }

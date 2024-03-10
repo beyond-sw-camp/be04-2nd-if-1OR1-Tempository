@@ -5,6 +5,7 @@ import lombok.*;
 import org.teamone.tempository.project.query.type.ProjectMemberStatus;
 import org.teamone.tempository.project.query.type.ProjectPosition;
 
+
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
@@ -18,4 +19,6 @@ public class ProjectMember {
     private ProjectPosition position;
 
     private ProjectMemberStatus memberStatus;
+
+
 }

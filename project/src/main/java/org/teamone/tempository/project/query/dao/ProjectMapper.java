@@ -10,7 +10,7 @@ import java.util.List;
 public interface ProjectMapper {
 
 
-    List<Project> getProjectInfoById(Project project);
+    List<Project> getProjectInfoById(String id);
 
     List<Project> getProjectInfoByStatus(ProjectStatus status);
 
@@ -18,7 +18,7 @@ public interface ProjectMapper {
 
     List<Project> getProjectInfoByIsPublic(boolean isPublic);
 
-    List<Project> getProjectInfoById(int id);
+    List<Project> findProjectNameById(String id);
 
     List<Project> getProjectJoinUserById(String id);
 
