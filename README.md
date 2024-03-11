@@ -257,22 +257,108 @@ Mybatis, Spring data jpa 사용
 
 <details>
 <summary> 프로젝트 참여 멤버들 정보 조회 </summary>
-  <img src="https://github.com/if-1OR1/Tempository-MSA/assets/129481600/51d83aa6-8258-4e88-89fe-f5dfa3ae0296)
-![query_user_project_join-members](https://github.com/if-1OR1/Tempository-MSA/assets/129481600/b1ffd921-afd6-4a54-b1f2-7419ee67cd17"/>
+  <img src="https://github.com/if-1OR1/Tempository-MSA/assets/129481600/2cf43ea2-a7ca-4fe1-9f99-ebe62c6aeb94"/>
 </details>
 
 <br>
 <details>
 <summary> 사용자 비밀번호 수정 </summary>
-  <img src=""/>
+  <img src="https://github.com/if-1OR1/Tempository-MSA/assets/129481600/076b1648-8d04-4bee-9766-b01e0146b130"/>
+  <img src="https://github.com/if-1OR1/Tempository-MSA/assets/129481600/237928c6-558f-4dd0-9d6c-d7d1f721f6ed">
+  <img src="https://github.com/if-1OR1/Tempository-MSA/assets/129481600/01aabc5b-bb70-456f-b21d-cdb3649d231a">
 </details>
 
+<details>
+<summary> 시용자 정보 수정 </summary>
+  <img src="https://github.com/if-1OR1/Tempository-MSA/assets/129481600/6902b65d-6da5-4b77-af19-3e32c362d2b1"/>
+</details>
+<br>
 
+#### Project
+<details>
+<summary> 프로젝트를 이름으로 조회 </summary>
+  <img src="https://github.com/if-1OR1/Tempository-MSA/assets/129481600/cdfa2e8f-2987-4fce-89a5-46227e00dd05"/>
+  <img src="https://github.com/if-1OR1/Tempository-MSA/assets/129481600/27cd8709-11db-4458-a933-ea8002143e78">
+</details>
+
+<details>
+<summary> 프로젝트를 ID로 조회 </summary>
+  <img src="https://github.com/if-1OR1/Tempository-MSA/assets/129481600/bcb00033-2af6-4cc0-94d0-756f80b667f6"/>
+  <img src="https://github.com/if-1OR1/Tempository-MSA/assets/129481600/893d8ec7-211d-40b7-b842-244a6cfac88a">
+</details>
+
+<details>
+<summary> 프로젝트를 공개 유무로 조회 </summary>
+  <img src="https://github.com/if-1OR1/Tempository-MSA/assets/129481600/20175cd3-76ee-4554-b198-0aa293669fef"/>
+  <img src="https://github.com/if-1OR1/Tempository-MSA/assets/129481600/20e35eae-7c65-4bba-866e-1b9c6d6a6e71">
+</details>
+
+<details>
+<summary> 프로젝트를 상태(공개, 비공개)로 조회 </summary>
+  <img src="https://github.com/if-1OR1/Tempository-MSA/assets/129481600/a53b5e75-faef-4ddd-ad50-06413b43165e"/>
+  <img src="https://github.com/if-1OR1/Tempository-MSA/assets/129481600/7ab459c0-139f-4f85-b9f4-d61cb18c958b">
+</details>
+
+<details>
+<summary> 프로젝트를 좋아요 순으로 조회 </summary>
+  <img src="https://github.com/if-1OR1/Tempository-MSA/assets/129481600/f6120322-e6e7-4d99-926c-5839a49f6d2c"/>
+  <img src="https://github.com/if-1OR1/Tempository-MSA/assets/129481600/733b10c4-69e4-49da-9fa5-32ce1b0dcef9">
+</details>
+
+<details>
+<summary> 프로젝트를 내용 검색으로 조회 </summary>
+  <img src="https://github.com/if-1OR1/Tempository-MSA/assets/129481600/568c1da2-858f-4f87-b720-f31de19c7686"/>
+  <img src="https://github.com/if-1OR1/Tempository-MSA/assets/129481600/7915f435-e358-4b5a-ae9b-1e7ad477111f">
+</details>
+
+<details>
+<summary> 프로젝트 정보와 프로젝트 참여 회원 조회 </summary>
+  <img src="https://github.com/if-1OR1/Tempository-MSA/assets/129481600/4321a690-598b-4e8a-be90-c21ef1ffb75f"/>
+  <img src="https://github.com/if-1OR1/Tempository-MSA/assets/129481600/e6fb6b61-8bc7-487d-ad07-584caa145e88">
+</details>
+
+<details>
+<summary> 요청이 들어온 ID를 통하여 프로젝트 이름 조회 </summary>
+  <img src="https://github.com/if-1OR1/Tempository-MSA/assets/129481600/fe1d823e-1da1-4414-af63-8ebe355383ba"/>
+  <img src="https://github.com/if-1OR1/Tempository-MSA/assets/129481600/875cc80e-5f79-41c7-bd7e-395d62f96f16">
+</details>
+<br>
+
+#### Project Template - WBS
 
 
 <br>
-Command
 
+### Command
+#### User
+<details>
+<summary> 회원가입 </summary>
+  <img src="https://github.com/if-1OR1/Tempository-MSA/assets/129481600/96bf8b02-0dbc-46db-8b77-718c83a94654"/>
+</details>
+<br>
+
+#### Project
+<details>
+<summary> 프로젝트 추가 </summary>
+  <img src="https://github.com/if-1OR1/Tempository-MSA/assets/129481600/408d094c-92e5-4e44-9873-1095f95abf3f">
+  <img src="https://github.com/if-1OR1/Tempository-MSA/assets/129481600/7f2b94e1-eb2c-43fe-9a05-47890a754a9d"/>
+</details>
+
+<details>
+<summary> 프로젝트 수정 </summary>
+  <img src="https://github.com/if-1OR1/Tempository-MSA/assets/129481600/8da6b51a-60f8-4f68-bd49-d48f62cefb43">
+  <img src="https://github.com/if-1OR1/Tempository-MSA/assets/129481600/e901e465-7075-471f-bd9e-ba9ccb50fab5"/>
+</details>
+
+
+<details>
+<summary> 프로젝트 삭제 </summary>
+  <img src="https://github.com/if-1OR1/Tempository-MSA/assets/129481600/9b77aaea-ccc3-477c-8fc3-63d136ca050d">
+  <img src="https://github.com/if-1OR1/Tempository-MSA/assets/129481600/43231f26-01eb-45e9-a713-63a6896a6bbc"/>
+</details>
+<br>
+
+#### Project Template- WBS
 
 <br>
 
