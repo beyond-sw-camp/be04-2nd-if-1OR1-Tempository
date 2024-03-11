@@ -325,6 +325,110 @@ Mybatis, Spring data jpa 사용
 <br>
 
 #### Project Template - WBS
+<details>
+<summary> WBS를 프로젝트 ID로 조회 </summary>
+  <img src="https://github.com/if-1OR1/Tempository-MSA/assets/129481600/ba3b9e36-3046-4fa7-99e5-b0586f8e60fa"/>
+  <img src="https://github.com/if-1OR1/Tempository-MSA/assets/129481600/ddf6c48a-ce0d-4723-b95a-1d25ff61764d">
+</details>
+
+<details>
+<summary> WBS를 담당자 ID로 조회 </summary>
+  <img src="https://github.com/if-1OR1/Tempository-MSA/assets/129481600/ba3b9e36-3046-4fa7-99e5-b0586f8e60fa"/>
+  <img src="https://github.com/if-1OR1/Tempository-MSA/assets/129481600/ddf6c48a-ce0d-4723-b95a-1d25ff61764d">
+</details>
+
+<details>
+<summary> WBS를 프로젝트 ID와 담당자 ID로 조회 </summary>
+  <img src="https://github.com/if-1OR1/Tempository-MSA/assets/129481600/ba3b9e36-3046-4fa7-99e5-b0586f8e60fa"/>
+  <img src="https://github.com/if-1OR1/Tempository-MSA/assets/129481600/ddf6c48a-ce0d-4723-b95a-1d25ff61764d">
+</details>
+<br>
+
+#### Project Template - Issue
+<details>
+<summary> Issue를 프로젝트 ID로 조회 </summary>
+  <img src="https://github.com/if-1OR1/Tempository-MSA/assets/129481600/2885fdcd-c992-4fc8-b1c7-f96135181aa1"/>
+  <img src="https://github.com/if-1OR1/Tempository-MSA/assets/129481600/c5ece78a-a179-4d92-bb3c-ceb8afd24c0b">
+</details>
+
+<details>
+<summary> Issue를 이슈 상태(CLOSED)로 조회 </summary>
+  <img src="https://github.com/if-1OR1/Tempository-MSA/assets/129481600/2885fdcd-c992-4fc8-b1c7-f96135181aa1"/>
+  <img src="https://github.com/if-1OR1/Tempository-MSA/assets/129481600/c5ece78a-a179-4d92-bb3c-ceb8afd24c0b">
+</details>
+
+<details>
+<summary> Issue를 프로젝트 ID로 조회할 때 사용자 정보까지 조회 </summary>
+  <img src="https://github.com/if-1OR1/Tempository-MSA/assets/129481600/09c8370e-1e2a-40f1-ad1c-cfea5020279e"/>
+</details>
+<br>
+
+#### Project Template - Definition of Table
+<details>
+<summary> 테이블 정의서를 프로젝트 ID로 조회 </summary>
+  <img src="https://github.com/if-1OR1/Tempository-MSA/assets/129481600/30458bb9-5a83-429f-9d0d-23ed7a0c7ea3"/>
+  <img src="https://github.com/if-1OR1/Tempository-MSA/assets/129481600/dbc6843c-7657-46e2-939b-13069547ae25">
+</details>
+
+<details>
+<summary>테이블 정의서를 테이블 명으로 조회 </summary>
+  <img src="https://github.com/if-1OR1/Tempository-MSA/assets/129481600/30458bb9-5a83-429f-9d0d-23ed7a0c7ea3"/>
+  <img src="https://github.com/if-1OR1/Tempository-MSA/assets/129481600/dbc6843c-7657-46e2-939b-13069547ae25">
+</details>
+<br>
+
+#### Project Template - Requirement
+<details>
+<summary> 요구사항을 프로젝트 ID로 조회 </summary>
+  <img src="https://github.com/if-1OR1/Tempository-MSA/assets/129481600/dee668f7-24e1-44e4-b588-57a88f1a33be"/>
+  <img src="https://github.com/if-1OR1/Tempository-MSA/assets/129481600/825c34a1-401b-4af4-9ff2-b2cb38fd9c44">
+</details>
+
+<details>
+<summary> 요구사항을 구분과 프로젝트 ID로 조회 </summary>
+  <img src="https://github.com/if-1OR1/Tempository-MSA/assets/129481600/dee668f7-24e1-44e4-b588-57a88f1a33be"/>
+  <img src="https://github.com/if-1OR1/Tempository-MSA/assets/129481600/825c34a1-401b-4af4-9ff2-b2cb38fd9c44">
+</details>
+
+<details>
+<summary> 요구사항을 요구사항 번호와 프로젝트 ID로 조회 </summary>
+  <img src="https://github.com/if-1OR1/Tempository-MSA/assets/129481600/dee668f7-24e1-44e4-b588-57a88f1a33be"/>
+  <img src="https://github.com/if-1OR1/Tempository-MSA/assets/129481600/825c34a1-401b-4af4-9ff2-b2cb38fd9c44">
+</details>
+<br>
+
+#### Project Template - Testcase
+<details>
+<summary> 테스트케이스를 프로젝트 ID로 조회 </summary>
+  <img src="https://github.com/if-1OR1/Tempository-MSA/assets/129481600/c8055570-53db-4e1f-bf19-9b1eefc16372"/>
+  <img src="https://github.com/if-1OR1/Tempository-MSA/assets/129481600/8bc3dab8-9bfb-400a-8926-841273164462">
+  <img src="https://github.com/if-1OR1/Tempository-MSA/assets/129481600/2de8c14b-9651-4224-b760-5f2e89cce8ac">
+</details>
+
+<details>
+<summary> 테스트케이스를 구분과 프로젝트 ID로 조회 </summary>
+  <img src="https://github.com/if-1OR1/Tempository-MSA/assets/129481600/c8055570-53db-4e1f-bf19-9b1eefc16372"/>
+  <img src="https://github.com/if-1OR1/Tempository-MSA/assets/129481600/8bc3dab8-9bfb-400a-8926-841273164462">
+  <img src="https://github.com/if-1OR1/Tempository-MSA/assets/129481600/2de8c14b-9651-4224-b760-5f2e89cce8ac">
+</details>
+
+<details>
+<summary> 테스트케이스를 결과와 프로젝트 ID로 조회 </summary>
+  <img src="https://github.com/if-1OR1/Tempository-MSA/assets/129481600/c8055570-53db-4e1f-bf19-9b1eefc16372"/>
+  <img src="https://github.com/if-1OR1/Tempository-MSA/assets/129481600/8bc3dab8-9bfb-400a-8926-841273164462">
+  <img src="https://github.com/if-1OR1/Tempository-MSA/assets/129481600/2de8c14b-9651-4224-b760-5f2e89cce8ac">
+</details>
+
+<details>
+<summary> 테스트케이스를 테스트케이스 번호와 프로젝트 ID로 조회 </summary>
+  <img src="https://github.com/if-1OR1/Tempository-MSA/assets/129481600/c8055570-53db-4e1f-bf19-9b1eefc16372"/>
+  <img src="https://github.com/if-1OR1/Tempository-MSA/assets/129481600/8bc3dab8-9bfb-400a-8926-841273164462">
+  <img src="https://github.com/if-1OR1/Tempository-MSA/assets/129481600/2de8c14b-9651-4224-b760-5f2e89cce8ac">
+</details>
+
+
+
+
 
 
 <br>
@@ -358,7 +462,177 @@ Mybatis, Spring data jpa 사용
 </details>
 <br>
 
-#### Project Template- WBS
+#### Project Template - WBS
+<details>
+<summary> WBS 추가 </summary>
+  <img src="https://github.com/if-1OR1/Tempository-MSA/assets/129481600/d51a27a4-21bd-478f-890b-56bd2d37bb94">
+  <img src="https://github.com/if-1OR1/Tempository-MSA/assets/129481600/1c7be895-2e07-490c-93d0-0fc84a84ac87"/>
+</details>
+
+<details>
+<summary> 프로젝트 ID로 WBS 추가 </summary>
+  <img src="https://github.com/if-1OR1/Tempository-MSA/assets/129481600/24862cec-dba0-4e46-800c-0d59fa21c15d">
+  <img src="https://github.com/if-1OR1/Tempository-MSA/assets/129481600/19b35ec1-b223-4e26-8f0a-0ce55bcc61a1"/>
+</details>
+
+<details>
+<summary> 프로젝트 ID로 WBS 여러 개 일괄 추가 </summary>
+  <img src="https://github.com/if-1OR1/Tempository-MSA/assets/129481600/675d2d8e-fa55-41b4-976d-6b4607973eb3">
+  <img src="https://github.com/if-1OR1/Tempository-MSA/assets/129481600/771c280d-f839-4b55-8554-4f0496ac1290"/>
+</details>
+
+<details>
+<summary> 프로젝트 ID와 WBS 번호로 WBS 수정 </summary>
+  <img src="https://github.com/if-1OR1/Tempository-MSA/assets/129481600/3616955a-523e-423a-b684-2e99ffd9b5d6">
+  <img src="https://github.com/if-1OR1/Tempository-MSA/assets/129481600/6a9a2349-df06-475a-9463-f2967c6644c7"/>
+  <img src="https://github.com/if-1OR1/Tempository-MSA/assets/129481600/46276081-fa1a-44ed-a287-dbfd023acbba">
+</details>
+
+<details>
+<summary> 해당 프로젝트 WBS 상태를 전부 COMPLETED로 수정 </summary>
+  <img src="https://github.com/if-1OR1/Tempository-MSA/assets/129481600/8cfd0a2f-f8fd-4173-8811-270ff1f189e9">
+  <img src="https://github.com/if-1OR1/Tempository-MSA/assets/129481600/d2e6b999-899c-4bb0-b4b6-17b5021df752"/>
+  <img src="https://github.com/if-1OR1/Tempository-MSA/assets/129481600/d781e62e-5a38-4c37-a047-af11094b0dfb">
+</details>
+
+<details>
+<summary> 프로젝트 ID와 WBS 번호로 WBS 내용만 수정 </summary>
+  <img src="https://github.com/if-1OR1/Tempository-MSA/assets/129481600/e62b8ff6-0a41-440e-8b8e-f3990aec7d4e">
+  <img src="https://github.com/if-1OR1/Tempository-MSA/assets/129481600/b91a730c-d53b-48a7-937f-6a5483f422b1"/>
+  <img src="https://github.com/if-1OR1/Tempository-MSA/assets/129481600/dd3f4eda-d12e-48a1-a24d-1c8d573c54e7">
+</details>
+
+<details>
+<summary> 프로젝트 ID와 WBS 번호로 WBS 삭제 </summary>
+  <img src="https://github.com/if-1OR1/Tempository-MSA/assets/129481600/97784d88-78b3-4a6c-85d5-b48bd45245ab">
+  <img src="https://github.com/if-1OR1/Tempository-MSA/assets/129481600/eabc8f29-7663-4246-98a0-5b167979bbec"/>
+  <img src="https://github.com/if-1OR1/Tempository-MSA/assets/129481600/5126e4fd-038a-4572-a986-cf25731da7cb">
+</details>
+
+<details>
+<summary> 프로젝트 ID로 해당하는 WBS 전부 삭제 </summary>
+  <img src="https://github.com/if-1OR1/Tempository-MSA/assets/129481600/07adf0e9-d7db-4588-9a7f-e4300a9fdcd0">
+  <img src="https://github.com/if-1OR1/Tempository-MSA/assets/129481600/427accfa-7c77-4188-a65c-0c028119d319"/>
+  <img src="https://github.com/if-1OR1/Tempository-MSA/assets/129481600/682fe12b-d2f4-4eb7-bf7f-f0b6844b088b">
+</details>
+<br>
+
+#### Project Template - Issue
+<details>
+<summary> 이슈 추가 및 수정 </summary>
+  <img src="https://github.com/if-1OR1/Tempository-MSA/assets/129481600/eda68bdd-9e09-44a0-b0fa-a8b98cb7aaee">
+  <img src="https://github.com/if-1OR1/Tempository-MSA/assets/129481600/b9c366c6-7e68-4b48-8ee4-3adc015123fa"/>
+</details>
+
+<details>
+<summary> 해당 프로젝트 이슈 상태를 전부 OPEN으로 수정 </summary>
+  <img src="https://github.com/if-1OR1/Tempository-MSA/assets/129481600/641ba54d-26d0-4896-93fe-1ceff2e952db">
+</details>
+
+<details>
+<summary> 해당 프로젝트 이슈 상태를 전부 CLOSED로 수정 </summary>
+  <img src="https://github.com/if-1OR1/Tempository-MSA/assets/129481600/24ed3b59-6c76-4c9e-a508-9ed5d746a2b7">
+</details>
+
+<details>
+<summary> 프로젝트 ID와 이슈 번호로 이슈 삭제 </summary>
+  <img src="https://github.com/if-1OR1/Tempository-MSA/assets/129481600/e96c6a84-2699-4b72-a4f4-ad593a15ac99">
+</details>
+
+<details>
+<summary> 프로젝트 ID로 해당하는 이슈 전부 삭제 </summary>
+  <img src="https://github.com/if-1OR1/Tempository-MSA/assets/129481600/02360987-cb61-4b59-862b-a472555e018b">
+</details>
+<br>
+
+#### Project Template - Definition of Table
+<details>
+<summary> 토큰 사용을 위해 회원가입 후 로그인 진행 </summary>
+  <img src="https://github.com/if-1OR1/Tempository-MSA/assets/129481600/55ca76f1-1de6-49b3-a663-7cdae36fd62e">
+  <img src="https://github.com/if-1OR1/Tempository-MSA/assets/129481600/947dae39-7abe-4e32-8b94-8fcb6d92d3cf"/>
+</details>
+
+<details>
+<summary> 테이블 정의서 추가 및 수정 </summary>
+  <img src="https://github.com/if-1OR1/Tempository-MSA/assets/129481600/c644b629-ffa1-4e14-9a25-320f34887db1">
+  <img src="https://github.com/if-1OR1/Tempository-MSA/assets/129481600/5512e513-79e1-4674-a804-eda99205a1d0"/>
+</details>
+
+<details>
+<summary> 프로젝트 ID와 테이블 정의서 번호로 테이블 정의서 삭제 </summary>
+  <img src="https://github.com/if-1OR1/Tempository-MSA/assets/129481600/5a9afa74-138d-4fdc-9001-8c38fb18ac34">
+</details>
+
+<details>
+<summary> 프로젝트 ID로 해당하는 테이블 정의서 전부 삭제 </summary>
+  <img src="https://github.com/if-1OR1/Tempository-MSA/assets/129481600/a53e3fe2-17fc-4401-9908-b06532f25c20">
+</details>
+<br>
+
+#### Project Template - Requirement
+<details>
+<summary> 요구사항 추가 </summary>
+  <img src="https://github.com/if-1OR1/Tempository-MSA/assets/129481600/adb53313-b552-4693-ace8-31473e8c1555">
+  <img src="https://github.com/if-1OR1/Tempository-MSA/assets/129481600/859ca2c1-31de-4d85-ae42-7944c33b4ca7"/>
+</details>
+
+<details>
+<summary> 요구사항 수정 </summary>
+  <img src="https://github.com/if-1OR1/Tempository-MSA/assets/129481600/a1079c00-3704-4f5c-bb68-586520791962">
+  <img src="https://github.com/if-1OR1/Tempository-MSA/assets/129481600/9973291f-4c30-4fc8-b756-f2d7da344bae"/>
+</details>
+
+<details>
+<summary> 요구사항 순서 수정 </summary>
+  <img src="https://github.com/if-1OR1/Tempository-MSA/assets/129481600/31901279-b8c0-4167-8458-3a92ad34fd00">
+  <img src="https://github.com/if-1OR1/Tempository-MSA/assets/129481600/1ee26d96-e368-4e40-a3a6-b61691b0a52e"/>
+</details>
+
+
+<details>
+<summary> 프로젝트 ID와 요구사항 번호로 요구사항 삭제 </summary>
+  <img src="https://github.com/if-1OR1/Tempository-MSA/assets/129481600/195a07fe-0dae-4ae2-8ba2-eeef4766f966">
+  <img src="https://github.com/if-1OR1/Tempository-MSA/assets/129481600/41502842-433b-40f5-8953-ef00ae031e6b">
+</details>
+
+<details>
+<summary> 프로젝트 ID로 해당하는 요구사항 전부 삭제 </summary>
+  <img src="https://github.com/if-1OR1/Tempository-MSA/assets/129481600/c0d1b2ec-16f2-4c0d-bd37-1021d0b774a2">
+  <img src="https://github.com/if-1OR1/Tempository-MSA/assets/129481600/1897ae2f-10e1-410a-b917-118330c09fec">
+</details>
+<br>
+
+#### Project Template - Testcase
+<details>
+<summary> 테스트케이스 추가 </summary>
+  <img src="https://github.com/if-1OR1/Tempository-MSA/assets/129481600/a3d1509c-1b81-4d3a-91d2-e5c1129f9a7c">
+  <img src="https://github.com/if-1OR1/Tempository-MSA/assets/129481600/4d9bb4e4-21a5-40e7-b759-3672fde2fd5b"/>
+</details>
+
+<details>
+<summary> 테스트케이스 수정 </summary>
+  <img src="https://github.com/if-1OR1/Tempository-MSA/assets/129481600/7f14f7c2-aeeb-476d-9a40-e8be7c738548">
+  <img src="https://github.com/if-1OR1/Tempository-MSA/assets/129481600/3ac74348-1a39-4e29-83b7-360c1b3b8b2e"/>
+</details>
+
+<details>
+<summary> 테스트케이스 순서 수정 </summary>
+  <img src="https://github.com/if-1OR1/Tempository-MSA/assets/129481600/a701a2a4-3a7e-4017-90fa-652e72d7be9d">
+  <img src="https://github.com/if-1OR1/Tempository-MSA/assets/129481600/70e68294-c9e8-49c1-b92b-ec567dbc9952"/>
+</details>
+
+<details>
+<summary> 프로젝트 ID와 테스트케이스 번호로 테스트케이스 삭제 </summary>
+  <img src="https://github.com/if-1OR1/Tempository-MSA/assets/129481600/0d5e243f-b23a-4ce3-b109-d80b6c60d81a">
+  <img src="https://github.com/if-1OR1/Tempository-MSA/assets/129481600/b28f27ef-d0d4-49e0-a457-382a4cb90360">
+</details>
+
+<details>
+<summary> 프로젝트 ID로 해당하는 테스트케이스 전부 삭제 </summary>
+  <img src="https://github.com/if-1OR1/Tempository-MSA/assets/129481600/306aba68-2a3c-4274-baa6-728920e07a93">
+  <img src="https://github.com/if-1OR1/Tempository-MSA/assets/129481600/e08a4e4a-bd5a-4640-b244-c6ea3b4d72a2">
+</details>
+
 
 <br>
 
