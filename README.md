@@ -44,7 +44,7 @@
 2024.02.26 ~ 2024.03.11(WBS)
 <img src="https://github.com/if-1OR1/Tempository-MSA/assets/129481600/748b7803-6ecd-4f24-a397-26e445c8aa7c" />
 <img src="https://github.com/if-1OR1/Tempository-MSA/assets/129481600/7735425b-d6d4-4f6f-bf2b-0261e500b671" />
-
+</div>
 
 <br>
 <br>
@@ -61,6 +61,7 @@ CRUD 기능 구현
 
 
 ---
+<br>
 <br>
 
 # 1. 프로젝트  개요
@@ -145,7 +146,7 @@ CRUD 기능 구현
 
 # 3. DDD
 
-## miro를 통한 이벤스토밍
+## miro를 통한 이벤트스토밍
 <img src="https://github.com/if-1OR1/Tempository-MSA/assets/129481600/6a43d567-3387-4b4e-b583-5317f0e2fb0a">
 
 ## 컨텍스트 매핑
@@ -160,6 +161,7 @@ CRUD 기능 구현
 <img src="https://github.com/if-1OR1/Tempository-MSA/assets/129481600/65d0e8b0-40e2-47dc-b123-3110d0f88717">
 
 <br>
+
 ## Data Definition Language(DDL)
 <details>
 <summary> user 테이블 생성 </summary>
@@ -214,7 +216,7 @@ CRUD 기능 구현
 
 
 <br>
-
+<br>
 
 ---
 <br>
@@ -633,14 +635,17 @@ Mybatis, Spring data jpa 사용
   <img src="https://github.com/if-1OR1/Tempository-MSA/assets/129481600/e08a4e4a-bd5a-4640-b244-c6ea3b4d72a2">
 </details>
 
-
+---
 <br>
+<br>
+
 
 # 5. 개선사항 및 회고
 ## 개선사항
 feign client -> put delete mapping에도 적용
+<br>
 
-# 회고
+## 회고
 😎곽윤경
 <br>
 🎸이기연
@@ -651,5 +656,3 @@ feign client -> put delete mapping에도 적용
 <br>
 🐶정우진
 <br>
-
-</div>
