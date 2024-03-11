@@ -6,7 +6,7 @@
 <a href = "https://www.notion.so/1-if-1-1-65fccb6e46b546c7be44d4bbb6b878eb?pvs=4"><img src="https://img.shields.io/badge/Team Notion-ffffff?style=social&logo=Notion&logoColor=black" /></a>
 <br>
 <br>
-[😎곽윤경](https://github.com/noctesilente)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[🎸이기연](https://github.com/Leegiyeon)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[🐰이예원](https://github.com/onelee521)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[임원재](https://github.com/moomint8)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[🐶정우진](https://github.com/Wrinkk)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+[😎곽윤경](https://github.com/noctesilente)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[🎸이기연](https://github.com/Leegiyeon)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[🐰이예원](https://github.com/onelee521)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[😺임원재](https://github.com/moomint8)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[🐶정우진](https://github.com/Wrinkk)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 </div>
 
 ---
@@ -41,11 +41,10 @@
 <br>
 <div align=center>
 <h2> 🗓️ 전체 프로젝트 일정 </h2>
-<details>
-<summary> 2024.02.26 ~ 2024.03.11(WBS) </summary>
-    <img src="https://github.com/if-1OR1/Tempository-MSA/assets/129481600/748b7803-6ecd-4f24-a397-26e445c8aa7c" />
-    <img src="https://github.com/if-1OR1/Tempository-MSA/assets/129481600/7735425b-d6d4-4f6f-bf2b-0261e500b671" />
-</details>
+2024.02.26 ~ 2024.03.11(WBS)
+<img src="https://github.com/if-1OR1/Tempository-MSA/assets/129481600/748b7803-6ecd-4f24-a397-26e445c8aa7c" />
+<img src="https://github.com/if-1OR1/Tempository-MSA/assets/129481600/7735425b-d6d4-4f6f-bf2b-0261e500b671" />
+
 
 <br>
 <br>
@@ -53,6 +52,11 @@
 ---
 <br>
 <h1> 📌 목차 </h1>
+<h3> 1. 프로젝트 개요 </h3>
+<h3> 2. 요구사항 정의 </h3>
+DDD
+CRUD 기능 구현
+개선사항 및 회고
 
 
 
@@ -62,11 +66,20 @@
 # 1. 프로젝트  개요
 
 ## 아이디어 기획
+문제 인식: 대학생 또는 취업 준비생들이 각자 본인의 직무 분야 전문 이력을 만들어가는 것에 어려움이 많음.
+문제 원인: 취업을 준비하는 대학생들은 현업에서 프로젝트가 어떻게 진행되는지 알기 어렵기 때문이라 판단.
+해결 방안 제안: 프로젝트 운영과정을 Template으로 제공하고, 프로젝트 완료 시, 문서로 저장하여 이력을 활용할 수 있도록 하는 서비스를 제공
+
+
+## 프로젝트 시나리오
 취준생 및 대학생 개발자들을 위한 프로젝트 관리 및 문서(WBS, 요구사항 명세서, 테이블 정의서 등) 작성 서비스를 제공하는 플랫폼
 > 초기 프로젝트 진행 시 필요한 문서 작성을 위한 템플릿 제공하여 프로젝트 시작을 용이하게 함
 > 프로젝트 관리 기능과 팀 협업 기능을 결합하여 효율적인 프로젝트 진행을 지원함
-
-## 프로젝트 시나리오
+> 팀장 또는 프로젝트 개설자가 프로젝트 생성
+> 프로젝트 내 참여 회원 초대
+> 프로젝트로 참여하는 회원은 최초에 관리자 권한이 없음(관리자가 권한 설정 가능)
+> 프로젝트 하위 Template 사용을 통해 프로젝트 진행
+> 확장 예정 기능: RESUME, 커뮤니티, 멘토 멘티
 
 ## 주요 기능
 > 문서 작성 템플릿 제공: WBS, 요구사항 명세서, 테이블 정의서 등 다양한 문서 템플릿 제공
@@ -89,8 +102,39 @@
 # 2. 요구사항 정의
 ## 시나리오
 
+### 테스트케이스
+1. 테스트케이스 관리
+회원은 테스트케이스를 추가, 수정,  순서 변경, 삭제할 수 있음
+
+2. 테스트케이스 조회
+회원은 테스트케이스를 조회할 수 있음
+
+3. 테스트케이스 결과 조회
+회원은 테스트케이스 결과별로 조회할 수 있음
+
+### 프로젝트
+1. 프로젝트 관리
+- 회원은 프로젝트를 추가, 수정, 삭제 할 수 있음
+2. 프로젝트 조회
+- 회원은 공개된 프로젝트를 조회 할 수 있음.
+3. 참여한 프로젝트 조회
+- 회원은 자신이 참여한 프로젝트 정보를 조회 할 수 있음.
+4. 프로젝트 참여 멤버 정보 조회
+- 회원은 프로젝트 참여 멤버 정보를 조회 할 수 있음.
+
+### 요구사항 명세서
+1. 요구사항 명세서 관리
+회원은 요구사항 명세서를 추가, 수정,  순서 변경, 삭제 할 수 있음
+
+2. 요구사항 명세서 조회
+회원은 요구사항 명세서를 조회할 수 있음
+
+### 이슈
+1. 이슈 담당자 조회
+회원은 해당 이슈와 함께 담당자의 정보를 조회할 수 있음
+
 ## 요구사항 명세서
-사진
+<img src="https://github.com/if-1OR1/Tempository-MSA/assets/129481600/c632f2fe-cf15-456d-a1d6-689be63de312">
 
 ## 기능 명세서
 <img src="https://github.com/if-1OR1/Tempository-MSA/assets/129481600/79333307-48e2-4e60-9864-59162d12de94">
@@ -180,11 +224,7 @@
 ## 계층 구조 설계
 gateway 및 eureka 서버 사용
 
-## Query - Mybatis 
-READ 조회 기능 구현
-
-## Command - JPA
-CREATE, UPDATE, DELETE 기능 구현
+Mybatis, Spring data jpa 사용
 
 ## MSA - feign client
 
@@ -194,26 +234,62 @@ CREATE, UPDATE, DELETE 기능 구현
 
 ## 테스트 결과
 ### Query
+#### User
 <details>
-<summary> 조회 </summary>
-<div>
-<figure align="center"> 
+<summary> 사용자 로그인 </summary>
+  <img src="https://github.com/if-1OR1/Tempository-MSA/assets/129481600/51d83aa6-8258-4e88-89fe-f5dfa3ae0296"/>
+</details>
+
+<details>
+<summary> 사용자를 이메일로 조회 </summary>
+  <img src="https://github.com/if-1OR1/Tempository-MSA/assets/129481600/08cae935-6457-462f-81a7-aef49b7bc9a6"/>
+</details>
+
+<details>
+<summary> 사용자를 ID로 조회 </summary>
+  <img src="https://github.com/if-1OR1/Tempository-MSA/assets/129481600/b2eee9d9-39bb-4593-8a0e-eecc41d53309"/>
+</details>
+
+<details>
+<summary> 사용자를 token으로 조회 </summary>
+  <img src="https://github.com/if-1OR1/Tempository-MSA/assets/129481600/4cdcdc87-5692-4965-a65f-65ba3fe10dcd"/>
+</details>
+
+<details>
+<summary> 프로젝트 참여 멤버들 정보 조회 </summary>
+  <img src="https://github.com/if-1OR1/Tempository-MSA/assets/129481600/51d83aa6-8258-4e88-89fe-f5dfa3ae0296)
+![query_user_project_join-members](https://github.com/if-1OR1/Tempository-MSA/assets/129481600/b1ffd921-afd6-4a54-b1f2-7419ee67cd17"/>
+</details>
+
+<br>
+<details>
+<summary> 사용자 비밀번호 수정 </summary>
   <img src=""/>
-  <p>조회</p>
- </figure>
-</div>
 </details>
 
 
+
+
+<br>
 Command
 
-FeignClient
 
+<br>
+
+# 5. 개선사항 및 회고
 ## 개선사항
 feign client -> put delete mapping에도 적용
 
 # 회고
-
-
+😎곽윤경
+<br>
+🎸이기연
+<br>
+🐰이예원
+<br>
+😺임원재
+<br>
+🐶정우진
+<br>
 
 </div>
