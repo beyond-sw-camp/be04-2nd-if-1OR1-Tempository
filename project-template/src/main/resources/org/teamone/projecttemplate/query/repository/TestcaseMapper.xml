@@ -15,7 +15,7 @@
         <result property="projectId" column="PROJECT_ID"/>
     </resultMap>
 
-    <select id="selectTestcaseByProjectId" resultMap="testcaseMap">
+    <select id="selectTestcaseByProjectId" resultMap="testcaseMap" parameterType="_int">
         SELECT
                 ID
               , TEST_NO
@@ -46,7 +46,7 @@
          ORDER BY TEST_NO ASC
     </select>
 
-    <select id="selectTestcaseByResultAndProjectId" resultMap="testcaseMap">
+    <select id="selectTestcaseByResultAndProjectId" resultMap="testcaseMap" parameterType="_int">
         SELECT
                 ID
               , TEST_NO
