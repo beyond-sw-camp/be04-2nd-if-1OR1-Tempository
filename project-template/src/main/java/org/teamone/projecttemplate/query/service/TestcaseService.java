@@ -22,7 +22,6 @@ public class TestcaseService {
     /* 설명. projectId를 이용하여 테스트케이스 조회 */
     public List<Testcase> findTestcaseByProjectId(int projectId) {
         List<Testcase> TestcaseList = testcaseMapper.selectTestcaseByProjectId(projectId);
-        TestcaseList.forEach(System.out::println);
 
         return TestcaseList;
     }
@@ -32,7 +31,6 @@ public class TestcaseService {
 
         Testcase testcase = new Testcase(testcaseDTO.getSeparate(), testcaseDTO.getProjectId());
         List<Testcase> testcaseList = testcaseMapper.selectTestcaseBySeparateAndProjectId(testcase);
-        testcaseList.forEach(System.out::println);
 
         return testcaseList;
     }
@@ -41,7 +39,6 @@ public class TestcaseService {
     public List<Testcase> findTestcaseByResultAndProjectId(TestcaseDTO testcaseDTO) {
         Testcase testcase =  new Testcase(testcaseDTO.getProjectId(), testcaseDTO.getResult());
         List<Testcase> testcaseList = testcaseMapper.selectTestcaseByResultAndProjectId(testcase);
-        testcaseList.forEach(System.out::println);
 
         return testcaseList;
     }
@@ -53,7 +50,6 @@ public class TestcaseService {
         intMap.put("projectId", projectId);
 
         Testcase testcase = testcaseMapper.selectTestcaseByTestNoAndProjectId(intMap);
-        System.out.println(testcase);
 
         return testcase;
     }
