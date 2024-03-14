@@ -47,7 +47,7 @@ public class IssueController {
                                                                             @PathVariable("issueNo") int issue,
                                                                             @RequestHeader("Authorization") String token) {
 
-        IssueUserDTO issueUserDTO = issueService.selectIssueByProjectIdAndIssueNo(projectId, issue, token);
+        IssueUserDTO issueUserDTO = issueService.findIssueByProjectIdAndIssueNo(projectId, issue, token);
 
         IssueUserResponse issueUserResponse = modelMapper.map(issueUserDTO, IssueUserResponse.class);
 
