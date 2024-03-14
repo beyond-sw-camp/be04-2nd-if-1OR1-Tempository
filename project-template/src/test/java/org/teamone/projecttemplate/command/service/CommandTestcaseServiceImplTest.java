@@ -72,7 +72,7 @@ class CommandTestcaseServiceImplTest {
     void removeTestcase() {
         commandTestcaseServiceImpl.removeTestcase(1, 1);
 
-//        Assertions.assertNull(testcaseService.findTestcaseByTestNoAndProjectId(1, 1));
+        Assertions.assertNotEquals("유효한 이메일과 비밀번호를 입력하고 회원가입 버튼을 클릭했을 때, 회원가입이 성공적으로 이루어져야 함",testcaseService.findTestcaseByTestNoAndProjectId(1, 1));
     }
 
     @DisplayName("프로젝트ID에 해당하는 테스트케이스 전체 삭제")
