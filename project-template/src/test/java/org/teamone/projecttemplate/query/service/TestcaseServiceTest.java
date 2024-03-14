@@ -18,9 +18,9 @@ class TestcaseServiceTest {
     @DisplayName("projectId로 테스트케이스 조회")
     @Test
     void findTestcaseTestByProjectId() {
-        List<Testcase> testcaseList = testcaseService.findTestcaseByProjectId(1);
+        List<TestcaseDTO> testcaseDTOList = testcaseService.findTestcaseByProjectId(1);
 
-        Assertions.assertNotNull(testcaseList);
+        Assertions.assertNotNull(testcaseDTOList);
     }
 
     @DisplayName("separate와 projectId 테스트케이스 조회")
