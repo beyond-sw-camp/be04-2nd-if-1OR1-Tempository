@@ -26,7 +26,7 @@ public class CommandTestcaseController {
     }
 
     /* 설명. 테스트케이스 추가(testNo 자동 설정) */
-    @PostMapping("/regist/{projectId}")
+    @PostMapping("/add/{projectId}")
     public ResponseEntity<CommandTestcaseResponse> AddTestcaseByProjectId(@PathVariable int projectId, @RequestBody CommandTestcaseRequest commandTestcaseRequest) {
         modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
 
