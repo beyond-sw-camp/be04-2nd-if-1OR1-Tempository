@@ -141,4 +141,18 @@ public class ProjectController {
         return Responselist;
     }
 
+
+    /* 설명. 요청이 들어온 ID를 통하여 프로젝트 이름 전달하는 기능. */
+    @GetMapping("/issue/{id}")
+    public ResponseEntity<List<ResponseProjectId>> findProjectIssueById(@PathVariable("id") String id,
+                                                                       @RequestHeader("Authorization") String token) {
+
+        List<ProjectDTO> projectInfoById = projectService.findProjectIssueById(id,token);
+
+
+        List<ResponseProjectId> responseProjectList = ProjectDTOToResponseProjectId(projectInfoById);
+
+        return ResponseEntity.status(HttpStatus.OK).body(responseProjectList);
+    }
+
 }

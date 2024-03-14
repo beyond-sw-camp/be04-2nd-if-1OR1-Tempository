@@ -122,16 +122,13 @@
         WHERE A.NAME LIKE '%' #{name} '%'
     </select>
 
-<!--    <select id="getProjectMemberById" resultMap="projectResultMap" parameterType="string">-->
-<!--        SELECT-->
-<!--        A.ID-->
-<!--        , A.NAME-->
-<!--        , A.IS_PUBLIC-->
-<!--        , A.LIKE_CNT-->
-<!--        , A.STATUS-->
-<!--        , A.CONTENT-->
-<!--        FROM TBL_PROJECT A-->
-<!--        WHERE A.NAME LIKE '%' #{name} '%'-->
-<!--    </select>-->
+    <select id="findProjectIssueById" resultMap="projectResultMap" parameterType="String">
+        SELECT
+        A.ID
+        , A.NAME
+        FROM TBL_PROJECT A
+        WHERE A.ID = #{ id }
+    </select>
+
 
 </mapper>

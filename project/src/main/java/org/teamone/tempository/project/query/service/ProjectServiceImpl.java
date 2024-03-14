@@ -3,6 +3,7 @@ package org.teamone.tempository.project.query.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Service;
+import org.teamone.tempository.project.query.client.ProjectIssueClient;
 import org.teamone.tempository.project.query.client.ProjectServiceClient;
 import org.teamone.tempository.project.query.dao.ProjectMapper;
 import org.teamone.tempository.project.query.dto.ProjectDTO;
@@ -22,10 +23,15 @@ public class ProjectServiceImpl implements ProjectService {
     private final ProjectMapper projectMapper;
     private final ProjectServiceClient projectServiceClient;
 
+    private final ProjectIssueClient projectIssueClient;
+
     @Autowired
-    public ProjectServiceImpl(ProjectMapper projectMapper, ProjectServiceClient projectServiceClient) {
+    public ProjectServiceImpl(ProjectMapper projectMapper, ProjectServiceClient projectServiceClient,
+                              ProjectIssueClient projectIssueClient) {
         this.projectMapper = projectMapper;
         this.projectServiceClient = projectServiceClient;
+        this.projectIssueClient = projectIssueClient;
+
     }
 
     /* 설명. ID를 이용하여 프로젝트 정보 조회 */
@@ -197,5 +203,15 @@ public class ProjectServiceImpl implements ProjectService {
         }
 
         return projectDTOProjectList;
+    }
+
+
+    // 변환 파일 생성 이어서 하기
+    @Override
+    public List<ProjectDTO> findProjectIssueById(String id, String token) {
+
+        List<Project> findProjectNameById = projectMapper.findProjectNameById(id);
+        List<ResponseUser> issueList = projectIssueClient.findProjectIssue(id, token);
+        return null;
     }
 }
