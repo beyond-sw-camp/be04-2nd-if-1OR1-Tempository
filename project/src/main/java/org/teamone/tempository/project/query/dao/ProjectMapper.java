@@ -10,19 +10,19 @@ import java.util.List;
 public interface ProjectMapper {
 
 
-    List<Project> getProjectInfoById(Project project);
+    List<Project> findProjectInfoById(String id);
 
-    List<Project> getProjectInfoByStatus(ProjectStatus status);
+    List<Project> findProjectInfoByStatus(ProjectStatus status);
 
-    List<Project> getProjectInfoOrderByLike();
+    List<Project> findProjectOrderByLike();
 
-    List<Project> getProjectInfoByIsPublic(boolean isPublic);
+    List<Project> findProjectInfoByIsPublic(boolean isPublic);
 
-    List<Project> getProjectInfoById(int id);
+    List<Project> findProjectNameById(String id);
 
-    List<Project> getProjectJoinUserById(String id);
+    List<Project> findProjectJoinMemberByMemberId(String id);
 
-    List<Project> getProjectInfoByContent(String content);
+    List<Project> findProjectInfoByContent(String content);
 
-    List<Project> getProjectInfoByName(String name);
+    List<Project> findProjectInfoByName(String name);
 }

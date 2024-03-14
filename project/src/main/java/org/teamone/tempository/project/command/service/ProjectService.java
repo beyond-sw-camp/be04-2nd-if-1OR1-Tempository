@@ -20,7 +20,7 @@ public class ProjectService {
 
     /* 설명. 프로젝트 작성하기 (Insert) */
     @Transactional
-    public void registProject(ProjectDTO newProject) {
+    public void insertProject(ProjectDTO newProject) {
 
         Project project = Project.builder()
                 .name(newProject.getName())
@@ -36,7 +36,7 @@ public class ProjectService {
 
     /* 설명. 프로젝트 수정하기 (Update)*/
     @Transactional
-    public void modifyProjectById(ProjectDTO modifyProject) throws IllegalAccessException {
+    public void updateProjectById(ProjectDTO modifyProject) throws IllegalAccessException {
 
         // 수정 할 프로젝트 id (번호)
         Project findProject = projectRepository.findById(modifyProject.getId()).orElseThrow(IllegalAccessException::new);
@@ -52,8 +52,8 @@ public class ProjectService {
 
     /* 설명. 프로젝트 삭제하기(Delete) */
     @Transactional
-    public void deleteProjectById(int id)  {
+    public void deleteProjectById(String id)  {
 
-        projectRepository.deleteById(id);
+        projectRepository.deleteById(Integer.valueOf(id));
     }
 }

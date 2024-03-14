@@ -18,7 +18,7 @@ class ProjectServiceImplTest {
     @DisplayName("프로젝트 정보 입력 테스트")
     @Test
     @Transactional
-    void registProjectTest() {
+    void insertProjectTest() {
         // 테스트에 필요한 데이터 설정
         ProjectDTO projectDTO = new ProjectDTO();
         projectDTO.setName("Test Project");
@@ -28,14 +28,14 @@ class ProjectServiceImplTest {
         projectDTO.setContent("Test Content");
 
         // 프로젝트 등록 메서드 호출
-        projectService.registProject(projectDTO);
+        projectService.insertProject(projectDTO);
 
     }
 
     @DisplayName("프로젝트 정보 수정 테스트")
     @Test
     @Transactional
-    void modifyProjectTest() throws IllegalAccessException {
+    void updateProjectTest() throws IllegalAccessException {
         ProjectDTO projectDTO = new ProjectDTO();
         projectDTO.setId(11);
         projectDTO.setName("UpdateTest Project");
@@ -44,7 +44,7 @@ class ProjectServiceImplTest {
         projectDTO.setStatus(ProjectStatus.COMPLETED);
         projectDTO.setContent("UpdateTest Content");
 
-        projectService.modifyProjectById(projectDTO);
+        projectService.updateProjectById(projectDTO);
     }
 
     @DisplayName("프로젝트 정보 삭제 테스트")
@@ -52,7 +52,7 @@ class ProjectServiceImplTest {
     @Transactional
     void deleteProjectTest() throws IllegalAccessException {
         int id = 13;
-        projectService.deleteProjectById(id);
+        projectService.deleteProjectById(String.valueOf(id));
 
     }
 }

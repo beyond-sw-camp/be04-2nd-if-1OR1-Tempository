@@ -1,5 +1,6 @@
 package org.teamone.tempository.project.query.service;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,48 +19,61 @@ class ProjectServiceImplTest {
 
     @DisplayName("프로젝트 정보 조회 테스트")
     @Test
-    void getProjectInfoByIdTest(){
-        int id = 1;
-        projectService.getProjectInfoById(id);
+    void findProjectInfoByIdTest(){
+        String id = "1";
+        List<Project> projectInfoById = projectService.findProjectInfoById(id);
+        Assertions.assertNotNull(projectInfoById);
     }
 
     @DisplayName("완료유무를 기준으로 프로젝트 정보 조회 테스트")
     @Test
-    void getProjectInfoByStatusTest() {
+    void findProjectInfoByStatusTest() {
         ProjectStatus Status = ProjectStatus.COMPLETED;
-        projectService.getProjectInfoByStatus(Status);
+        List<Project> projectInfoByStatus = projectService.findProjectInfoByStatus(Status);
 
+        Assertions.assertNotNull(projectInfoByStatus);
     }
 
     @DisplayName("좋아요 순을 기준으로 프로젝트 정보 조회 테스트")
     @Test
-    void getProjectInfoOrderByLike() {
+    void findProjectInfoOrderByLike() {
 
-        List<Project> getProjectInfoOrderByLike = projectService.getProjectInfoOrderByLike();
+        List<Project> getProjectInfoOrderByLike = projectService.findProjectOrderByLike();
+
+        Assertions.assertNotNull(getProjectInfoOrderByLike);
+
     }
 
     @DisplayName("공개 유무에 따른 프로젝트 조회 기능 테스트 ")
     @Test
-
-    void getProjectInfoByIsPublic() {
+    void findProjectInfoByIsPublic() {
 
         boolean isPublic = true;
-         projectService.getProjectInfoByIsPublic(isPublic);
+        List<Project> projectInfoByIsPublic = projectService.findProjectInfoByIsPublic(isPublic);
+
+        Assertions.assertNotNull(projectInfoByIsPublic);
+
 
     }
 
     @DisplayName("프로젝트 내용 검색을 통한 프로젝트 조회 기능 테스트")
     @Test
-    void getProjectInfoByContentTest() {
+    void findProjectInfoByContentTest() {
         String Content = "인공 지능";
-        projectService.getProjectInfoByContent(Content);
+        List<Project> projectInfoByContent = projectService.findProjectInfoByContent(Content);
+
+        Assertions.assertNotNull(projectInfoByContent);
+
     }
 
     @DisplayName("프로젝트 이름 검색을 통한 프로젝트 조회 기능 테스트")
     @Test
-    void getProjectInfoByNameTest() {
+    void findProjectInfoByNameTest() {
         String name = "블록체인";
-        projectService.getProjectInfoByName(name);
+        List<Project> projectInfoByName = projectService.findProjectInfoByName(name);
+
+        Assertions.assertNotNull(projectInfoByName);
+
     }
 
 }

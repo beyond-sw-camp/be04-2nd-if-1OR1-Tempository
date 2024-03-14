@@ -8,19 +8,22 @@ import java.util.List;
 
 public interface ProjectService {
 
-    List<Project> getProjectInfoById(int id);
+    List<Project> findProjectInfoById(String id);
 
-    List<Project> getProjectInfoByStatus(ProjectStatus status);
+    List<Project> findProjectInfoByStatus(ProjectStatus status);
 
-    List<Project> getProjectInfoOrderByLike();
+    List<Project> findProjectOrderByLike();
 
-    List<Project> getProjectInfoByIsPublic(boolean isPublic);
-
-
-    List<ProjectDTO> getProjectJoinUserById(String id);
+    List<Project> findProjectInfoByIsPublic(boolean isPublic);
 
 
-    List<Project> getProjectInfoByContent(String content);
+    List<ProjectDTO> findProjectJoinMemberByMemberId(String id, String token);
 
-    List<Project> getProjectInfoByName(String name);
+
+    List<Project> findProjectInfoByContent(String content);
+
+    List<Project> findProjectInfoByName(String name);
+
+
+    List<ProjectDTO> findProjectNameById(String id);
 }
