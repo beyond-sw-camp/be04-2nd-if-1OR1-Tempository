@@ -27,7 +27,8 @@ public class CommandTestcaseController {
 
     /* 설명. 테스트케이스 추가(testNo 자동 설정) */
     @PostMapping("/add/{projectId}")
-    public ResponseEntity<CommandTestcaseResponse> AddTestcaseByProjectId(@PathVariable int projectId, @RequestBody CommandTestcaseRequest commandTestcaseRequest) {
+    public ResponseEntity<CommandTestcaseResponse> AddTestcaseByProjectId(@PathVariable("projectId") int projectId,
+                                                                          @RequestBody CommandTestcaseRequest commandTestcaseRequest) {
         modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
 
         CommandTestcaseDTO commandTestcaseDTO = modelMapper.map(commandTestcaseRequest, CommandTestcaseDTO.class);
@@ -40,12 +41,14 @@ public class CommandTestcaseController {
     }
 
     /* 설명. 테스트케이스 수정 */
-    @PutMapping("/modify")
+    @PutMapping("/modify/{projectId}")
     public ResponseEntity<CommandTestcaseResponse> modifyTestcase(
+            @PathVariable("projectId") int projectId,
             @RequestBody CommandTestcaseRequest commandTestcaseRequest) {
         modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
         CommandTestcaseDTO commandTestcaseDTO = modelMapper.map(commandTestcaseRequest, CommandTestcaseDTO.class);
 
+        commandTestcaseDTO.setProjectId(projectId);
         commandTestcaseService.modifyTestcase(commandTestcaseDTO);
 
         CommandTestcaseResponse commandTestcaseResponse = modelMapper.map(commandTestcaseDTO, CommandTestcaseResponse.class);
@@ -55,7 +58,7 @@ public class CommandTestcaseController {
 
     /* 설명. 테스트케이스 순서 수정 */
     /* 설명. 프로젝트 id와 TEST_NO로 정수(-1: 순서 위로, 1: 순서 아래로)만큼 순서 변경 */
-    @PutMapping("/modify/sequence")
+    @PutMapping("/modify/sequence/{projectId}")
     public ResponseEntity<CommandTestcaseResponse> modifyTestcaseSequence(
             @RequestBody CommandTestcaseSequenceRequest commandTestcaseSequenceRequest){
         CommandTestcaseDTO commandTestcaseDTO = new CommandTestcaseDTO();
