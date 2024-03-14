@@ -11,5 +11,5 @@ public interface CommandTestcaseService {
 
     void removeTestcase(int projectId, int testNo);
 
-    void deleteAllTestcase(int projectId);
+    void removeAllTestcase(int projectId);
 }

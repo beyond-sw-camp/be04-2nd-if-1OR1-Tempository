@@ -114,7 +114,7 @@ public class CommandTestcaseServiceImpl implements CommandTestcaseService {
     /* 설명. 해당 프로젝트의 테스트케이스 전체 삭제 */
     @Override
     @Transactional
-    public void deleteAllTestcase(int projectId) {
+    public void removeAllTestcase(int projectId) {
         commandTestcaseRepository.deleteAllByProjectId(projectId);
     }
 }

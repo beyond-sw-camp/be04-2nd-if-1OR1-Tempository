@@ -78,7 +78,7 @@ class CommandTestcaseServiceImplTest {
     @DisplayName("프로젝트ID에 해당하는 테스트케이스 전체 삭제")
     @Test
     void deleteAllTestcase() {
-        commandTestcaseServiceImpl.deleteAllTestcase(1);
+        commandTestcaseServiceImpl.removeAllTestcase(1);
 
         Assertions.assertEquals(testcaseService.findTestcaseByProjectId(1).size(), 0);
     }

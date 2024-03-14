@@ -87,8 +87,8 @@ public class CommandTestcaseController {
 
     /* 설명. 해당 프로젝트의 테스트케이스 전체 삭제 */
     @DeleteMapping("/removeAll/{projectId}")
-    public ResponseEntity<String> deleteAllTestcase(@PathVariable("projectId") int projectId) {
-        commandTestcaseService.deleteAllTestcase(projectId);
+    public ResponseEntity<String> removeAllTestcase(@PathVariable("projectId") int projectId) {
+        commandTestcaseService.removeAllTestcase(projectId);
 
         return ResponseEntity.ok("테스트케이스가 전체 삭제되었습니다.");
     }
