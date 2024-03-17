@@ -25,12 +25,12 @@ public class CommandRequirementController {
     }
 
     /* 설명. 요구사항 명세서 추가(RequirementNo 자동 추가) */
-    @PostMapping("/regist")
-    public ResponseEntity<CommandRequirementResponse> registRequirement(@RequestBody CommandRequirementRequest commandRequirementRequest) {
+    @PostMapping("/add")
+    public ResponseEntity<CommandRequirementResponse> addRequirement(@RequestBody CommandRequirementRequest commandRequirementRequest) {
         modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
         CommandRequirementDTO commandRequirementDTO = modelMapper.map(commandRequirementRequest, CommandRequirementDTO.class);
 
-        commandRequirementService.registRequirement(commandRequirementDTO);
+        commandRequirementService.addRequirement(commandRequirementDTO);
 
         CommandRequirementResponse commandRequirementResponse = modelMapper.map(commandRequirementDTO, CommandRequirementResponse.class);
 
