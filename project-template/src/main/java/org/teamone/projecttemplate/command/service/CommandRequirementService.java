@@ -11,5 +11,5 @@ public interface CommandRequirementService {
 
     void removeRequirement(int projectId, int requirementNo);
 
-    void removeAllRequirment(int projectId);
+    void removeAllRequirement(int projectId);
 }

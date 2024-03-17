@@ -85,7 +85,7 @@ public class CommandRequirementController {
     /* 설명. 프로젝트 id로 요구사항 명세서 전체 삭제 */
     @DeleteMapping("/removeAll/{projectId}")
     public ResponseEntity<String> removeAllRequirement(@PathVariable("projectId") int projectId) {
-        commandRequirementService.removeAllRequirment(projectId);
+        commandRequirementService.removeAllRequirement(projectId);
 
         return ResponseEntity.ok("요구사항 명세서가 전체 삭제되었습니다.");
     }
