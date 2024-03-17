@@ -35,22 +35,22 @@ public class ProjectController {
     }
 
     /* 설명. 프로젝트 수정 기능 */
-    @PatchMapping("/update")
-    public String updateProjectById(@RequestBody ProjectDTO newProject) throws IllegalAccessException {
+    @PutMapping("/update")
+    public ResponseEntity<List<Project>> updateProjectById(@RequestBody ProjectDTO newProject) throws IllegalAccessException {
 
         projectService.updateProjectById(newProject);
         log.info("수정 할 프로젝트 ID 값: {}", newProject.getId());
 
-        return "Server at " + environment.getProperty("local.server.port");
+        return ResponseEntity.ok().build();
     }
 
     /* 설명. 프로젝트 삭제 기능*/
     @DeleteMapping("/delete")
-    public String deleteProjectById(@RequestParam("id") String id)  {
+    public ResponseEntity<List<Project>> deleteProjectById(@RequestParam("id") String id)  {
 
         projectService.deleteProjectById(id);
 
 
-        return "Server at " + environment.getProperty("local.server.port");
+        return ResponseEntity.ok().build();
     }
 }
