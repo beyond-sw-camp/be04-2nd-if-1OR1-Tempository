@@ -3,7 +3,7 @@ package org.teamone.projecttemplate.command.service;
 import org.teamone.projecttemplate.command.dto.CommandTestcaseDTO;
 
 public interface CommandTestcaseService {
-    void AddTestcaseByProjectId(int projectId, CommandTestcaseDTO commandTestcaseDTO);
+    void AddTestcaseByProjectId(CommandTestcaseDTO commandTestcaseDTO);
 
     void modifyTestcase(CommandTestcaseDTO commandTestcaseDTO);
 

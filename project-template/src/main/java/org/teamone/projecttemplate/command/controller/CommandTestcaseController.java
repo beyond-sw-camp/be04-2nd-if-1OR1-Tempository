@@ -26,14 +26,13 @@ public class CommandTestcaseController {
     }
 
     /* 설명. 테스트케이스 추가(testNo 자동 설정) */
-    @PostMapping("/add/{projectId}")
-    public ResponseEntity<CommandTestcaseResponse> AddTestcaseByProjectId(@PathVariable("projectId") int projectId,
-                                                                          @RequestBody CommandTestcaseRequest commandTestcaseRequest) {
+    @PostMapping("/add")
+    public ResponseEntity<CommandTestcaseResponse> AddTestcaseByProjectId(@RequestBody CommandTestcaseRequest commandTestcaseRequest) {
         modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
 
         CommandTestcaseDTO commandTestcaseDTO = modelMapper.map(commandTestcaseRequest, CommandTestcaseDTO.class);
 
-        commandTestcaseService.AddTestcaseByProjectId(projectId, commandTestcaseDTO);
+        commandTestcaseService.AddTestcaseByProjectId(commandTestcaseDTO);
 
         CommandTestcaseResponse commandTestcaseResponse = modelMapper.map(commandTestcaseDTO, CommandTestcaseResponse.class);
 
@@ -41,14 +40,12 @@ public class CommandTestcaseController {
     }
 
     /* 설명. 테스트케이스 수정 */
-    @PutMapping("/modify/{projectId}")
+    @PutMapping("/modify")
     public ResponseEntity<CommandTestcaseResponse> modifyTestcase(
-            @PathVariable("projectId") int projectId,
             @RequestBody CommandTestcaseRequest commandTestcaseRequest) {
         modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
         CommandTestcaseDTO commandTestcaseDTO = modelMapper.map(commandTestcaseRequest, CommandTestcaseDTO.class);
 
-        commandTestcaseDTO.setProjectId(projectId);
         commandTestcaseService.modifyTestcase(commandTestcaseDTO);
 
         CommandTestcaseResponse commandTestcaseResponse = modelMapper.map(commandTestcaseDTO, CommandTestcaseResponse.class);

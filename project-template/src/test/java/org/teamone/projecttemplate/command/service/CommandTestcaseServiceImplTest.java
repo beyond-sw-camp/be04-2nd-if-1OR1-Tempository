@@ -27,8 +27,9 @@ class CommandTestcaseServiceImplTest {
         commandTestcaseDTO.setExpectedValue("성공적으로 로그인되어 대시보드로 리디렉션 됨");
         commandTestcaseDTO.setResult("FAIL");
         commandTestcaseDTO.setNote(null);
+        commandTestcaseDTO.setProjectId(2);
 
-        commandTestcaseServiceImpl.AddTestcaseByProjectId(2, commandTestcaseDTO);
+        commandTestcaseServiceImpl.AddTestcaseByProjectId(commandTestcaseDTO);
 
         Testcase testcase = testcaseService.findTestcaseByTestNoAndProjectId(2, 2);
 
