@@ -31,6 +31,12 @@ public class WbsDTO {
         this.projectId = projectId;
     }
 
+
+    public WbsDTO(int managerId, int projectId) {
+        this.managerId = managerId;
+        this.projectId = projectId;
+    }
+
     public int getId() {
         return id;
     }
