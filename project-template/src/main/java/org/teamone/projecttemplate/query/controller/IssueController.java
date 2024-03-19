@@ -27,7 +27,7 @@ public class IssueController {
         this.modelMapper = modelMapper;
     }
 
-    @GetMapping("/{projectId}")
+    @GetMapping("find/{projectId}")
     public ResponseEntity<List<IssueResponse>> findIssueByProjectId(@PathVariable("projectId") int projectId) {
         modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
 
@@ -42,12 +42,12 @@ public class IssueController {
         return ResponseEntity.status(HttpStatus.CREATED).body(issueResponseList);
     }
 
-    @GetMapping("/{projectId}/{issueNo}")
+    @GetMapping("find/{projectId}/{issueNo}")
     public ResponseEntity<IssueUserResponse> findIssueByProjectIdAndIssueNo(@PathVariable("projectId") int projectId,
                                                                             @PathVariable("issueNo") int issue,
                                                                             @RequestHeader("Authorization") String token) {
 
-        IssueUserDTO issueUserDTO = issueService.selectIssueByProjectIdAndIssueNo(projectId, issue, token);
+        IssueUserDTO issueUserDTO = issueService.findIssueByProjectIdAndIssueNo(projectId, issue, token);
 
         IssueUserResponse issueUserResponse = modelMapper.map(issueUserDTO, IssueUserResponse.class);
 

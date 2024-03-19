@@ -26,12 +26,13 @@ public class CommandTestcaseController {
     }
 
     /* 설명. 테스트케이스 추가(testNo 자동 설정) */
-    @PostMapping("/regist")
-    public ResponseEntity<CommandTestcaseResponse> registTestcase(@RequestBody CommandTestcaseRequest commandTestcaseRequest) {
+    @PostMapping("/add")
+    public ResponseEntity<CommandTestcaseResponse> AddTestcaseByProjectId(@RequestBody CommandTestcaseRequest commandTestcaseRequest) {
         modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
+
         CommandTestcaseDTO commandTestcaseDTO = modelMapper.map(commandTestcaseRequest, CommandTestcaseDTO.class);
 
-        commandTestcaseService.registTestcase(commandTestcaseDTO);
+        commandTestcaseService.AddTestcaseByProjectId(commandTestcaseDTO);
 
         CommandTestcaseResponse commandTestcaseResponse = modelMapper.map(commandTestcaseDTO, CommandTestcaseResponse.class);
 
@@ -54,7 +55,7 @@ public class CommandTestcaseController {
 
     /* 설명. 테스트케이스 순서 수정 */
     /* 설명. 프로젝트 id와 TEST_NO로 정수(-1: 순서 위로, 1: 순서 아래로)만큼 순서 변경 */
-    @PutMapping("/modify/sequence")
+    @PutMapping("/modify/sequence/{projectId}")
     public ResponseEntity<CommandTestcaseResponse> modifyTestcaseSequence(
             @RequestBody CommandTestcaseSequenceRequest commandTestcaseSequenceRequest){
         CommandTestcaseDTO commandTestcaseDTO = new CommandTestcaseDTO();
@@ -83,8 +84,8 @@ public class CommandTestcaseController {
 
     /* 설명. 해당 프로젝트의 테스트케이스 전체 삭제 */
     @DeleteMapping("/removeAll/{projectId}")
-    public ResponseEntity<String> deleteAllTestcase(@PathVariable("projectId") int projectId) {
-        commandTestcaseService.deleteAllTestcase(projectId);
+    public ResponseEntity<String> removeAllTestcase(@PathVariable("projectId") int projectId) {
+        commandTestcaseService.removeAllTestcase(projectId);
 
         return ResponseEntity.ok("테스트케이스가 전체 삭제되었습니다.");
     }

@@ -57,7 +57,7 @@ public class IssueService {
         return result;
     }
 
-    public IssueUserDTO selectIssueByProjectIdAndIssueNo(int projectId, int issueNo, String token) {
+    public IssueUserDTO findIssueByProjectIdAndIssueNo(int projectId, int issueNo, String token) {
         modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
 
         Map<String, Integer> intMap = new HashMap();
