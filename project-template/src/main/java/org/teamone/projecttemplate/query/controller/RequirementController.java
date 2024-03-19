@@ -71,12 +71,8 @@ public class RequirementController {
             @PathVariable("requirementNo") int requirementNo) {
         modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
 
-        System.out.println("projectId = " + projectId);
-        System.out.println("requirementNo = " + requirementNo);
-
         RequirementDTO requirementDTO = requirementService.findRequirementByRequirementNoAndProjectId(requirementNo, projectId);
 
-        System.out.println("requirementDTO = " + requirementDTO);
         RequirementResponse requirementResponse = modelMapper.map(requirementDTO, RequirementResponse.class);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(requirementResponse);
