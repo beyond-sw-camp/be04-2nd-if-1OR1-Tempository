@@ -25,7 +25,7 @@ public class CommandRequirementServiceImpl implements CommandRequirementService{
     /* 설명. 요구사항 명세서 추가(RequirementNo 자동 추가) */
     @Override
     @Transactional
-    public void registRequirement(CommandRequirementDTO commandRequirementDTO) {
+    public void addRequirement(CommandRequirementDTO commandRequirementDTO) {
         List<CommandRequirement> commandRequirementList = commandRequirementRepository.findByProjectId(commandRequirementDTO.getProjectId());
 
         int maxNo = commandRequirementList.size();
@@ -104,7 +104,7 @@ public class CommandRequirementServiceImpl implements CommandRequirementService{
 
     @Override
     @Transactional
-    public void removeAllRequirment(int projectId) {
+    public void removeAllRequirement(int projectId) {
         commandRequirementRepository.deleteAllByProjectId(projectId);
     }
 }

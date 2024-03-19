@@ -25,12 +25,12 @@ public class CommandRequirementController {
     }
 
     /* 설명. 요구사항 명세서 추가(RequirementNo 자동 추가) */
-    @PostMapping("/regist")
-    public ResponseEntity<CommandRequirementResponse> registRequirement(@RequestBody CommandRequirementRequest commandRequirementRequest) {
+    @PostMapping("/add")
+    public ResponseEntity<CommandRequirementResponse> addRequirement(@RequestBody CommandRequirementRequest commandRequirementRequest) {
         modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
         CommandRequirementDTO commandRequirementDTO = modelMapper.map(commandRequirementRequest, CommandRequirementDTO.class);
 
-        commandRequirementService.registRequirement(commandRequirementDTO);
+        commandRequirementService.addRequirement(commandRequirementDTO);
 
         CommandRequirementResponse commandRequirementResponse = modelMapper.map(commandRequirementDTO, CommandRequirementResponse.class);
 
@@ -85,7 +85,7 @@ public class CommandRequirementController {
     /* 설명. 프로젝트 id로 요구사항 명세서 전체 삭제 */
     @DeleteMapping("/removeAll/{projectId}")
     public ResponseEntity<String> removeAllRequirement(@PathVariable("projectId") int projectId) {
-        commandRequirementService.removeAllRequirment(projectId);
+        commandRequirementService.removeAllRequirement(projectId);
 
         return ResponseEntity.ok("요구사항 명세서가 전체 삭제되었습니다.");
     }
