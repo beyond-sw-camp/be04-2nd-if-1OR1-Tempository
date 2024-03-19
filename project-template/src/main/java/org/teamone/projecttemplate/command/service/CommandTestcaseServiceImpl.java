@@ -25,17 +25,16 @@ public class CommandTestcaseServiceImpl implements CommandTestcaseService {
     /* 설명. 테스트케이스 추가(testNo 자동 설정) */
     @Override
     @Transactional
-    public void registTestcase(CommandTestcaseDTO commandTestcaseDTO) {
+    public void AddTestcaseByProjectId(CommandTestcaseDTO commandTestcaseDTO) {
         modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
 
         /* 설명. 프로젝트 id가 같은 테스트케이스 찾음 */
-        List<CommandTestcase> testcaseList = commandTestcaseRepository.findByProjectId(
-                commandTestcaseDTO.getProjectId());
+        List<CommandTestcase> testcaseList = commandTestcaseRepository.findByProjectId(commandTestcaseDTO.getProjectId());
 
         /* 설명. testNo의 가장 큰 값을 찾음 */
         int maxNo = testcaseList.size();
 
-        /* 설명. DTO에 적용 */
+        /* 설명. DTO에 testNo 적용 */
         commandTestcaseDTO.setTestNo(maxNo + 1);
 
         CommandTestcase commandTestcase = modelMapper.map(commandTestcaseDTO, CommandTestcase.class);
@@ -112,7 +111,7 @@ public class CommandTestcaseServiceImpl implements CommandTestcaseService {
     /* 설명. 해당 프로젝트의 테스트케이스 전체 삭제 */
     @Override
     @Transactional
-    public void deleteAllTestcase(int projectId) {
+    public void removeAllTestcase(int projectId) {
         commandTestcaseRepository.deleteAllByProjectId(projectId);
     }
 }
