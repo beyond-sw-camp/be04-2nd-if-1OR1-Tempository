@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.teamone.projecttemplate.command.dto.CommandTestcaseDTO;
-import org.teamone.projecttemplate.query.entity.Testcase;
+import org.teamone.projecttemplate.query.dto.TestcaseDTO;
 import org.teamone.projecttemplate.query.service.TestcaseService;
 
 @SpringBootTest
@@ -31,9 +31,9 @@ class CommandTestcaseServiceImplTest {
 
         commandTestcaseServiceImpl.AddTestcaseByProjectId(commandTestcaseDTO);
 
-        Testcase testcase = testcaseService.findTestcaseByTestNoAndProjectId(2, 2);
+        TestcaseDTO testcaseDTO = testcaseService.findTestcaseByTestNoAndProjectId(2, 2);
 
-        Assertions.assertNotNull(testcase);
+        Assertions.assertNotNull(testcaseDTO);
     }
 
     @DisplayName("테스트케이스 변경")
@@ -50,9 +50,9 @@ class CommandTestcaseServiceImplTest {
 
         commandTestcaseServiceImpl.modifyTestcase(commandTestcaseDTO);
 
-        Testcase testcase = testcaseService.findTestcaseByTestNoAndProjectId(1, 2);
+        TestcaseDTO testcaseDTO = testcaseService.findTestcaseByTestNoAndProjectId(1, 2);
 
-        Assertions.assertEquals(commandTestcaseDTO.getNote(), testcase.getNote());
+        Assertions.assertEquals(commandTestcaseDTO.getNote(), testcaseDTO.getNote());
     }
 
     @DisplayName("테스트케이스 순서 변경")

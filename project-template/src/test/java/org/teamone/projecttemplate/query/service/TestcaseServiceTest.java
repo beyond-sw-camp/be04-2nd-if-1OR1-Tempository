@@ -28,9 +28,9 @@ class TestcaseServiceTest {
     void findTestcaseBySeparateAndProjectId() {
         TestcaseDTO testcaseDTO = new TestcaseDTO("상품", 1);
 
-        List<Testcase> testcaseList = testcaseService.findTestcaseBySeparateAndProjectId(testcaseDTO);
+        List<TestcaseDTO> testcaseDTOList = testcaseService.findTestcaseBySeparateAndProjectId(testcaseDTO);
 
-        Assertions.assertNotNull(testcaseList);
+        Assertions.assertNotNull(testcaseDTOList);
     }
 
     @DisplayName("result와 projectId로 테스트케이스 조회")
@@ -38,17 +38,17 @@ class TestcaseServiceTest {
     void findTestcaseByResultAndProjectId() {
         TestcaseDTO testcaseDTO = new TestcaseDTO(1, "PASS");
 
-        List<Testcase> testcaseList = testcaseService.findTestcaseByResultAndProjectId(testcaseDTO);
+        List<TestcaseDTO> testcaseDTOList = testcaseService.findTestcaseByResultAndProjectId(testcaseDTO);
 
-        Assertions.assertNotNull(testcaseList);
+        Assertions.assertNotNull(testcaseDTOList);
     }
 
     @DisplayName("testNo와 프로젝트 id로 테스트케이스 조회")
     @Test
     void findTestcaseByTestNoAndProjectId() {
-        Testcase testcase = testcaseService.findTestcaseByTestNoAndProjectId(3, 1);
+        TestcaseDTO testcaseDTO = testcaseService.findTestcaseByTestNoAndProjectId(3, 1);
 
-        Assertions.assertNotNull(testcase);
+        Assertions.assertNotNull(testcaseDTO);
     }
 
 }
