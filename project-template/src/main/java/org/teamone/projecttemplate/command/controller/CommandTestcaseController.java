@@ -55,7 +55,7 @@ public class CommandTestcaseController {
 
     /* 설명. 테스트케이스 순서 수정 */
     /* 설명. 프로젝트 id와 TEST_NO로 정수(-1: 순서 위로, 1: 순서 아래로)만큼 순서 변경 */
-    @PutMapping("/modify/sequence/{projectId}")
+    @PutMapping("/modify/sequence")
     public ResponseEntity<CommandTestcaseResponse> modifyTestcaseSequence(
             @RequestBody CommandTestcaseSequenceRequest commandTestcaseSequenceRequest){
         CommandTestcaseDTO commandTestcaseDTO = new CommandTestcaseDTO();
