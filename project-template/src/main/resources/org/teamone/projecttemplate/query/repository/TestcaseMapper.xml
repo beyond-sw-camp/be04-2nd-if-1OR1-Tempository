@@ -46,7 +46,7 @@
          ORDER BY TEST_NO ASC
     </select>
 
-    <select id="selectTestcaseByResultAndProjectId" resultMap="testcaseMap" parameterType="_int">
+    <select id="selectTestcaseByResultAndProjectId" resultMap="testcaseMap" >
         SELECT
                 ID
               , TEST_NO
