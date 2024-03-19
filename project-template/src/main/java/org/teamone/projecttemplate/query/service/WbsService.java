@@ -35,9 +35,9 @@ public class WbsService {
     }
 
     /* 설명. project ID를 이용하여 해당하는 WBS 전체 조회 */
-    public List<Wbs> selectAllWbsByProjectId(int projectId) {
+    public List<Wbs> findAllWbsByProjectId(int projectId) {
 
-        List<Wbs> wbsList = wbsMapper.selectAllWbsByProjectId(projectId);
+        List<Wbs> wbsList = wbsMapper.findAllWbsByProjectId(projectId);
         return wbsList;
     }
 
@@ -80,12 +80,16 @@ public class WbsService {
         intMap.put("wbsNo",  wbsNo);
 
         Wbs wbs = wbsMapper.selectWbsByProjectIdAndWbsNo(intMap);
+        System.out.println("wbs = " + wbs);
 
         WbsUserDTO wbsUserDTO = modelMapper.map(wbs, WbsUserDTO.class);
+        System.out.println("before wbsUserDTO = " + wbsUserDTO);
 
         UserResponse userResponse = projectTemplateServiceClient.getUserById(wbs.getManagerId(), token);
+        System.out.println("userResponse = " + userResponse);
 
         wbsUserDTO.setUserResponse(userResponse);
+        System.out.println("after wbsUserDTO = " + wbsUserDTO);
 
         return wbsUserDTO;
     }

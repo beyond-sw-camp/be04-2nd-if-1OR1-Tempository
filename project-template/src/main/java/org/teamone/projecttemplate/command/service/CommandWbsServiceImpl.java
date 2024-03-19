@@ -35,7 +35,7 @@ public class CommandWbsServiceImpl implements CommandWbsService{
     /* WBS 추가(같은 프로젝트의 마지막 WBS 이후로 WBS NO 설정됨) */
     @Override
     @Transactional
-    public void registWbs(CommandWbsDTO newCommandWbs) {
+    public void addWbs(CommandWbsDTO newCommandWbs) {
         modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
 
         List<CommandWbs> commandWbsList = commandWbsRepository.findByProjectId(newCommandWbs.getProjectId());
@@ -49,7 +49,7 @@ public class CommandWbsServiceImpl implements CommandWbsService{
     /* Project ID에 해당하는 WBS 하나 추가(같은 프로젝트의 마지막 WBS 이후로 WBS NO 설정됨) */
     @Override
     @Transactional
-    public CommandWbsDTO registWbsByProjectId(CommandWbsDTO newCommandWbs) {
+    public CommandWbsDTO addWbsByProjectId(CommandWbsDTO newCommandWbs) {
         modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
 
         List<CommandWbs> commandWbsList = commandWbsRepository.findByProjectId(newCommandWbs.getProjectId());
@@ -65,7 +65,7 @@ public class CommandWbsServiceImpl implements CommandWbsService{
     /* Project ID에 해당하는 WBS 일괄 추가(같은 프로젝트의 마지막 WBS 이후로 WBS NO 설정됨) */
     @Override
     @Transactional
-    public void registManyWbsByProjectId(int projectId, List<CommandWbsRequest> wbs) {
+    public void addManyWbsByProjectId(int projectId, List<CommandWbsRequest> wbs) {
         List<CommandWbs> commandWbsList = new ArrayList<>();
 
         List<CommandWbs> existingCommandWbsList = commandWbsRepository.findByProjectId(projectId);

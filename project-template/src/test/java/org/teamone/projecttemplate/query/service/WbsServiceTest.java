@@ -17,14 +17,14 @@ public class WbsServiceTest {
 
     @DisplayName("프로젝트 ID로 해당하는 WBS 전체 조회")
     @Test
-    void selectAllWbsByProjectId() {
-        List<Wbs> wbsList = wbsService.selectAllWbsByProjectId(1);
+    void findAllWbsByProjectId() {
+        List<Wbs> wbsList = wbsService.findAllWbsByProjectId(1);
         Assertions.assertNotNull(wbsList);
     }
 
     @DisplayName("담당자 ID를 이용하여 작성한 wbs 조회")
     @Test
-    void selectWbsByManagerId() {
+    void findWbsByManagerId() {
         List<Wbs> wbsList = wbsService.selectWbsByManagerId(1);
 
         Assertions.assertNotNull(wbsList);
@@ -32,7 +32,7 @@ public class WbsServiceTest {
 
     @DisplayName("프로젝트 ID와 담당자 ID를 이용하여 해당하는 WBS 조회")
     @Test
-    void selectWbsByProjectIdAndManagerId() {
+    void findWbsByProjectIdAndManagerId() {
         List<Wbs> wbsList = wbsService.selectWbsByProjectIdAndManagerId(1, 2);
 
         Assertions.assertNotNull(wbsList);

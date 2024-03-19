@@ -8,7 +8,7 @@ import java.util.Map;
 
 @Mapper
 public interface WbsMapper {
-    List<Wbs> selectAllWbsByProjectId(int projectId);
+    List<Wbs> findAllWbsByProjectId(int projectId);
 
     List<Wbs> selectWbsByManagerId(int managerId);
 
