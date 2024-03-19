@@ -25,7 +25,7 @@ public class WbsServiceTest {
     @DisplayName("담당자 ID를 이용하여 작성한 wbs 조회")
     @Test
     void findWbsByManagerId() {
-        List<Wbs> wbsList = wbsService.selectWbsByManagerId(1);
+        List<Wbs> wbsList = wbsService.findWbsByManagerId(1);
 
         Assertions.assertNotNull(wbsList);
     }
@@ -33,7 +33,7 @@ public class WbsServiceTest {
     @DisplayName("프로젝트 ID와 담당자 ID를 이용하여 해당하는 WBS 조회")
     @Test
     void findWbsByProjectIdAndManagerId() {
-        List<Wbs> wbsList = wbsService.selectWbsByProjectIdAndManagerId(1, 2);
+        List<Wbs> wbsList = wbsService.findWbsByProjectIdAndManagerId(1, 2);
 
         Assertions.assertNotNull(wbsList);
     }

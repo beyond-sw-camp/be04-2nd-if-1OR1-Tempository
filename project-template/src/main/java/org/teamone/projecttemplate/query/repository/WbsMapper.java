@@ -8,13 +8,13 @@ import java.util.Map;
 
 @Mapper
 public interface WbsMapper {
-    List<Wbs> findAllWbsByProjectId(int projectId);
+    List<Wbs> selectAllWbsByProjectId(int projectId);
 
     List<Wbs> selectWbsByManagerId(int managerId);
 
     List<Wbs> selectWbsByProjectIdAndManagerId(int projectId, int managerId);
 
-    List<Wbs> selectWbsByProjectId(String projectId);
+//    List<Wbs> selectWbsByProjectId(String projectId);
 
-    Wbs selectWbsByProjectIdAndWbsNo(Map<String, Integer> intMap);
+//    Wbs selectWbsByProjectIdAndWbsNo(Map<String, Integer> intMap);
 }
