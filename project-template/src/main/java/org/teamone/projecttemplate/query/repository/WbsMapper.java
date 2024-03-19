@@ -14,6 +14,8 @@ public interface WbsMapper {
 
     List<Wbs> selectWbsByProjectIdAndManagerId(int projectId, int managerId);
 
+    List<Wbs> selectWbsByProjectIdAndWbsNo(int projectId, int wbsNo);
+
 //    List<Wbs> selectWbsByProjectId(String projectId);
 
 //    Wbs selectWbsByProjectIdAndWbsNo(Map<String, Integer> intMap);

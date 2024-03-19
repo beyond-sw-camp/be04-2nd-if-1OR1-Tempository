@@ -38,4 +38,12 @@ public class WbsServiceTest {
         Assertions.assertNotNull(wbsList);
     }
 
+    @DisplayName("프로젝트 ID와 WBS NO를 이용하여 해당하는 WBS 조회")
+    @Test
+    void findWbsByProjectIdAndWbsNo() {
+        List<Wbs> wbsList = wbsService.findWbsByProjectIdAndWbsNo(1, 2);
+
+        Assertions.assertNotNull(wbsList);
+    }
+
 }

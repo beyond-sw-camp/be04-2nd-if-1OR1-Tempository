@@ -55,6 +55,13 @@ public class WbsService {
         return wbsList;
     }
 
+    /* 설명. project ID와 wbs No에 해당하는 WBS 조회 */
+    public List<Wbs> findWbsByProjectIdAndWbsNo(int projectId, int wbsNo) {
+
+        List<Wbs> wbsList = wbsMapper.selectWbsByProjectIdAndWbsNo(projectId, wbsNo);
+        return wbsList;
+    }
+
 
 //    /* project Id로 해당 wbs 모두 조회 */
 //    public List<WbsDTO> findWbsByProjectId(String projectId) {
