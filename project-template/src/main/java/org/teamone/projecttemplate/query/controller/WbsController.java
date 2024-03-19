@@ -29,30 +29,30 @@ public class WbsController {
         this.modelMapper = modelMapper;
     }
 
-    @GetMapping("/{projectId}")
-    public ResponseEntity<List<WbsResponse>> findWbsByProjectId(@PathVariable("projectId") String projectId, @RequestHeader("Authorization") String token) {
-        modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
+//    @GetMapping("/{projectId}")
+//    public ResponseEntity<List<WbsResponse>> findWbsByProjectId(@PathVariable("projectId") String projectId, @RequestHeader("Authorization") String token) {
+//        modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
+//
+//        List<WbsDTO> wbsDTOList = wbsService.findWbsByProjectId(projectId);
+//
+//        List<WbsResponse> wbsResponseList = new ArrayList<>();
+//        for (WbsDTO wbsDTO : wbsDTOList) {
+//            WbsResponse wbsResponse = modelMapper.map(wbsDTO, WbsResponse.class);
+//            wbsResponseList.add(wbsResponse);
+//        }
+//
+//        return ResponseEntity.status(HttpStatus.CREATED).body(wbsResponseList);
+//
+//    }
 
-        List<WbsDTO> wbsDTOList = wbsService.selectWbsByProjectId(projectId);
-
-        List<WbsResponse> wbsResponseList = new ArrayList<>();
-        for (WbsDTO wbsDTO : wbsDTOList) {
-            WbsResponse wbsResponse = modelMapper.map(wbsDTO, WbsResponse.class);
-            wbsResponseList.add(wbsResponse);
-        }
-
-        return ResponseEntity.status(HttpStatus.CREATED).body(wbsResponseList);
-
-    }
-
-    @GetMapping("/{projectId}/{wbsNo}")
-    public ResponseEntity<WbsUserResponse> findWbsByProjectIdAndWbsNo(@PathVariable("projectId") int projectId,
-                                                                      @PathVariable("wbsNo") int wbsNo,
-                                                                      @RequestHeader("Authorization") String token) {
-        WbsUserDTO wbsUserDTO = wbsService.selectWbsByProjectIdAndWbsNo(projectId, wbsNo, token);
-
-        WbsUserResponse wbsUserResponse = modelMapper.map(wbsUserDTO, WbsUserResponse.class);
-
-        return ResponseEntity.status(HttpStatus.CREATED).body(wbsUserResponse);
-    }
+//    @GetMapping("/{projectId}/{wbsNo}")
+//    public ResponseEntity<WbsUserResponse> findWbsByProjectIdAndWbsNo(@PathVariable("projectId") int projectId,
+//                                                                      @PathVariable("wbsNo") int wbsNo,
+//                                                                      @RequestHeader("Authorization") String token) {
+//        WbsUserDTO wbsUserDTO = wbsService.selectWbsByProjectIdAndWbsNo(projectId, wbsNo, token);
+//
+//        WbsUserResponse wbsUserResponse = modelMapper.map(wbsUserDTO, WbsUserResponse.class);
+//
+//        return ResponseEntity.status(HttpStatus.CREATED).body(wbsUserResponse);
+//    }
 }

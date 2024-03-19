@@ -35,31 +35,59 @@ public class WbsService {
     }
 
     /* 설명. project ID를 이용하여 해당하는 WBS 전체 조회 */
-    public List<Wbs> findAllWbsByProjectId(int projectId) {
+    public List<WbsDTO> findAllWbsByProjectId(int projectId) {
 
         List<Wbs> wbsList = wbsMapper.selectAllWbsByProjectId(projectId);
-        return wbsList;
+
+        List<WbsDTO> wbsDTOList = new ArrayList<>();
+        for (Wbs wbs : wbsList) {
+            WbsDTO wbsDTO = modelMapper.map(wbs, WbsDTO.class);
+            wbsDTOList.add(wbsDTO);
+        }
+        return wbsDTOList;
     }
 
     /* 설명. manager ID - 담당자 ID를 이용하여 작성한 wbs 조회 */
-    public List<Wbs> findWbsByManagerId(int managerId) {
+    public List<WbsDTO> findWbsByManagerId(int managerId) {
 
         List<Wbs> wbsList = wbsMapper.selectWbsByManagerId(managerId);
-        return wbsList;
+
+        List<WbsDTO> wbsDTOList = new ArrayList<>();
+        for (Wbs wbs : wbsList) {
+            WbsDTO wbsDTO = modelMapper.map(wbs, WbsDTO.class);
+            wbsDTOList.add(wbsDTO);
+        }
+        return wbsDTOList;
     }
 
     /* 설명. project ID와 담당자 ID에 해당하는 WBS 조회 */
-    public List<Wbs> findWbsByProjectIdAndManagerId(int projectId, int managerId) {
+    public List<WbsDTO> findWbsByProjectIdAndManagerId(WbsDTO wbsDTO) {
 
-        List<Wbs> wbsList = wbsMapper.selectWbsByProjectIdAndManagerId(projectId, managerId);
-        return wbsList;
+        Wbs wbs = new Wbs(wbsDTO.getProjectId(), wbsDTO.getManagerId());
+        List<Wbs> wbsList = wbsMapper.selectWbsByProjectIdAndManagerId(wbs);
+
+        List<WbsDTO> wbsDTOList = new ArrayList<>();
+        for (Wbs nextWbs : wbsList) {
+            WbsDTO newWbsDTO = modelMapper.map(nextWbs, WbsDTO.class);
+            wbsDTOList.add(newWbsDTO);
+        }
+
+        return wbsDTOList;
     }
 
     /* 설명. project ID와 wbs No에 해당하는 WBS 조회 */
-    public List<Wbs> findWbsByProjectIdAndWbsNo(int projectId, int wbsNo) {
+    public WbsDTO findWbsByProjectIdAndWbsNo(int projectId, int wbsNo) {
 
-        List<Wbs> wbsList = wbsMapper.selectWbsByProjectIdAndWbsNo(projectId, wbsNo);
-        return wbsList;
+        Map<String, Integer> intMap = new HashMap<>();
+
+        intMap.put("projectId", projectId);
+        intMap.put("wbsNo", wbsNo);
+
+        Wbs wbs = wbsMapper.selectWbsByProjectIdAndWbsNo(intMap);
+
+        WbsDTO wbsDTO = modelMapper.map(wbs, WbsDTO.class);
+
+        return wbsDTO;
     }
 
 
