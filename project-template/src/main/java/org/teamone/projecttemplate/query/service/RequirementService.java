@@ -32,8 +32,8 @@ public class RequirementService {
 
         List<RequirementDTO> requirementDTOList = new ArrayList<>();
         for (Requirement nextRequirement: requirementList) {
-            RequirementDTO newIssueDTO = modelMapper.map(nextRequirement, RequirementDTO.class);
-            requirementDTOList.add(newIssueDTO);
+            RequirementDTO newRequirementDTO = modelMapper.map(nextRequirement, RequirementDTO.class);
+            requirementDTOList.add(newRequirementDTO);
         }
 
         return requirementDTOList;
@@ -46,8 +46,8 @@ public class RequirementService {
         List<Requirement> requirementList = requirementMapper.selectRequirementBySeparateAndProjectId(requirement);
         List<RequirementDTO> requirementDTOList = new ArrayList<>();
         for (Requirement nextRequirement: requirementList) {
-            RequirementDTO newIssueDTO = modelMapper.map(nextRequirement, RequirementDTO.class);
-            requirementDTOList.add(newIssueDTO);
+            RequirementDTO newRequirementDTO = modelMapper.map(nextRequirement, RequirementDTO.class);
+            requirementDTOList.add(newRequirementDTO);
         }
 
         return requirementDTOList;
