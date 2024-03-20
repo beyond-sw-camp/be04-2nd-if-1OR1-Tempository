@@ -1,10 +1,15 @@
 package org.teamone.projecttemplate.command.service;
 
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.TransactionStatus;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.support.DefaultTransactionDefinition;
 import org.teamone.projecttemplate.command.dto.CommandWbsDTO;
 import org.teamone.projecttemplate.command.entity.CommandWbs;
 import org.teamone.projecttemplate.query.dto.WbsDTO;
@@ -22,8 +27,19 @@ public class CommandWbsServiceImplTest {
     @Autowired
     private WbsService wbsService;
 
+    @Autowired
+    private PlatformTransactionManager transactionManager;
+
+    @AfterEach
+    void rollback() {
+        TransactionStatus status = transactionManager.getTransaction(new DefaultTransactionDefinition());
+        transactionManager.rollback(status);
+    }
+
+
     @DisplayName("WBS 추가")
     @Test
+    @Transactional
     void addWbs() {
 
         // Given
@@ -46,6 +62,7 @@ public class CommandWbsServiceImplTest {
 
     @DisplayName("WBS 수정")
     @Test
+    @Transactional
     void modifyWbs() {
 
         // Given
@@ -76,6 +93,7 @@ public class CommandWbsServiceImplTest {
 
     @DisplayName("WBS 전부 COMPLETED 상태로 바꾸기")
     @Test
+    @Transactional
     void modifyAllWbsStatusToCompleted() {
 
         // Given
