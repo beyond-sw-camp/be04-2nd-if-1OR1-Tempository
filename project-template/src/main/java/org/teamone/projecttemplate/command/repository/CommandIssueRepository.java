@@ -20,4 +20,6 @@ public interface CommandIssueRepository
     List<CommandIssue> findByProjectIdAndIssueNoGreaterThan(int projectId, int issueNo);
 
     List<CommandIssue> findByProjectId(int projectId);
+
+    CommandIssue findIssueByProjectId(int projectId);
 }

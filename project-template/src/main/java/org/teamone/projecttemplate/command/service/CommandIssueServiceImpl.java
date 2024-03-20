@@ -26,10 +26,10 @@ public class CommandIssueServiceImpl implements CommandIssueService {
         this.modelMapper = modelMapper;
     }
 
-    /* 설명. Insert, Update Issue */
+    /* 설명. Add Issue */
     @Transactional
     @Override
-    public void registIssue(CommandIssueDTO issueDTO) {
+    public void addIssue(CommandIssueDTO issueDTO) {
         modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
         List<CommandIssue> commandIssueList = commandIssueRepository.findByProjectId(issueDTO.getProjectId());
 
@@ -47,11 +47,15 @@ public class CommandIssueServiceImpl implements CommandIssueService {
     public List<CommandIssue> modifyAllStatusToClosedByProjectId(int projectId) {
         List<CommandIssue> commandIssueList = commandIssueRepository.findAllByProjectId(projectId);
 
-        for (CommandIssue commandIssue : commandIssueList) {
-            commandIssue.setIssueStatus("CLOSED");
-        }
+        if(commandIssueList != null) {
+            for (CommandIssue commandIssue : commandIssueList) {
+                commandIssue.setIssueStatus("CLOSED");
+            }
 
-        return commandIssueRepository.saveAll(commandIssueList);
+            return commandIssueRepository.saveAll(commandIssueList);
+        } else {
+            throw new EntityNotFoundException("해당 프로젝트 ID에 대한 이슈가 존재하지 않아 Closed 처리 불가");
+        }
     }
 
     /* OPEN */
@@ -71,7 +75,13 @@ public class CommandIssueServiceImpl implements CommandIssueService {
     @Transactional
     @Override
     public void removeAllIssueByProjectId(int projectId) {
-        commandIssueRepository.deleteAllByProjectId(projectId);
+        CommandIssue findCommandIssue = commandIssueRepository.findIssueByProjectId(projectId);
+
+        if (findCommandIssue != null) {
+            commandIssueRepository.deleteAllByProjectId(projectId);
+        } else {
+            throw new EntityNotFoundException("해당 프로젝트 ID에 대한 이슈가 존재하지 않음");
+        }
     }
 
     /* 설명. Delete Issue By Issue No */

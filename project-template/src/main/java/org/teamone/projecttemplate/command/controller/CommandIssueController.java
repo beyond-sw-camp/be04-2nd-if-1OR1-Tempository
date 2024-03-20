@@ -28,12 +28,12 @@ public class CommandIssueController {
         this.commandIssueService = commandIssueService;
     }
 
-    /* 설명. Insert, Update 이슈 */
-    @PostMapping("regist-and-modify")
+    /* 설명. Add 이슈 */
+    @PostMapping("/add")
     public ResponseEntity<CommandIssueResponse> registIssue(@RequestBody CommandIssueRequest issueRequest){
         CommandIssueDTO commandIssueDTO = modelMapper.map(issueRequest, CommandIssueDTO.class);
 
-        commandIssueService.registIssue(commandIssueDTO);
+        commandIssueService.addIssue(commandIssueDTO);
         CommandIssueResponse commandIssueResponse = modelMapper.map(commandIssueDTO, CommandIssueResponse.class);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(commandIssueResponse);
@@ -55,7 +55,7 @@ public class CommandIssueController {
     }
 
     /* Open */
-    @PutMapping("/modify/status/reopen/{projectId}")
+    @PutMapping("/modify/status/open/{projectId}")
     public ResponseEntity<List<CommandIssueResponse>> modifyAllStatusToReopenByProjectId(@PathVariable("projectId") int projectId) {
         modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
 
