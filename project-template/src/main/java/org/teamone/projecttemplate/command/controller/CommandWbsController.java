@@ -108,7 +108,6 @@ public class CommandWbsController {
 //
 
 
-
     /* 프로젝트 ID로 wbs 전체 status = completed 상태로 바꾸기(프로젝트 마무리되었을 경우) */
     @PutMapping("/modify/status/completed/{projectId}")
     public ResponseEntity<List<CommandWbsResponse>> modifyAllWbsStatusToCompleted(@PathVariable("projectId") int projectId) {
@@ -152,6 +151,34 @@ public class CommandWbsController {
 
         commandWbsService.removeAllWbsByProjectId(projectId);
         return ResponseEntity.ok().build();
+    }
+
+
+    // 테스트코드 때 사용할 조회 메소드
+    @GetMapping("/{projectId}/{wbsNo}")
+    public ResponseEntity<CommandWbsResponse> findWbsByProjectIdAndWbsNo(@PathVariable("projectId") int projectId,
+                                                                        @PathVariable("wbsNo") int wbsNo) {
+        CommandWbsDTO commandWbsDTO = commandWbsService.findWbsByProjectIdAndWbsNo(projectId, wbsNo);
+        if (commandWbsDTO != null) {
+            CommandWbsResponse commandWbsResponse = modelMapper.map(commandWbsDTO, CommandWbsResponse.class);
+            return ResponseEntity.ok().body(commandWbsResponse);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @GetMapping("/{projectId}")
+    public ResponseEntity<List<CommandWbsResponse>> findAllWbsByProjectId(@PathVariable("projectId") int projectId) {
+        List<CommandWbsDTO> wbsDTOList = commandWbsService.findAllWbsByProjectId(projectId);
+
+        if (!wbsDTOList.isEmpty()) {
+            List<CommandWbsResponse> wbsResponseList = wbsDTOList.stream()
+                    .map(wbsDTO -> modelMapper.map(wbsDTO, CommandWbsResponse.class))
+                    .collect(Collectors.toList());
+            return ResponseEntity.ok().body(wbsResponseList);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 
 

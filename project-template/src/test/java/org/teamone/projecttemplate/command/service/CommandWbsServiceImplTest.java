@@ -37,6 +37,37 @@ public class CommandWbsServiceImplTest {
     }
 
 
+    @DisplayName("WBS 조회")
+    @Test
+    void findWbsByProjectIdAndWbsNo() {
+        // Given
+        int projectId = 1;
+        int managerId = 1;
+
+        // When
+        CommandWbsDTO commandWbsDTO = commandWbsServiceImpl.findWbsByProjectIdAndWbsNo(projectId, managerId);
+
+        // Then
+        Assertions.assertNotNull(commandWbsDTO);
+
+    }
+
+    @DisplayName("프로젝트 ID에 해당하는 모든 WBS 조회")
+    @Test
+    void findAllWbsByProjectId() {
+
+        // Given
+        int projectId = 1;
+
+        // When
+        List<CommandWbsDTO> wbsList = commandWbsServiceImpl.findAllWbsByProjectId(projectId);
+
+        // Then
+        Assertions.assertNotNull(wbsList);
+        Assertions.assertFalse(wbsList.isEmpty());
+    }
+
+
     @DisplayName("WBS 추가")
     @Test
     @Transactional
@@ -55,9 +86,9 @@ public class CommandWbsServiceImplTest {
         commandWbsServiceImpl.addWbs(commandWbsDTO);
 
         // Then
-        WbsDTO wbsDTO = wbsService.findWbsByProjectIdAndWbsNo(2, 1);
+        CommandWbsDTO addedWbsDTO = commandWbsServiceImpl.findWbsByProjectIdAndWbsNo(2, 1);
 
-        Assertions.assertNotNull(wbsDTO);
+        Assertions.assertNotNull(addedWbsDTO);
     }
 
     @DisplayName("WBS 수정")
@@ -66,10 +97,7 @@ public class CommandWbsServiceImplTest {
     void modifyWbs() {
 
         // Given
-        CommandWbsDTO commandWbsDTO = new CommandWbsDTO();
-
-        commandWbsDTO.setWbsNo(1);
-        commandWbsDTO.setProjectId(1);
+        CommandWbsDTO commandWbsDTO = commandWbsServiceImpl.findWbsByProjectIdAndWbsNo(1, 1);
         commandWbsDTO.setTaskStatus("COMPLETED");
         commandWbsDTO.setContent("WBS 수정 테스트");
         commandWbsDTO.setStartDate(null);
@@ -80,7 +108,7 @@ public class CommandWbsServiceImplTest {
         commandWbsServiceImpl.modifyWbs(commandWbsDTO);
 
         // Then
-        WbsDTO modifiedWbsDTO = wbsService.findWbsByProjectIdAndWbsNo(1, 1);
+        CommandWbsDTO modifiedWbsDTO = commandWbsServiceImpl.findWbsByProjectIdAndWbsNo(1, 1);
 
         Assertions.assertEquals(commandWbsDTO.getWbsNo(), modifiedWbsDTO.getWbsNo());
         Assertions.assertEquals(commandWbsDTO.getContent(), modifiedWbsDTO.getContent());
@@ -97,7 +125,7 @@ public class CommandWbsServiceImplTest {
     void modifyAllWbsStatusToCompleted() {
 
         // Given
-        int projectId = 1;
+        int projectId = 2;
 
         // When
         List<CommandWbs> modifiedCommandWbsList = commandWbsServiceImpl.modifyAllWbsStatusToCompleted(projectId);
@@ -110,6 +138,7 @@ public class CommandWbsServiceImplTest {
 
     @DisplayName("WBS 삭제")
     @Test
+    @Transactional
     void removeWbs() {
 
         // Given
@@ -120,7 +149,7 @@ public class CommandWbsServiceImplTest {
         commandWbsServiceImpl.removeWbs(projectId, wbsNo);
 
         // Then
-        WbsDTO deletedWbsDTO = wbsService.findWbsByProjectIdAndWbsNo(1, 1);
+        CommandWbsDTO deletedWbsDTO = commandWbsServiceImpl.findWbsByProjectIdAndWbsNo(1, 1);
 
         // WBS NO가 자동 업데이트 되므로 NO가 빌 수 없음
         Assertions.assertNotEquals(null, deletedWbsDTO);
@@ -128,6 +157,7 @@ public class CommandWbsServiceImplTest {
 
     @DisplayName("프로젝트 ID에 해당하는 WBS 전체 삭제")
     @Test
+    @Transactional
     void removeAllWbsByProjectId() {
 
         // Given
@@ -137,6 +167,6 @@ public class CommandWbsServiceImplTest {
         commandWbsServiceImpl.removeAllWbsByProjectId(projectId);
 
         // Then
-        Assertions.assertEquals(wbsService.findAllWbsByProjectId(1).size(), 0);
+        Assertions.assertEquals(commandWbsServiceImpl.findAllWbsByProjectId(1).size(), 0);
     }
 }

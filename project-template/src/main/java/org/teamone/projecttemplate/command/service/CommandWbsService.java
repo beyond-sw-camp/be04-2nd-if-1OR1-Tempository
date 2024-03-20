@@ -24,4 +24,7 @@ public interface CommandWbsService {
 
     void removeAllWbsByProjectId(int projectId);
 
+    CommandWbsDTO findWbsByProjectIdAndWbsNo(int projectId, int wbsNo);
+
+    List<CommandWbsDTO> findAllWbsByProjectId(int projectId);
 }

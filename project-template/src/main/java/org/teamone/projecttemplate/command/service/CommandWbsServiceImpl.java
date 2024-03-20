@@ -11,9 +11,11 @@ import org.teamone.projecttemplate.command.entity.CommandWbs;
 import org.teamone.projecttemplate.command.repository.CommandWbsRepository;
 import org.teamone.projecttemplate.command.vo.CommandWbsRequest;
 import org.teamone.projecttemplate.query.client.ProjectTemplateServiceClient;
+import org.teamone.projecttemplate.query.entity.Wbs;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class CommandWbsServiceImpl implements CommandWbsService{
@@ -173,5 +175,22 @@ public class CommandWbsServiceImpl implements CommandWbsService{
     }
 
 
+    // 테스트코드 때 사용할 조회 메소드
+    @Override
+    public CommandWbsDTO findWbsByProjectIdAndWbsNo(int projectId, int wbsNo) {
+        CommandWbs commandWbs = commandWbsRepository.findByProjectIdAndWbsNo(projectId, wbsNo);
+        if (commandWbs != null) {
+            return modelMapper.map(commandWbs, CommandWbsDTO.class);
+        } else {
+            return null;
+        }
+    }
 
+    @Override
+    public List<CommandWbsDTO> findAllWbsByProjectId(int projectId) {
+        List<CommandWbs> commandWbsList = commandWbsRepository.findByProjectId(projectId);
+        return commandWbsList.stream()
+                .map(wbs -> modelMapper.map(wbs, CommandWbsDTO.class))
+                .collect(Collectors.toList());
+    }
 }
