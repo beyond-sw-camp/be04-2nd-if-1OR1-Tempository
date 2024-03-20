@@ -8,8 +8,10 @@ import org.teamone.tempository.project.query.dto.ProjectDTO;
 import org.teamone.tempository.project.query.entity.Project;
 import org.teamone.tempository.project.query.service.ProjectService;
 import org.teamone.tempository.project.query.type.ProjectStatus;
+import org.teamone.tempository.project.query.vo.ResponseIssue;
 import org.teamone.tempository.project.query.vo.ResponseProjectId;
 import org.teamone.tempository.project.query.vo.ResponseProjectMember;
+import org.teamone.tempository.project.query.vo.ResponseWbs;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -142,17 +144,38 @@ public class ProjectController {
     }
 
 
-    /* 설명. 요청이 들어온 ID를 통하여 프로젝트 이름 전달하는 기능. */
+    /* 설명. feign client 를 이용하여 프로젝트 아이디를 이용하여 이슈 리스트 받아와서 조회 */
     @GetMapping("/issue/{id}")
-    public ResponseEntity<List<ResponseProjectId>> findProjectIssueById(@PathVariable("id") String id,
+    public ResponseEntity<List<ResponseIssue>> findProjectIssueById(@PathVariable("id") String id,
                                                                        @RequestHeader("Authorization") String token) {
 
-        List<ProjectDTO> projectInfoById = projectService.findProjectIssueById(id,token);
+        List<ProjectDTO> projectIssueById = projectService.findProjectIssueById(id,token);
 
 
-        List<ResponseProjectId> responseProjectList = ProjectDTOToResponseProjectId(projectInfoById);
+        List<ResponseIssue> responseProjectWbsList = ProjectDTOToResponseIssue(projectIssueById);
+
+        return ResponseEntity.status(HttpStatus.OK).body(responseProjectWbsList);
+    }
+
+    private List<ResponseIssue> ProjectDTOToResponseIssue(List<ProjectDTO> projectInfoById) {
+        return null;
+    }
+
+    /* 설명. feign client 를 이용하여 프로젝트 아이디를 이용하여 wbs 리스트 받아와서 조회 */
+    @GetMapping("/wbs/{id}")
+    public ResponseEntity<List<ResponseWbs>> findProjectWbsById(@PathVariable("id") String id,
+                                                                        @RequestHeader("Authorization") String token) {
+
+        List<ProjectDTO> projectWbsById = projectService.findProjectWbsById(id,token);
+
+
+        List<ResponseWbs> responseProjectList = ProjectDTOToResponseWbs(projectWbsById);
 
         return ResponseEntity.status(HttpStatus.OK).body(responseProjectList);
+    }
+
+    private List<ResponseWbs> ProjectDTOToResponseWbs(List<ProjectDTO> projectWbsById) {
+        return null;
     }
 
 }

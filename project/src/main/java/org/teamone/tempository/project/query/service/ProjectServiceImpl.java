@@ -1,17 +1,19 @@
 package org.teamone.tempository.project.query.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Service;
 import org.teamone.tempository.project.query.client.ProjectIssueClient;
 import org.teamone.tempository.project.query.client.ProjectServiceClient;
+import org.teamone.tempository.project.query.client.ProjectWbsClient;
 import org.teamone.tempository.project.query.dao.ProjectMapper;
 import org.teamone.tempository.project.query.dto.ProjectDTO;
 import org.teamone.tempository.project.query.dto.ProjectMemberDTO;
 import org.teamone.tempository.project.query.entity.Project;
 import org.teamone.tempository.project.query.entity.ProjectMember;
 import org.teamone.tempository.project.query.type.ProjectStatus;
+import org.teamone.tempository.project.query.vo.ResponseIssue;
 import org.teamone.tempository.project.query.vo.ResponseUser;
+import org.teamone.tempository.project.query.vo.ResponseWbs;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,12 +27,15 @@ public class ProjectServiceImpl implements ProjectService {
 
     private final ProjectIssueClient projectIssueClient;
 
+    private final ProjectWbsClient projectWbsClient;
+
     @Autowired
     public ProjectServiceImpl(ProjectMapper projectMapper, ProjectServiceClient projectServiceClient,
-                              ProjectIssueClient projectIssueClient) {
+                              ProjectIssueClient projectIssueClient, ProjectWbsClient projectWbsClient) {
         this.projectMapper = projectMapper;
         this.projectServiceClient = projectServiceClient;
         this.projectIssueClient = projectIssueClient;
+        this.projectWbsClient = projectWbsClient;
 
     }
 
@@ -94,8 +99,6 @@ public class ProjectServiceImpl implements ProjectService {
     @Override
     public List<ProjectDTO> findProjectJoinMemberByMemberId(String id, String token) {
 
-        HttpHeaders headers = new HttpHeaders();
-
         List<Project> project = projectMapper.findProjectJoinMemberByMemberId(id);
 
 
@@ -108,8 +111,6 @@ public class ProjectServiceImpl implements ProjectService {
     private List<ProjectDTO> projectToProjectDTOMember(List<Project> projectList, String token, String id) {
 
         List<ProjectDTO> projectDTOMemberList = new ArrayList<>();
-
-        HttpHeaders headers = new HttpHeaders();
 
         List<ResponseUser> userList = projectServiceClient.findProjectMembers(id, token);
 
@@ -210,8 +211,20 @@ public class ProjectServiceImpl implements ProjectService {
     @Override
     public List<ProjectDTO> findProjectIssueById(String id, String token) {
 
-        List<Project> findProjectNameById = projectMapper.findProjectNameById(id);
-        List<ResponseUser> issueList = projectIssueClient.findProjectIssue(id, token);
-        return null;
+        List<Project> findProjectIssueById = projectMapper.findProjectIssueById(id);
+        List<ResponseIssue> issueList = projectIssueClient.findProjectIssue(id, token);
+//        List<ProjectDTO> projectDTOIssueList = projectToProjectDTOIssueList(findProjectIssueById, token, id);
+        return null; // projectDTOIssueList
+    }
+
+    @Override
+    public List<ProjectDTO> findProjectWbsById(String id, String token) {
+
+        List<Project> findProjectWbsById = projectMapper.findProjectWbsById(id);
+
+        List<ResponseWbs> wbsList = projectWbsClient.findWbsList(id,token);
+        //     List<ProjectDTO> projectDTOWbsList = projectToProjectDTOWbs(findProjectWbsById, token, id);
+
+        return null; //projectDTOWbsList
     }
 }

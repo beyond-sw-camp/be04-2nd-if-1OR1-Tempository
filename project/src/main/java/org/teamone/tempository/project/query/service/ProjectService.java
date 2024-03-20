@@ -28,4 +28,6 @@ public interface ProjectService {
     List<ProjectDTO> findProjectNameById(String id);
 
     List<ProjectDTO> findProjectIssueById(String id, String token);
+
+    List<ProjectDTO> findProjectWbsById(String id, String token);
 }

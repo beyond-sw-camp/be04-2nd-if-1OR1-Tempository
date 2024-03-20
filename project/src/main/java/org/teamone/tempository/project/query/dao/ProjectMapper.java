@@ -25,4 +25,8 @@ public interface ProjectMapper {
     List<Project> findProjectInfoByContent(String content);
 
     List<Project> findProjectInfoByName(String name);
+
+    List<Project> findProjectIssueById(String id);
+
+    List<Project> findProjectWbsById(String id);
 }

@@ -4,7 +4,6 @@ import lombok.Data;
 
 @Data
 public class ResponseIssue {
-    private int id;
     private int issueNo;
     private String issueName;
     private String issueStatus;
