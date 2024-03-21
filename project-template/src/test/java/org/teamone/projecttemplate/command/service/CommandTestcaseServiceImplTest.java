@@ -31,7 +31,7 @@ class CommandTestcaseServiceImplTest {
 
         commandTestcaseServiceImpl.AddTestcaseByProjectId(commandTestcaseDTO);
 
-        TestcaseDTO testcaseDTO = testcaseService.findTestcaseByTestNoAndProjectId(2, 2);
+        TestcaseDTO testcaseDTO = testcaseService.findTestcaseByTestNoAndProjectId(2, 1);
 
         Assertions.assertNotNull(testcaseDTO);
     }
