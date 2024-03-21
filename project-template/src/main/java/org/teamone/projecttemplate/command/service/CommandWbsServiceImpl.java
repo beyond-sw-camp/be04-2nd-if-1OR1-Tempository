@@ -11,9 +11,11 @@ import org.teamone.projecttemplate.command.entity.CommandWbs;
 import org.teamone.projecttemplate.command.repository.CommandWbsRepository;
 import org.teamone.projecttemplate.command.vo.CommandWbsRequest;
 import org.teamone.projecttemplate.query.client.ProjectTemplateServiceClient;
+import org.teamone.projecttemplate.query.entity.Wbs;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class CommandWbsServiceImpl implements CommandWbsService{
@@ -35,7 +37,7 @@ public class CommandWbsServiceImpl implements CommandWbsService{
     /* WBS 추가(같은 프로젝트의 마지막 WBS 이후로 WBS NO 설정됨) */
     @Override
     @Transactional
-    public void registWbs(CommandWbsDTO newCommandWbs) {
+    public void addWbs(CommandWbsDTO newCommandWbs) {
         modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
 
         List<CommandWbs> commandWbsList = commandWbsRepository.findByProjectId(newCommandWbs.getProjectId());
@@ -46,52 +48,52 @@ public class CommandWbsServiceImpl implements CommandWbsService{
 
     }
 
-    /* Project ID에 해당하는 WBS 하나 추가(같은 프로젝트의 마지막 WBS 이후로 WBS NO 설정됨) */
-    @Override
-    @Transactional
-    public CommandWbsDTO registWbsByProjectId(CommandWbsDTO newCommandWbs) {
-        modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
+//    /* Project ID에 해당하는 WBS 하나 추가(같은 프로젝트의 마지막 WBS 이후로 WBS NO 설정됨) */
+//    @Override
+//    @Transactional
+//    public CommandWbsDTO addWbsByProjectId(CommandWbsDTO newCommandWbs) {
+//        modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
+//
+//        List<CommandWbs> commandWbsList = commandWbsRepository.findByProjectId(newCommandWbs.getProjectId());
+//        int maxNo = commandWbsList.size();
+//        newCommandWbs.setWbsNo(maxNo + 1);
+//
+//        CommandWbs commandWbs = modelMapper.map(newCommandWbs, CommandWbs.class);
+//        CommandWbs savedCommandWbs = commandWbsRepository.save(commandWbs);
+//
+//        return modelMapper.map(savedCommandWbs, CommandWbsDTO.class);
+//    }
 
-        List<CommandWbs> commandWbsList = commandWbsRepository.findByProjectId(newCommandWbs.getProjectId());
-        int maxNo = commandWbsList.size();
-        newCommandWbs.setWbsNo(maxNo + 1);
-
-        CommandWbs commandWbs = modelMapper.map(newCommandWbs, CommandWbs.class);
-        CommandWbs savedCommandWbs = commandWbsRepository.save(commandWbs);
-
-        return modelMapper.map(savedCommandWbs, CommandWbsDTO.class);
-    }
-
-    /* Project ID에 해당하는 WBS 일괄 추가(같은 프로젝트의 마지막 WBS 이후로 WBS NO 설정됨) */
-    @Override
-    @Transactional
-    public void registManyWbsByProjectId(int projectId, List<CommandWbsRequest> wbs) {
-        List<CommandWbs> commandWbsList = new ArrayList<>();
-
-        List<CommandWbs> existingCommandWbsList = commandWbsRepository.findByProjectId(projectId);
-        int maxNo = existingCommandWbsList.size();
-
-        for (CommandWbsRequest commandWbsRequest : wbs) {
-            CommandWbs commandWbs = new CommandWbs();
-            commandWbs.setProjectId(projectId);
-            commandWbs.setContent(commandWbsRequest.getContent());
-            commandWbs.setTaskStatus(commandWbsRequest.getTaskStatus());
-            commandWbs.setStartDate(commandWbsRequest.getStartDate());
-            commandWbs.setEndDate(commandWbsRequest.getEndDate());
-            commandWbs.setManagerId(commandWbsRequest.getManagerId());
-
-            commandWbs.setWbsNo(++maxNo);
-
-            commandWbsList.add(commandWbs);
-        }
-
-        commandWbsRepository.saveAll(commandWbsList);
-
-    }
+//    /* Project ID에 해당하는 WBS 일괄 추가(같은 프로젝트의 마지막 WBS 이후로 WBS NO 설정됨) */
+//    @Override
+//    @Transactional
+//    public void addManyWbsByProjectId(int projectId, List<CommandWbsRequest> wbs) {
+//        List<CommandWbs> commandWbsList = new ArrayList<>();
+//
+//        List<CommandWbs> existingCommandWbsList = commandWbsRepository.findByProjectId(projectId);
+//        int maxNo = existingCommandWbsList.size();
+//
+//        for (CommandWbsRequest commandWbsRequest : wbs) {
+//            CommandWbs commandWbs = new CommandWbs();
+//            commandWbs.setProjectId(projectId);
+//            commandWbs.setContent(commandWbsRequest.getContent());
+//            commandWbs.setTaskStatus(commandWbsRequest.getTaskStatus());
+//            commandWbs.setStartDate(commandWbsRequest.getStartDate());
+//            commandWbs.setEndDate(commandWbsRequest.getEndDate());
+//            commandWbs.setManagerId(commandWbsRequest.getManagerId());
+//
+//            commandWbs.setWbsNo(++maxNo);
+//
+//            commandWbsList.add(commandWbs);
+//        }
+//
+//        commandWbsRepository.saveAll(commandWbsList);
+//
+//    }
 
 
     /* modify */
-    /* Project ID, Wbs No에 해당하는 WBS 수정 */
+    /* WBS 수정 */
     @Override
     @Transactional
     public void modifyWbs(CommandWbsDTO updatedCommandWbsDTO) {
@@ -125,20 +127,20 @@ public class CommandWbsServiceImpl implements CommandWbsService{
         return commandWbsRepository.saveAll(commandWbsList);
     }
 
-    /* 프로젝트 ID와 WBS NO에 해당하는 WBS content만 수정 */
-    @Override
-    @Transactional
-    public void modifyWbsContentByProjectIdAndWbsNo(int projectId, int wbsNo, String content) {
-        CommandWbs existingCommandWbs = commandWbsRepository.findByProjectIdAndWbsNo(projectId, wbsNo);
-
-        if (existingCommandWbs != null) {
-            existingCommandWbs.setContent(content);
-            commandWbsRepository.save(existingCommandWbs);
-        } else {
-            throw new EntityNotFoundException("해당 프로젝트 ID와 WBS NO에 대한 WBS가 존재하지 않음");
-        }
-
-    }
+//    /* 프로젝트 ID와 WBS NO에 해당하는 WBS content만 수정 */
+//    @Override
+//    @Transactional
+//    public void modifyWbsContentByProjectIdAndWbsNo(int projectId, int wbsNo, String content) {
+//        CommandWbs existingCommandWbs = commandWbsRepository.findByProjectIdAndWbsNo(projectId, wbsNo);
+//
+//        if (existingCommandWbs != null) {
+//            existingCommandWbs.setContent(content);
+//            commandWbsRepository.save(existingCommandWbs);
+//        } else {
+//            throw new EntityNotFoundException("해당 프로젝트 ID와 WBS NO에 대한 WBS가 존재하지 않음");
+//        }
+//
+//    }
 
 
     /* remove */
@@ -173,5 +175,22 @@ public class CommandWbsServiceImpl implements CommandWbsService{
     }
 
 
+    // 테스트코드 때 사용할 조회 메소드
+    @Override
+    public CommandWbsDTO findWbsByProjectIdAndWbsNo(int projectId, int wbsNo) {
+        CommandWbs commandWbs = commandWbsRepository.findByProjectIdAndWbsNo(projectId, wbsNo);
+        if (commandWbs != null) {
+            return modelMapper.map(commandWbs, CommandWbsDTO.class);
+        } else {
+            return null;
+        }
+    }
 
+    @Override
+    public List<CommandWbsDTO> findAllWbsByProjectId(int projectId) {
+        List<CommandWbs> commandWbsList = commandWbsRepository.findByProjectId(projectId);
+        return commandWbsList.stream()
+                .map(wbs -> modelMapper.map(wbs, CommandWbsDTO.class))
+                .collect(Collectors.toList());
+    }
 }

@@ -35,58 +35,97 @@ public class WbsService {
     }
 
     /* 설명. project ID를 이용하여 해당하는 WBS 전체 조회 */
-    public List<Wbs> selectAllWbsByProjectId(int projectId) {
+    public List<WbsDTO> findAllWbsByProjectId(int projectId) {
 
         List<Wbs> wbsList = wbsMapper.selectAllWbsByProjectId(projectId);
-        return wbsList;
+
+        List<WbsDTO> wbsDTOList = new ArrayList<>();
+        for (Wbs wbs : wbsList) {
+            WbsDTO wbsDTO = modelMapper.map(wbs, WbsDTO.class);
+            wbsDTOList.add(wbsDTO);
+        }
+        return wbsDTOList;
     }
 
     /* 설명. manager ID - 담당자 ID를 이용하여 작성한 wbs 조회 */
-    public List<Wbs> selectWbsByManagerId(int managerId) {
+    public List<WbsDTO> findWbsByManagerId(int managerId) {
 
         List<Wbs> wbsList = wbsMapper.selectWbsByManagerId(managerId);
-        return wbsList;
+
+        List<WbsDTO> wbsDTOList = new ArrayList<>();
+        for (Wbs wbs : wbsList) {
+            WbsDTO wbsDTO = modelMapper.map(wbs, WbsDTO.class);
+            wbsDTOList.add(wbsDTO);
+        }
+        return wbsDTOList;
     }
 
     /* 설명. project ID와 담당자 ID에 해당하는 WBS 조회 */
-    public List<Wbs> selectWbsByProjectIdAndManagerId(int projectId, int managerId) {
+    public List<WbsDTO> findWbsByProjectIdAndManagerId(WbsDTO wbsDTO) {
 
-        List<Wbs> wbsList = wbsMapper.selectWbsByProjectIdAndManagerId(projectId, managerId);
-        return wbsList;
-    }
-
-
-    /* project Id로 해당 wbs 모두 조회 */
-    public List<WbsDTO> selectWbsByProjectId(String projectId) {
-
-        List<Wbs> result = wbsMapper.selectWbsByProjectId(projectId);
+        Wbs wbs = new Wbs(wbsDTO.getProjectId(), wbsDTO.getManagerId());
+        List<Wbs> wbsList = wbsMapper.selectWbsByProjectIdAndManagerId(wbs);
 
         List<WbsDTO> wbsDTOList = new ArrayList<>();
-        for (Wbs nextWbs : result) {
+        for (Wbs nextWbs : wbsList) {
             WbsDTO newWbsDTO = modelMapper.map(nextWbs, WbsDTO.class);
             wbsDTOList.add(newWbsDTO);
         }
 
         return wbsDTOList;
-
     }
 
-    public WbsUserDTO selectWbsByProjectIdAndWbsNo(int projectId, int wbsNo, String token) {
+    /* 설명. project ID와 wbs No에 해당하는 WBS 조회 */
+    public WbsDTO findWbsByProjectIdAndWbsNo(int projectId, int wbsNo) {
 
-        modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
+        Map<String, Integer> intMap = new HashMap<>();
 
-        Map<String, Integer> intMap = new HashMap();
         intMap.put("projectId", projectId);
-        intMap.put("wbsNo",  wbsNo);
+        intMap.put("wbsNo", wbsNo);
 
         Wbs wbs = wbsMapper.selectWbsByProjectIdAndWbsNo(intMap);
 
-        WbsUserDTO wbsUserDTO = modelMapper.map(wbs, WbsUserDTO.class);
+        WbsDTO wbsDTO = modelMapper.map(wbs, WbsDTO.class);
 
-        UserResponse userResponse = projectTemplateServiceClient.getUserById(wbs.getManagerId(), token);
-
-        wbsUserDTO.setUserResponse(userResponse);
-
-        return wbsUserDTO;
+        return wbsDTO;
     }
+
+
+//    /* project Id로 해당 wbs 모두 조회 */
+//    public List<WbsDTO> findWbsByProjectId(String projectId) {
+//
+//        List<Wbs> result = wbsMapper.selectWbsByProjectId(projectId);
+//
+//        List<WbsDTO> wbsDTOList = new ArrayList<>();
+//        for (Wbs nextWbs : result) {
+//            WbsDTO newWbsDTO = modelMapper.map(nextWbs, WbsDTO.class);
+//            wbsDTOList.add(newWbsDTO);
+//        }
+//
+//        return wbsDTOList;
+//
+//    }
+
+//    public WbsUserDTO findWbsByProjectIdAndWbsNo(int projectId, int wbsNo, String token) {
+//
+//        modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
+//
+//        Map<String, Integer> intMap = new HashMap();
+//        intMap.put("projectId", projectId);
+//        intMap.put("wbsNo",  wbsNo);
+//
+//        Wbs wbs = wbsMapper.selectWbsByProjectIdAndWbsNo(intMap);
+//        System.out.println("wbs = " + wbs);
+//
+//        WbsUserDTO wbsUserDTO = modelMapper.map(wbs, WbsUserDTO.class);
+//        System.out.println("before wbsUserDTO = " + wbsUserDTO);
+//
+//        UserResponse userResponse = projectTemplateServiceClient.getUserById(wbs.getManagerId(), token);
+//        System.out.println("userResponse = " + userResponse);
+//
+//        wbsUserDTO.setUserResponse(userResponse);
+//        System.out.println("after wbsUserDTO = " + wbsUserDTO);
+//
+//        return wbsUserDTO;
+//    }
 }

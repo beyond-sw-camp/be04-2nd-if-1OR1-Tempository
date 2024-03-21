@@ -12,9 +12,11 @@ public interface WbsMapper {
 
     List<Wbs> selectWbsByManagerId(int managerId);
 
-    List<Wbs> selectWbsByProjectIdAndManagerId(int projectId, int managerId);
-
-    List<Wbs> selectWbsByProjectId(String projectId);
+    List<Wbs> selectWbsByProjectIdAndManagerId(Wbs wbs);
 
     Wbs selectWbsByProjectIdAndWbsNo(Map<String, Integer> intMap);
+
+//    List<Wbs> selectWbsByProjectId(String projectId);
+
+//    Wbs selectWbsByProjectIdAndWbsNo(Map<String, Integer> intMap);
 }

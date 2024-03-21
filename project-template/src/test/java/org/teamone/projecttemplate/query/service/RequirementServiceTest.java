@@ -19,9 +19,9 @@ class RequirementServiceTest {
     @DisplayName("projectId로 요구사항 조회 테스트")
     @Test
     void findRequirementInfoByProjectIdTest() {
-        List<Requirement> requirementList = requirementService.findRequirementByProjectId(1);
+        List<RequirementDTO> requirementDTOList = requirementService.findRequirementByProjectId(1);
 
-        Assertions.assertNotNull(requirementList);
+        Assertions.assertNotNull(requirementDTOList);
     }
 
     @DisplayName("separate와 projectId 요구사항 조회")
@@ -29,17 +29,17 @@ class RequirementServiceTest {
     void finRequirementInfoBySeparateAndProjectId() {
         RequirementDTO requirementDTO = new RequirementDTO("상품", 1);
 
-        List<Requirement> requirementList = requirementService.findRequirementBySeparateAndProjectId(requirementDTO);
+        List<RequirementDTO> requirementDTOList = requirementService.findRequirementBySeparateAndProjectId(requirementDTO);
 
-        Assertions.assertNotNull(requirementList);
+        Assertions.assertNotNull(requirementDTOList);
     }
 
     @DisplayName("requirementNo와 projectId로 조회")
     @Test
     void findRequirementByRequirementNoAndProjectId() {
-        Requirement requirement =
+        RequirementDTO requirementDTO =
                 requirementService.findRequirementByRequirementNoAndProjectId(3, 1);
 
-        Assertions.assertNotNull(requirement);
+        Assertions.assertNotNull(requirementDTO);
     }
 }
