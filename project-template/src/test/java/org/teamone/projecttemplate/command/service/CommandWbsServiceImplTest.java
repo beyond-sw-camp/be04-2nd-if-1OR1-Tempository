@@ -78,7 +78,7 @@ public class CommandWbsServiceImplTest {
         commandWbsDTO.setManagerId(1);
 
         // When
-        commandWbsServiceImpl.addWbs(commandWbsDTO);
+         commandWbsServiceImpl.addWbs(commandWbsDTO);
 
         // Then
         CommandWbsDTO addedWbsDTO = commandWbsServiceImpl.findWbsByProjectIdAndWbsNo(2, 1);

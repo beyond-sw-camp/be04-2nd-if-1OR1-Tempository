@@ -4,6 +4,7 @@ import jakarta.persistence.EntityNotFoundException;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.teamone.projecttemplate.command.dto.CommandWbsDTO;
@@ -31,18 +32,25 @@ public class CommandWbsServiceImpl implements CommandWbsService{
     }
 
 
-    /* insert */
+    /* add */
     /* WBS 추가(같은 프로젝트의 마지막 WBS 이후로 WBS NO 설정됨) */
     @Override
     @Transactional
     public void addWbs(CommandWbsDTO newCommandWbs) {
+
+        newCommandWbs.validate();
+
         modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
 
         List<CommandWbs> commandWbsList = commandWbsRepository.findByProjectId(newCommandWbs.getProjectId());
         int maxNo = commandWbsList.size();
         newCommandWbs.setWbsNo(maxNo + 1);
 
-        commandWbsRepository.save(modelMapper.map(newCommandWbs, CommandWbs.class));
+        try {
+            commandWbsRepository.save(modelMapper.map(newCommandWbs, CommandWbs.class));
+        } catch (DataIntegrityViolationException e) {
+            throw new IllegalArgumentException("부적절한 값으로 인해 WBS를 추가할 수 없습니다.");
+        }
 
     }
 
@@ -52,6 +60,8 @@ public class CommandWbsServiceImpl implements CommandWbsService{
     @Override
     @Transactional
     public void modifyWbs(CommandWbsDTO updatedCommandWbsDTO) {
+
+        updatedCommandWbsDTO.validate();
 
         modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
         CommandWbs existingCommandWbs = commandWbsRepository.findByProjectIdAndWbsNo(updatedCommandWbsDTO.getProjectId(), updatedCommandWbsDTO.getWbsNo());
@@ -74,6 +84,10 @@ public class CommandWbsServiceImpl implements CommandWbsService{
     @Transactional
     public List<CommandWbs> modifyAllWbsStatusToCompleted(int projectId) {
         List<CommandWbs> commandWbsList = commandWbsRepository.findAllByProjectId(projectId);
+
+        if (commandWbsList.isEmpty()) {
+            throw new EntityNotFoundException("해당 project id에 대한 wbs 없음");
+        }
 
         for (CommandWbs commandWbs : commandWbsList) {
             commandWbs.setTaskStatus("COMPLETED");
@@ -111,6 +125,10 @@ public class CommandWbsServiceImpl implements CommandWbsService{
     @Override
     @Transactional
     public void removeAllWbsByProjectId(int projectId) {
+        List<CommandWbs> commandWbsList = commandWbsRepository.findAllByProjectId(projectId);
+        if (commandWbsList.isEmpty()) {
+            throw new EntityNotFoundException("해당 project id에 대한 wbs 없음");
+        }
         commandWbsRepository.deleteAllWbsByProjectId(projectId);
     }
 
