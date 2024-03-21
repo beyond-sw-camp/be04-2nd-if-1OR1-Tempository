@@ -8,10 +8,7 @@ import org.teamone.tempository.project.query.dto.ProjectDTO;
 import org.teamone.tempository.project.query.entity.Project;
 import org.teamone.tempository.project.query.service.ProjectService;
 import org.teamone.tempository.project.query.type.ProjectStatus;
-import org.teamone.tempository.project.query.vo.ResponseIssue;
-import org.teamone.tempository.project.query.vo.ResponseProjectId;
-import org.teamone.tempository.project.query.vo.ResponseProjectMember;
-import org.teamone.tempository.project.query.vo.ResponseWbs;
+import org.teamone.tempository.project.query.vo.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -68,9 +65,9 @@ public class ProjectController {
     /* 설명. 프로젝트 참여 회원 정보와 프로젝트 정보 조회 기능 */
     @GetMapping("/findProjectJoinMemberByMemberId/{memberId}")
     public ResponseEntity<List<ResponseProjectMember>> findProjectByMemberId(@PathVariable String memberId
-                                                                    ,@RequestHeader("Authorization") String token) {
+            , @RequestHeader("Authorization") String token) {
 
-        List<ProjectDTO> projectDTOId = projectService.findProjectJoinMemberByMemberId(memberId,token);
+        List<ProjectDTO> projectDTOId = projectService.findProjectJoinMemberByMemberId(memberId, token);
 
         List<ResponseProjectMember> responseProjectMemberJoinMemberList = ProjectDTOToResponseProject(projectDTOId);
 
@@ -146,36 +143,54 @@ public class ProjectController {
 
     /* 설명. feign client 를 이용하여 프로젝트 아이디를 이용하여 이슈 리스트 받아와서 조회 */
     @GetMapping("/issue/{id}")
-    public ResponseEntity<List<ResponseIssue>> findProjectIssueById(@PathVariable("id") String id,
-                                                                       @RequestHeader("Authorization") String token) {
+    public ResponseEntity<List<ResponseId>> findProjectIssueById(@PathVariable("id") String id,
+                                                                          @RequestHeader("Authorization") String token) {
 
-        List<ProjectDTO> projectIssueById = projectService.findProjectIssueById(id,token);
+        List<ProjectDTO> projectIssueById = projectService.findProjectIssueById(id, token);
 
 
-        List<ResponseIssue> responseProjectWbsList = ProjectDTOToResponseIssue(projectIssueById);
+        List<ResponseId> responseProjectWbsList = ProjectDTOToResponseIssue(projectIssueById);
 
         return ResponseEntity.status(HttpStatus.OK).body(responseProjectWbsList);
     }
 
-    private List<ResponseIssue> ProjectDTOToResponseIssue(List<ProjectDTO> projectInfoById) {
-        return null;
+    private List<ResponseId> ProjectDTOToResponseIssue(List<ProjectDTO> projectInfoById) {
+
+        List<ResponseId> responseIdList = new ArrayList<>();
+        for (ProjectDTO projectDTO : projectInfoById) {
+            ResponseId responseId = new ResponseId();
+            responseId.setId(projectDTO.getId());
+            responseId.setIssueList(projectDTO.getIssueList());
+
+            responseIdList.add(responseId);
+        }
+        return responseIdList;
     }
 
     /* 설명. feign client 를 이용하여 프로젝트 아이디를 이용하여 wbs 리스트 받아와서 조회 */
     @GetMapping("/wbs/{id}")
-    public ResponseEntity<List<ResponseWbs>> findProjectWbsById(@PathVariable("id") String id,
-                                                                        @RequestHeader("Authorization") String token) {
+    public ResponseEntity<List<ResponseId>> findProjectWbsById(@PathVariable("id") String id,
+                                                                @RequestHeader("Authorization") String token) {
 
-        List<ProjectDTO> projectWbsById = projectService.findProjectWbsById(id,token);
+        List<ProjectDTO> projectWbsById = projectService.findProjectWbsById(id, token);
 
 
-        List<ResponseWbs> responseProjectList = ProjectDTOToResponseWbs(projectWbsById);
+        List<ResponseId> responseProjectList = ProjectDTOToResponseWbs(projectWbsById);
 
         return ResponseEntity.status(HttpStatus.OK).body(responseProjectList);
     }
 
-    private List<ResponseWbs> ProjectDTOToResponseWbs(List<ProjectDTO> projectWbsById) {
-        return null;
+    private List<ResponseId> ProjectDTOToResponseWbs(List<ProjectDTO> projectWbsById) {
+        List<ResponseId> responseIdList = new ArrayList<>();
+
+        for (ProjectDTO projectDTO : projectWbsById) {
+            ResponseId responseId = new ResponseId();
+            responseId.setId(projectDTO.getId());
+            responseId.setWbsList(projectDTO.getWbsList());
+
+            responseIdList.add(responseId);
+        }
+        return responseIdList;
     }
 
 }

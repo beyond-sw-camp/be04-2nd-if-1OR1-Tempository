@@ -181,6 +181,7 @@ public class ProjectServiceImpl implements ProjectService {
         } else {
 
             System.out.println("프로젝트가 존재하지 않습니다.");
+            throw new IllegalArgumentException("프로젝트가 존재하지 않습니다.");
 
         }
 
@@ -212,9 +213,24 @@ public class ProjectServiceImpl implements ProjectService {
     public List<ProjectDTO> findProjectIssueById(String id, String token) {
 
         List<Project> findProjectIssueById = projectMapper.findProjectIssueById(id);
-        List<ResponseIssue> issueList = projectIssueClient.findProjectIssue(id, token);
-//        List<ProjectDTO> projectDTOIssueList = projectToProjectDTOIssueList(findProjectIssueById, token, id);
-        return null; // projectDTOIssueList
+        List<ProjectDTO> projectDTOIssueList = projectToProjectDTOIssueList(findProjectIssueById, token, id);
+        return projectDTOIssueList;
+    }
+
+    private List<ProjectDTO> projectToProjectDTOIssueList(List<Project> findProjectIssueById, String token, String id) {
+        List<ProjectDTO> projectIssueList = new ArrayList<>();
+
+        for (Project project : findProjectIssueById) {
+            ProjectDTO projectDTO = new ProjectDTO();
+            projectDTO.setId(project.getId());
+            List<ResponseIssue> issueList = projectIssueClient.findProjectIssue(id, token);
+
+            projectDTO.setIssueList(issueList);
+            projectIssueList.add(projectDTO);
+        }
+
+
+        return projectIssueList;
     }
 
     @Override
@@ -222,9 +238,25 @@ public class ProjectServiceImpl implements ProjectService {
 
         List<Project> findProjectWbsById = projectMapper.findProjectWbsById(id);
 
-        List<ResponseWbs> wbsList = projectWbsClient.findWbsList(id,token);
-        //     List<ProjectDTO> projectDTOWbsList = projectToProjectDTOWbs(findProjectWbsById, token, id);
+        List<ProjectDTO> projectDTOWbsList = projectToProjectDTOWbs(findProjectWbsById, token, id);
 
-        return null; //projectDTOWbsList
+        return projectDTOWbsList;
+    }
+
+    private List<ProjectDTO> projectToProjectDTOWbs(List<Project> findProjectWbsById, String token, String id) {
+        List<ProjectDTO> projectWbsList = new ArrayList<>();
+
+
+        for (Project project : findProjectWbsById) {
+            ProjectDTO projectDTO = new ProjectDTO();
+            projectDTO.setId(project.getId());
+
+            List<ResponseWbs> wbsList = projectWbsClient.findWbsList(id, token);
+
+            projectDTO.setWbsList(wbsList);
+            projectWbsList.add(projectDTO);
+        }
+
+        return projectWbsList;
     }
 }
