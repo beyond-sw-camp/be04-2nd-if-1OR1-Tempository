@@ -12,8 +12,6 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.support.DefaultTransactionDefinition;
 import org.teamone.projecttemplate.command.dto.CommandWbsDTO;
 import org.teamone.projecttemplate.command.entity.CommandWbs;
-import org.teamone.projecttemplate.query.dto.WbsDTO;
-import org.teamone.projecttemplate.query.service.WbsService;
 
 import java.util.List;
 
@@ -23,9 +21,6 @@ public class CommandWbsServiceImplTest {
 
     @Autowired
     private CommandWbsServiceImpl commandWbsServiceImpl;
-
-    @Autowired
-    private WbsService wbsService;
 
     @Autowired
     private PlatformTransactionManager transactionManager;
