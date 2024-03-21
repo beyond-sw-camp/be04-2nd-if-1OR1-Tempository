@@ -10,6 +10,8 @@ import java.util.List;
 public interface CommandIssueService {
     CommandIssueDTO findIssueByProjectIdAndIssueNo(int projectId, int issueNo);
 
+    List<CommandIssueDTO> findIssueByProjectId(int projectId);
+
     void addIssue(CommandIssueDTO issueDTO);
 
     void removeAllIssueByProjectId(int projectId);

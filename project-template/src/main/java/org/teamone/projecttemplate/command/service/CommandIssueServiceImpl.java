@@ -8,10 +8,13 @@ import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.teamone.projecttemplate.command.dto.CommandIssueDTO;
+import org.teamone.projecttemplate.command.dto.CommandWbsDTO;
 import org.teamone.projecttemplate.command.entity.CommandIssue;
 import org.teamone.projecttemplate.command.repository.CommandIssueRepository;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class CommandIssueServiceImpl implements CommandIssueService {
@@ -32,6 +35,15 @@ public class CommandIssueServiceImpl implements CommandIssueService {
         CommandIssue commandIssue = commandIssueRepository.findByProjectIdAndIssueNo(projectId, issueNo);
 
         return modelMapper.map(commandIssue, CommandIssueDTO.class);
+    }
+
+    @Override
+    public List<CommandIssueDTO> findIssueByProjectId(int projectId) {
+        List<CommandIssue> commandIssueList = commandIssueRepository.findAllByProjectId(projectId);
+        commandIssueList.forEach(System.out::println);
+        return commandIssueList.stream()
+                .map(issue -> modelMapper.map(issue, CommandIssueDTO.class))
+                .collect(Collectors.toList());
     }
 
     /* 설명. Add Issue */
@@ -84,9 +96,9 @@ public class CommandIssueServiceImpl implements CommandIssueService {
     @Transactional
     @Override
     public void removeAllIssueByProjectId(int projectId) {
-        CommandIssue findCommandIssue = commandIssueRepository.findIssueByProjectId(projectId);
+        List<CommandIssue> findCommandIssueList = commandIssueRepository.findIssueByProjectId(projectId);
 
-        if (findCommandIssue != null) {
+        if (findCommandIssueList != null) {
             commandIssueRepository.deleteAllByProjectId(projectId);
         } else {
             throw new EntityNotFoundException("해당 프로젝트 ID에 대한 이슈가 존재하지 않음");

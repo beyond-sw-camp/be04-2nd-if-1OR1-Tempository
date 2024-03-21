@@ -21,5 +21,5 @@ public interface CommandIssueRepository
 
     List<CommandIssue> findByProjectId(int projectId);
 
-    CommandIssue findIssueByProjectId(int projectId);
+    List<CommandIssue> findIssueByProjectId(int projectId);
 }
