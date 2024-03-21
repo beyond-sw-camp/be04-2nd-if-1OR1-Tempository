@@ -22,6 +22,8 @@ class IssueServiceTest {
     void findIssueByProjectId() {
         List<IssueDTO> findIssueByProjectId = issueService.findIssueByProjectId(1);
         findIssueByProjectId.forEach(System.out::println);
+
+        Assertions.assertNotNull(findIssueByProjectId);
     }
 
     @DisplayName("조회하고자 하는 이슈 상태에 따른 이슈 조회")
@@ -30,6 +32,8 @@ class IssueServiceTest {
         IssueDTO issueDTO = new IssueDTO("CLOSED");
         List<Issue> findIssueByStatus = issueService.findIssueByStatus(issueDTO);
         findIssueByStatus.forEach(System.out::println);
+
+        Assertions.assertNotNull(findIssueByStatus);
     }
 
     @DisplayName("Project ID와 Issue No 으로 해당 이슈 조회")
