@@ -14,6 +14,8 @@ import org.teamone.projecttemplate.command.dto.CommandIssueDTO;
 import org.teamone.projecttemplate.query.dto.IssueDTO;
 import org.teamone.projecttemplate.query.service.IssueService;
 
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
@@ -76,11 +78,24 @@ class CommandIssueServiceImplTest {
         Assertions.assertEquals(commandIssueDTO.getIssueStatus(), "OPEN");
     }
 
+    @DisplayName("프로젝트ID로 이슈 전체 삭제")
     @Test
+    @Transactional
     void removeAllIssueByProjectId() {
+        commandIssueService.removeAllIssueByProjectId(1);
+        List<CommandIssueDTO> commandIssueDTOList = commandIssueService.findIssueByProjectId(1);
+
+        Assertions.assertEquals(commandIssueDTOList.size(), 0);
     }
 
+    @DisplayName("프로젝트ID와 이슈 번호로 이슈삭제")
     @Test
+    @Transactional
     void removeIssueByIssueNo() {
+        CommandIssueDTO deleteCommandIssueDTO = commandIssueService.findIssueByProjectIdAndIssueNo(1, 2);
+        commandIssueService.removeIssueByIssueNo(1, 2);
+        CommandIssueDTO commandIssueDTO = commandIssueService.findIssueByProjectIdAndIssueNo(1, 2);
+
+        Assertions.assertNotEquals(deleteCommandIssueDTO, commandIssueDTO);
     }
 }
