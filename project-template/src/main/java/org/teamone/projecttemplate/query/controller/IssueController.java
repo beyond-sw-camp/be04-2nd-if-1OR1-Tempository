@@ -31,7 +31,7 @@ public class IssueController {
     public ResponseEntity<List<IssueResponse>> findIssueByProjectId(@PathVariable("projectId") int projectId) {
         modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
 
-        List<IssueDTO> issueDTOList = issueService.selectIssueByProjectId(projectId);
+        List<IssueDTO> issueDTOList = issueService.findIssueByProjectId(projectId);
 
         List<IssueResponse> issueResponseList = new ArrayList<>();
         for (IssueDTO issue: issueDTOList) {

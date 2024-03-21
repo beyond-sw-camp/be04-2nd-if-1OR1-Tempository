@@ -8,7 +8,11 @@ import java.util.List;
 
 @Service
 public interface CommandIssueService {
-    void registIssue(CommandIssueDTO issueDTO);
+    CommandIssueDTO findIssueByProjectIdAndIssueNo(int projectId, int issueNo);
+
+    List<CommandIssueDTO> findIssueByProjectId(int projectId);
+
+    void addIssue(CommandIssueDTO issueDTO);
 
     void removeAllIssueByProjectId(int projectId);
 

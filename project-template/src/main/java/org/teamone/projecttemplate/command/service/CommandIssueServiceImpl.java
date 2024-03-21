@@ -8,10 +8,13 @@ import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.teamone.projecttemplate.command.dto.CommandIssueDTO;
+import org.teamone.projecttemplate.command.dto.CommandWbsDTO;
 import org.teamone.projecttemplate.command.entity.CommandIssue;
 import org.teamone.projecttemplate.command.repository.CommandIssueRepository;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class CommandIssueServiceImpl implements CommandIssueService {
@@ -26,10 +29,27 @@ public class CommandIssueServiceImpl implements CommandIssueService {
         this.modelMapper = modelMapper;
     }
 
-    /* 설명. Insert, Update Issue */
+    /* 설명. 테스트 용 조회 메소드 */
+    @Override
+    public CommandIssueDTO findIssueByProjectIdAndIssueNo(int projectId, int issueNo) {
+        CommandIssue commandIssue = commandIssueRepository.findByProjectIdAndIssueNo(projectId, issueNo);
+
+        return modelMapper.map(commandIssue, CommandIssueDTO.class);
+    }
+
+    @Override
+    public List<CommandIssueDTO> findIssueByProjectId(int projectId) {
+        List<CommandIssue> commandIssueList = commandIssueRepository.findAllByProjectId(projectId);
+        commandIssueList.forEach(System.out::println);
+        return commandIssueList.stream()
+                .map(issue -> modelMapper.map(issue, CommandIssueDTO.class))
+                .collect(Collectors.toList());
+    }
+
+    /* 설명. Add Issue */
     @Transactional
     @Override
-    public void registIssue(CommandIssueDTO issueDTO) {
+    public void addIssue(CommandIssueDTO issueDTO) {
         modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
         List<CommandIssue> commandIssueList = commandIssueRepository.findByProjectId(issueDTO.getProjectId());
 
@@ -37,6 +57,7 @@ public class CommandIssueServiceImpl implements CommandIssueService {
         issueDTO.setIssueNo(maxNo + 1);
         CommandIssue commandIssue = modelMapper.map(issueDTO, CommandIssue.class);
 
+        System.out.println("commandIssue = " + commandIssue);
         commandIssueRepository.save(commandIssue);
     }
 
@@ -47,11 +68,15 @@ public class CommandIssueServiceImpl implements CommandIssueService {
     public List<CommandIssue> modifyAllStatusToClosedByProjectId(int projectId) {
         List<CommandIssue> commandIssueList = commandIssueRepository.findAllByProjectId(projectId);
 
-        for (CommandIssue commandIssue : commandIssueList) {
-            commandIssue.setIssueStatus("CLOSED");
-        }
+        if(commandIssueList != null) {
+            for (CommandIssue commandIssue : commandIssueList) {
+                commandIssue.setIssueStatus("CLOSED");
+            }
 
-        return commandIssueRepository.saveAll(commandIssueList);
+            return commandIssueRepository.saveAll(commandIssueList);
+        } else {
+            throw new EntityNotFoundException("해당 프로젝트 ID에 대한 이슈가 존재하지 않아 Closed 처리 불가");
+        }
     }
 
     /* OPEN */
@@ -71,7 +96,13 @@ public class CommandIssueServiceImpl implements CommandIssueService {
     @Transactional
     @Override
     public void removeAllIssueByProjectId(int projectId) {
-        commandIssueRepository.deleteAllByProjectId(projectId);
+        List<CommandIssue> findCommandIssueList = commandIssueRepository.findIssueByProjectId(projectId);
+
+        if (findCommandIssueList != null) {
+            commandIssueRepository.deleteAllByProjectId(projectId);
+        } else {
+            throw new EntityNotFoundException("해당 프로젝트 ID에 대한 이슈가 존재하지 않음");
+        }
     }
 
     /* 설명. Delete Issue By Issue No */

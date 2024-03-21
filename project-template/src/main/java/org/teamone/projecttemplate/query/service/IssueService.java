@@ -20,7 +20,7 @@ public class IssueService {
     private final IssueMapper issueMapper;
     private final ModelMapper  modelMapper;
 
-    /* 설명. FeignClient 이후 추가할 부분 */
+    /* 설명. FeignClient 이후 추가된 부분 */
     private ProjectTemplateServiceClient projectTemplateServiceClient;
 
     @Autowired
@@ -31,14 +31,7 @@ public class IssueService {
     }
 
     /* 설명. Project ID로 해당 이슈 모두 조회 */
-//    public List<Issue> selectIssueByProjectId(IssueDTO issueDTO) {
-//        Issue issue = new Issue(issueDTO.getProjectId());
-//        List<Issue> result = issueMapper.selectIssueByProjectId(issue);
-//        return result;
-//    }
-
-    /* 설명. Project ID로 해당 이슈 모두 조회 */
-    public List<IssueDTO> selectIssueByProjectId(int projectId) {
+    public List<IssueDTO> findIssueByProjectId(int projectId) {
 
         List<Issue> result = issueMapper.selectIssueByProjectId(projectId);
 
@@ -51,12 +44,14 @@ public class IssueService {
         return issueDTOList;
     }
 
-    public List<Issue> selectIssueByStatus(IssueDTO issueDTO) {
+    /* 설명. 조회하고자 하는 이슈 상태에 따른 이슈 조회 */
+    public List<Issue> findIssueByStatus(IssueDTO issueDTO) {
         Issue issue = new Issue(issueDTO.getIssueStatus());
         List<Issue> result = issueMapper.selectIssueByStatus(issue);
         return result;
     }
 
+    /* 설명. Project ID와 Issue No 으로 해당 이슈 조회 */
     public IssueUserDTO findIssueByProjectIdAndIssueNo(int projectId, int issueNo, String token) {
         modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
 
@@ -71,6 +66,21 @@ public class IssueService {
         UserResponse userResponse = projectTemplateServiceClient.getUserById(issue.getManagerId(), token);
 
         issueUserDTO.setUserResponse(userResponse);
+
+        return issueUserDTO;
+    }
+
+    /* 설명. Project ID와 Issue No 으로 해당 이슈 조회 (test용) */
+    public IssueUserDTO findIssueByProjectIdAndIssueNo(int projectId, int issueNo) {
+        modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
+
+        Map<String, Integer> intMap = new HashMap();
+        intMap.put("projectId", projectId);
+        intMap.put("issueNo",  issueNo);
+
+        Issue issue = issueMapper.selectIssueByProjectIdAndIssueNo(intMap);
+
+        IssueUserDTO issueUserDTO = modelMapper.map(issue, IssueUserDTO.class);
 
         return issueUserDTO;
     }

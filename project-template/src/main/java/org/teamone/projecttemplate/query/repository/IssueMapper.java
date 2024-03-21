@@ -8,8 +8,6 @@ import java.util.Map;
 
 @Mapper
 public interface IssueMapper {
-//    List<Issue> selectIssueByProjectId(Issue issue);
-
     List<Issue> selectIssueByStatus(Issue issue);
 
     List<Issue> selectIssueByProjectId(int projectId);
