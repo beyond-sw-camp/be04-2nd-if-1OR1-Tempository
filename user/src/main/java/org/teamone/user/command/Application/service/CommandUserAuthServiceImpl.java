@@ -5,7 +5,6 @@ import org.springframework.dao.DuplicateKeyException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.teamone.user.command.Application.service.CommandUserAuthService;
 import org.teamone.user.command.domain.dto.CommandUserDTO;
 import org.teamone.user.command.domain.aggregate.entity.CommandUserEntity;
 import org.teamone.user.command.domain.repository.CommandUserRepository;
@@ -52,12 +51,10 @@ public class CommandUserAuthServiceImpl implements CommandUserAuthService {
 
         CommandUserEntity user = commandUserRepository.save(commandUserEntity);
 
-        CommandUserDTO commandUserDTO = CommandUserDTO.builder()
+        return CommandUserDTO.builder()
                 .nickname(user.getNickname())
                 .email(user.getEmail())
                 .userId(user.getUserId())
                 .build();
-
-        return commandUserDTO;
     }
 }
