@@ -19,4 +19,6 @@ public class CommandWbsResponse {
     private int managerId;
     private int projectId;
 
+    private String message;
+
 }
