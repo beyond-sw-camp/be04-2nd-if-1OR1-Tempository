@@ -2,8 +2,7 @@ package org.teamone.tempository.project.query.dto;
 
 import lombok.*;
 import org.teamone.tempository.project.query.type.ProjectStatus;
-import org.teamone.tempository.project.query.vo.ResponseIssue;
-import org.teamone.tempository.project.query.vo.ResponseWbs;
+import org.teamone.tempository.project.query.vo.*;
 
 import java.util.List;
 
@@ -29,6 +28,12 @@ public class ProjectDTO {
     private List<ResponseIssue> issueList;
 
     private List<ResponseWbs> wbsList;
+
+    private List<ResponseRequirement> responseRequirementList;
+
+    private List<ResponseTestCase> testCaseList;
+
+    private List<ResponseDefinitionOfTable> responseDefinitionOfTableList;
 
 
 }

@@ -2,18 +2,14 @@ package org.teamone.tempository.project.query.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.teamone.tempository.project.query.client.ProjectIssueClient;
-import org.teamone.tempository.project.query.client.ProjectServiceClient;
-import org.teamone.tempository.project.query.client.ProjectWbsClient;
+import org.teamone.tempository.project.query.client.*;
 import org.teamone.tempository.project.query.dao.ProjectMapper;
 import org.teamone.tempository.project.query.dto.ProjectDTO;
 import org.teamone.tempository.project.query.dto.ProjectMemberDTO;
 import org.teamone.tempository.project.query.entity.Project;
 import org.teamone.tempository.project.query.entity.ProjectMember;
 import org.teamone.tempository.project.query.type.ProjectStatus;
-import org.teamone.tempository.project.query.vo.ResponseIssue;
-import org.teamone.tempository.project.query.vo.ResponseUser;
-import org.teamone.tempository.project.query.vo.ResponseWbs;
+import org.teamone.tempository.project.query.vo.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,13 +25,20 @@ public class ProjectServiceImpl implements ProjectService {
 
     private final ProjectWbsClient projectWbsClient;
 
+    private final ProjectRequirementClient projectRequirementClient;
+
+    private final ProjectTestCaseClient projectTestCaseClient;
+
     @Autowired
     public ProjectServiceImpl(ProjectMapper projectMapper, ProjectServiceClient projectServiceClient,
-                              ProjectIssueClient projectIssueClient, ProjectWbsClient projectWbsClient) {
+                              ProjectIssueClient projectIssueClient, ProjectWbsClient projectWbsClient,
+                              ProjectTestCaseClient projectTestCaseClient, ProjectRequirementClient projectRequirementClient ) {
         this.projectMapper = projectMapper;
         this.projectServiceClient = projectServiceClient;
         this.projectIssueClient = projectIssueClient;
         this.projectWbsClient = projectWbsClient;
+        this.projectTestCaseClient = projectTestCaseClient;
+        this.projectRequirementClient = projectRequirementClient;
 
     }
 
@@ -258,5 +261,59 @@ public class ProjectServiceImpl implements ProjectService {
         }
 
         return projectWbsList;
+    }
+
+    @Override
+    public List<ProjectDTO> findProjectTestCaseById(String id, String token) {
+
+        List<Project> findProjectIssueById = projectMapper.findProjectTestCaseById(id);
+
+        List<ProjectDTO> projectDTOTestCaseList = projectToProjectDTOTestCase(findProjectIssueById, token, id);
+
+        return projectDTOTestCaseList;
+    }
+
+    private List<ProjectDTO> projectToProjectDTOTestCase(List<Project> findProjectIssueById, String token, String id) {
+        List<ProjectDTO> projectTestCaseList = new ArrayList<>();
+
+
+        for (Project project : findProjectIssueById) {
+            ProjectDTO projectDTO = new ProjectDTO();
+            projectDTO.setId(project.getId());
+
+            List<ResponseTestCase> wbsList = projectTestCaseClient.findTestCase(id, token);
+
+            projectDTO.setTestCaseList(wbsList);
+            projectTestCaseList.add(projectDTO);
+        }
+
+        return projectTestCaseList;
+    }
+
+    @Override
+    public List<ProjectDTO> findProjectRequirementById(String id, String token) {
+        List<Project> findProjectIssueById = projectMapper.findProjectRequirementById(id);
+
+        List<ProjectDTO> projectDTORequirementList = projectToProjectDTORequirement(findProjectIssueById, token, id);
+
+        return projectDTORequirementList;
+    }
+
+    private List<ProjectDTO> projectToProjectDTORequirement(List<Project> findProjectIssueById, String token, String id) {
+        List<ProjectDTO> projectRequirementList = new ArrayList<>();
+
+
+        for (Project project : findProjectIssueById) {
+            ProjectDTO projectDTO = new ProjectDTO();
+
+            projectDTO.setId(project.getId());
+
+            List<ResponseRequirement> requirementListList = projectRequirementClient.findRequirement(id, token);
+
+            projectDTO.setResponseRequirementList(requirementListList);
+            projectRequirementList.add(projectDTO);
+        }
+
+        return projectRequirementList;
     }
 }

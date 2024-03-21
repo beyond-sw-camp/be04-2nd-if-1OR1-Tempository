@@ -29,4 +29,8 @@ public interface ProjectMapper {
     List<Project> findProjectIssueById(String id);
 
     List<Project> findProjectWbsById(String id);
+
+    List<Project> findProjectRequirementById(String id);
+
+    List<Project> findProjectTestCaseById(String id);
 }

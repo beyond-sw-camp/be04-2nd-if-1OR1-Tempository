@@ -6,7 +6,16 @@ import java.util.List;
 
 @Data
 public class ResponseId {
-    int id;
-    List<ResponseIssue> issueList;
-    List<ResponseWbs> wbsList;
+    private int id;
+
+    private List<ResponseIssue> issueList;
+
+    private List<ResponseWbs> wbsList;
+
+    private List<ResponseRequirement> responseRequirementList;
+
+    private List<ResponseTestCase> testCaseList;
+
+    private List<ResponseDefinitionOfTable> responseDefinitionOfTableList;
+
 }

@@ -125,7 +125,27 @@
     <select id="findProjectIssueById" resultMap="projectResultMap" parameterType="String">
         SELECT
         A.ID
-        , A.NAME
+        FROM TBL_PROJECT A
+        WHERE A.ID = #{ id }
+    </select>
+
+    <select id="findProjectWbsById" resultMap="projectResultMap" parameterType="String">
+        SELECT
+        A.ID
+        FROM TBL_PROJECT A
+        WHERE A.ID = #{ id }
+    </select>
+
+    <select id="findProjectRequirementById" resultMap="projectResultMap" parameterType="String">
+        SELECT
+        A.ID
+        FROM TBL_PROJECT A
+        WHERE A.ID = #{ id }
+    </select>
+
+    <select id="findProjectTestCaseById" resultMap="projectResultMap" parameterType="String">
+        SELECT
+        A.ID
         FROM TBL_PROJECT A
         WHERE A.ID = #{ id }
     </select>

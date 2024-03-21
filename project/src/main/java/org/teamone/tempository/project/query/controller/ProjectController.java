@@ -159,6 +159,7 @@ public class ProjectController {
         List<ResponseId> responseIdList = new ArrayList<>();
         for (ProjectDTO projectDTO : projectInfoById) {
             ResponseId responseId = new ResponseId();
+
             responseId.setId(projectDTO.getId());
             responseId.setIssueList(projectDTO.getIssueList());
 
@@ -185,6 +186,7 @@ public class ProjectController {
 
         for (ProjectDTO projectDTO : projectWbsById) {
             ResponseId responseId = new ResponseId();
+
             responseId.setId(projectDTO.getId());
             responseId.setWbsList(projectDTO.getWbsList());
 
@@ -192,5 +194,57 @@ public class ProjectController {
         }
         return responseIdList;
     }
+    @GetMapping("/testcase/{id}")
+    public ResponseEntity<List<ResponseId>> findProjectTestCaseById(@PathVariable("id") String id,
+                                                                 @RequestHeader("Authorization") String token) {
+
+        List<ProjectDTO> projectTestCaseByIdById = projectService.findProjectTestCaseById(id, token);
+
+
+        List<ResponseId> responseProjectTestCaseList = ProjectDTOToResponseTestCase(projectTestCaseByIdById);
+
+        return ResponseEntity.status(HttpStatus.OK).body(responseProjectTestCaseList);
+    }
+
+    private List<ResponseId> ProjectDTOToResponseTestCase(List<ProjectDTO> projectTestCaseByIdById) {
+        List<ResponseId> responseIdList = new ArrayList<>();
+
+        for (ProjectDTO projectDTO : projectTestCaseByIdById) {
+            ResponseId responseId = new ResponseId();
+
+            responseId.setId(projectDTO.getId());
+            responseId.setTestCaseList(projectDTO.getTestCaseList());
+
+            responseIdList.add(responseId);
+        }
+        return responseIdList;
+    }
+
+    @GetMapping("/requirement/{id}")
+    public ResponseEntity<List<ResponseId>> findProjectRequirementById(@PathVariable("id") String id,
+                                                                 @RequestHeader("Authorization") String token) {
+
+        List<ProjectDTO> projectRequirementByIdById = projectService.findProjectRequirementById(id, token);
+
+
+        List<ResponseId> responseProjectRequirementList = ProjectDTOToResponseRequirement(projectRequirementByIdById);
+
+        return ResponseEntity.status(HttpStatus.OK).body(responseProjectRequirementList);
+    }
+
+    private List<ResponseId> ProjectDTOToResponseRequirement(List<ProjectDTO> projectRequirementByIdById) {
+        List<ResponseId> responseIdList = new ArrayList<>();
+
+        for (ProjectDTO projectDTO : projectRequirementByIdById) {
+            ResponseId responseId = new ResponseId();
+
+            responseId.setId(projectDTO.getId());
+            responseId.setResponseRequirementList(projectDTO.getResponseRequirementList());
+
+            responseIdList.add(responseId);
+        }
+        return responseIdList;
+    }
+
 
 }
