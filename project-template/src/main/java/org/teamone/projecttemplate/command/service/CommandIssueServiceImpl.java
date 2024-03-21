@@ -26,6 +26,14 @@ public class CommandIssueServiceImpl implements CommandIssueService {
         this.modelMapper = modelMapper;
     }
 
+    /* 설명. 테스트 용 조회 메소드 */
+    @Override
+    public CommandIssueDTO findIssueByProjectIdAndIssueNo(int projectId, int issueNo) {
+        CommandIssue commandIssue = commandIssueRepository.findByProjectIdAndIssueNo(projectId, issueNo);
+
+        return modelMapper.map(commandIssue, CommandIssueDTO.class);
+    }
+
     /* 설명. Add Issue */
     @Transactional
     @Override
@@ -37,6 +45,7 @@ public class CommandIssueServiceImpl implements CommandIssueService {
         issueDTO.setIssueNo(maxNo + 1);
         CommandIssue commandIssue = modelMapper.map(issueDTO, CommandIssue.class);
 
+        System.out.println("commandIssue = " + commandIssue);
         commandIssueRepository.save(commandIssue);
     }
 

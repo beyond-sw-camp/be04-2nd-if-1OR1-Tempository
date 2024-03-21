@@ -8,6 +8,8 @@ import java.util.List;
 
 @Service
 public interface CommandIssueService {
+    CommandIssueDTO findIssueByProjectIdAndIssueNo(int projectId, int issueNo);
+
     void addIssue(CommandIssueDTO issueDTO);
 
     void removeAllIssueByProjectId(int projectId);
