@@ -70,4 +70,19 @@ public class IssueService {
         return issueUserDTO;
     }
 
+    /* 설명. Project ID와 Issue No 으로 해당 이슈 조회 (test용) */
+    public IssueUserDTO findIssueByProjectIdAndIssueNo(int projectId, int issueNo) {
+        modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
+
+        Map<String, Integer> intMap = new HashMap();
+        intMap.put("projectId", projectId);
+        intMap.put("issueNo",  issueNo);
+
+        Issue issue = issueMapper.selectIssueByProjectIdAndIssueNo(intMap);
+
+        IssueUserDTO issueUserDTO = modelMapper.map(issue, IssueUserDTO.class);
+
+        return issueUserDTO;
+    }
+
 }
