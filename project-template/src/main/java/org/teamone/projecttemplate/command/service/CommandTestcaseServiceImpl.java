@@ -1,8 +1,10 @@
 package org.teamone.projecttemplate.command.service;
 
+import jakarta.persistence.EntityNotFoundException;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.teamone.projecttemplate.command.dto.CommandTestcaseDTO;
@@ -36,9 +38,12 @@ public class CommandTestcaseServiceImpl implements CommandTestcaseService {
 
         /* 설명. DTO에 testNo 적용 */
         commandTestcaseDTO.setTestNo(maxNo + 1);
-
-        CommandTestcase commandTestcase = modelMapper.map(commandTestcaseDTO, CommandTestcase.class);
-        commandTestcaseRepository.save(commandTestcase);
+        try {
+            CommandTestcase commandTestcase = modelMapper.map(commandTestcaseDTO, CommandTestcase.class);
+            commandTestcaseRepository.save(commandTestcase);
+        } catch (DataIntegrityViolationException e) {
+            throw new IllegalArgumentException("부적절한 값으로 인해 테스트케이스를 추가할 수 없습니다.");
+        }
     }
 
     /* 설명. 테스트케이스 수정 */
@@ -52,11 +57,15 @@ public class CommandTestcaseServiceImpl implements CommandTestcaseService {
                 commandTestcaseDTO.getTestNo()
         );
 
-        commandTestcase.setSeparate(commandTestcaseDTO.getSeparate());
-        commandTestcase.setContent(commandTestcaseDTO.getContent());
-        commandTestcase.setExpectedValue(commandTestcaseDTO.getExpectedValue());
-        commandTestcase.setResult(commandTestcaseDTO.getResult());
-        commandTestcase.setNote(commandTestcaseDTO.getNote());
+        if (commandTestcase != null) {
+            commandTestcase.setSeparate(commandTestcaseDTO.getSeparate());
+            commandTestcase.setContent(commandTestcaseDTO.getContent());
+            commandTestcase.setExpectedValue(commandTestcaseDTO.getExpectedValue());
+            commandTestcase.setResult(commandTestcaseDTO.getResult());
+            commandTestcase.setNote(commandTestcaseDTO.getNote());
+        } else {
+            throw new EntityNotFoundException("해당 테스트 케이스를 찾을 수 없습니다.");
+        }
     }
 
     /* 설명. 테스트케이스 순서 수정 */
@@ -94,16 +103,21 @@ public class CommandTestcaseServiceImpl implements CommandTestcaseService {
     @Transactional
     public void removeTestcase(int projectId, int testNo) {
 
-        /* 설명. projectId와 testNo로 테스트케이스 삭제 */
-        commandTestcaseRepository.deleteByProjectIdAndTestNo(projectId, testNo);
+        CommandTestcase commandTestcase = commandTestcaseRepository.findByProjectIdAndTestNo(projectId, testNo);
+        if (commandTestcase != null) {
+            /* 설명. projectId와 testNo로 테스트케이스 삭제 */
+            commandTestcaseRepository.deleteByProjectIdAndTestNo(projectId, testNo);
 
-        /* 설명. 삭제할 테스트케이스와 같은 프로젝트이고 뒷순서인 테스트케이스들 찾기 */
-        List<CommandTestcase> testcaseList = commandTestcaseRepository
-                .findByProjectIdAndTestNoGreaterThanOrderByTestNoAsc(projectId, testNo);
+            /* 설명. 삭제할 테스트케이스와 같은 프로젝트이고 뒷순서인 테스트케이스들 찾기 */
+            List<CommandTestcase> testcaseList = commandTestcaseRepository
+                    .findByProjectIdAndTestNoGreaterThanOrderByTestNoAsc(projectId, testNo);
 
-        /* 설명. 삭제할 테스트케이스 다음 순서의 테스트케이스들을 앞당김 */
-        for (CommandTestcase nextTestcase: testcaseList) {
-            nextTestcase.setTestNo(nextTestcase.getTestNo() -1);
+            /* 설명. 삭제할 테스트케이스 다음 순서의 테스트케이스들을 앞당김 */
+            for (CommandTestcase nextTestcase: testcaseList) {
+                nextTestcase.setTestNo(nextTestcase.getTestNo() -1);
+            }
+        } else {
+            throw  new EntityNotFoundException("해당 테스트케이스가 없습니다.");
         }
     }
 
@@ -112,6 +126,11 @@ public class CommandTestcaseServiceImpl implements CommandTestcaseService {
     @Override
     @Transactional
     public void removeAllTestcase(int projectId) {
-        commandTestcaseRepository.deleteAllByProjectId(projectId);
+        List<CommandTestcase> commandTestcaseList = commandTestcaseRepository.findByProjectId(projectId);
+        if(!commandTestcaseList.isEmpty()) {
+            commandTestcaseRepository.deleteAllByProjectId(projectId);
+        } else {
+            throw new EntityNotFoundException("해당 프로젝트에 테스트케이스가 없습니다.");
+        }
     }
 }
